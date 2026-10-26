@@ -1,0 +1,240 @@
+{
+  "disclaimer": "SYNTHETIC DATA ONLY; NO REAL METHOD CERTIFICATION",
+  "records": [
+    {
+      "test_type": "soil",
+      "project_code": "SYNTHETIC-DEMO-001",
+      "location": "TRAINING-ONLY",
+      "spec_reference": "SYNTHETIC-REF-REV-A",
+      "evidence_reference": "FAKE-DEVICE-01",
+      "source": "synthetic",
+      "measurements": {
+        "wet": 126,
+        "moisture": 11.8,
+        "mdd": 120,
+        "minComp": 95,
+        "density_unit": "pcf",
+        "mdd_unit": "pcf"
+      }
+    },
+    {
+      "test_type": "concrete",
+      "project_code": "SYNTHETIC-DEMO-001",
+      "location": "TRAINING-ONLY",
+      "spec_reference": "SYNTHETIC-REF-REV-A",
+      "evidence_reference": "FAKE-DEVICE-02",
+      "source": "synthetic",
+      "measurements": {
+        "slump": 5.25,
+        "air": 5.2,
+        "temperature": 78,
+        "slump_min": 4,
+        "slump_max": 6,
+        "air_min": 4,
+        "air_max": 7
+      }
+    },
+    {
+      "test_type": "soil_moisture",
+      "project_code": "SYNTHETIC-DEMO-001",
+      "location": "TRAINING-ONLY",
+      "spec_reference": "SYNTHETIC-REF-REV-A",
+      "evidence_reference": "FAKE-DEVICE-03",
+      "source": "synthetic",
+      "measurements": {
+        "massWet": 210,
+        "massDry": 190,
+        "tare": 90
+      }
+    },
+    {
+      "test_type": "atterberg",
+      "project_code": "SYNTHETIC-DEMO-001",
+      "location": "TRAINING-ONLY",
+      "spec_reference": "SYNTHETIC-REF-REV-A",
+      "evidence_reference": "FAKE-DEVICE-04",
+      "source": "synthetic",
+      "measurements": {
+        "ll": 42,
+        "pl": 23
+      }
+    },
+    {
+      "test_type": "proctor",
+      "project_code": "SYNTHETIC-DEMO-001",
+      "location": "TRAINING-ONLY",
+      "spec_reference": "SYNTHETIC-REF-REV-A",
+      "evidence_reference": "FAKE-DEVICE-05",
+      "source": "synthetic",
+      "measurements": {
+        "maxDry": 121,
+        "optMoist": 12,
+        "proctorMethod": "D698"
+      }
+    },
+    {
+      "test_type": "sand_cone",
+      "project_code": "SYNTHETIC-DEMO-001",
+      "location": "TRAINING-ONLY",
+      "spec_reference": "SYNTHETIC-REF-REV-A",
+      "evidence_reference": "FAKE-DEVICE-06",
+      "source": "synthetic",
+      "measurements": {
+        "excavatedMass": 7.8,
+        "holeVolume": 0.0625,
+        "sandMoist": 10,
+        "refMdd": 115,
+        "sandMinComp": 95
+      }
+    },
+    {
+      "test_type": "sieve",
+      "project_code": "SYNTHETIC-DEMO-001",
+      "location": "TRAINING-ONLY",
+      "spec_reference": "SYNTHETIC-REF-REV-A",
+      "evidence_reference": "FAKE-DEVICE-07",
+      "source": "synthetic",
+      "measurements": {
+        "sampleMass": 1000,
+        "retainedMass": 225
+      }
+    },
+    {
+      "test_type": "cylinder",
+      "project_code": "SYNTHETIC-DEMO-001",
+      "location": "TRAINING-ONLY",
+      "spec_reference": "SYNTHETIC-REF-REV-A",
+      "evidence_reference": "FAKE-DEVICE-08",
+      "source": "synthetic",
+      "measurements": {
+        "breakLoad": 141372,
+        "diameter": 4,
+        "age": 28
+      }
+    },
+    {
+      "test_type": "unit_weight",
+      "project_code": "SYNTHETIC-DEMO-001",
+      "location": "TRAINING-ONLY",
+      "spec_reference": "SYNTHETIC-REF-REV-A",
+      "evidence_reference": "FAKE-DEVICE-09",
+      "source": "synthetic",
+      "measurements": {
+        "fullMass": 56,
+        "emptyMass": 20.8,
+        "calVolume": 0.25
+      }
+    },
+    {
+      "test_type": "asphalt_core",
+      "project_code": "SYNTHETIC-DEMO-001",
+      "location": "TRAINING-ONLY",
+      "spec_reference": "SYNTHETIC-REF-REV-A",
+      "evidence_reference": "FAKE-DEVICE-10",
+      "source": "synthetic",
+      "measurements": {
+        "dryCore": 1160,
+        "ssdCore": 1165,
+        "underCore": 674,
+        "gmmCore": 2.5
+      }
+    },
+    {
+      "test_type": "asphalt_voids",
+      "project_code": "SYNTHETIC-DEMO-001",
+      "location": "TRAINING-ONLY",
+      "spec_reference": "SYNTHETIC-REF-REV-A",
+      "evidence_reference": "FAKE-DEVICE-11",
+      "source": "synthetic",
+      "measurements": {
+        "gmb": 2.35,
+        "gmm": 2.5
+      }
+    },
+    {
+      "test_type": "rebar_cover",
+      "project_code": "SYNTHETIC-DEMO-001",
+      "location": "TRAINING-ONLY",
+      "spec_reference": "SYNTHETIC-REF-REV-A",
+      "evidence_reference": "FAKE-DEVICE-12",
+      "source": "synthetic",
+      "measurements": {
+        "cover": 2,
+        "coverMin": 1.5,
+        "coverMax": 3
+      }
+    },
+    {
+      "test_type": "proctor_curve",
+      "project_code": "SYNTHETIC-DEMO-001",
+      "location": "TRAINING-ONLY",
+      "spec_reference": "SYNTHETIC-REF-REV-A",
+      "evidence_reference": "FAKE-DEVICE-13",
+      "source": "synthetic",
+      "measurements": {
+        "points": [
+          {
+            "wet": 130,
+            "moisture": 8
+          },
+          {
+            "wet": 145,
+            "moisture": 11
+          },
+          {
+            "wet": 131,
+            "moisture": 14
+          }
+        ]
+      }
+    },
+    {
+      "test_type": "sieve_stack",
+      "project_code": "SYNTHETIC-DEMO-001",
+      "location": "TRAINING-ONLY",
+      "spec_reference": "SYNTHETIC-REF-REV-A",
+      "evidence_reference": "FAKE-DEVICE-14",
+      "source": "synthetic",
+      "measurements": {
+        "sampleMass": 1000,
+        "balanceTol": 1,
+        "points": [
+          {
+            "mm": 4.75,
+            "mass": 300
+          },
+          {
+            "mm": 2,
+            "mass": 300
+          },
+          {
+            "mm": 0,
+            "mass": 400
+          }
+        ]
+      }
+    },
+    {
+      "test_type": "cylinder_set",
+      "project_code": "SYNTHETIC-DEMO-001",
+      "location": "TRAINING-ONLY",
+      "spec_reference": "SYNTHETIC-REF-REV-A",
+      "evidence_reference": "FAKE-DEVICE-15",
+      "source": "synthetic",
+      "measurements": {
+        "points": [
+          {
+            "age": 28,
+            "diameter": 4,
+            "load": 52000
+          },
+          {
+            "age": 28,
+            "diameter": 4,
+            "load": 54000
+          }
+        ]
+      }
+    }
+  ]
+}

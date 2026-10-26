@@ -1,0 +1,7 @@
+{
+  "schema": "cmt-two-label-review-v1",
+  "input_sha256": "0f14c35d13abe163c9426085d086306ed6c91dc1fbdf338f0748c1d5a0fbc45c",
+  "resolved_fields": 2,
+  "unresolved_conflicts": [],
+  "gold_is_human_consensus_not_method_certification": true
+}

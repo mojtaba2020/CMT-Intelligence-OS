@@ -1,0 +1,116 @@
+{
+  "payload": {
+    "schema": "cmt-review-worksheet-v1",
+    "generated_at": "2026-10-25T18:43:23+00:00",
+    "label": "UNSIGNED ENGINEERING REVIEW WORKSHEET — NOT CERTIFIED / NOT ACCEPTANCE",
+    "record": {
+      "id": "PILOT-8922921C34B40028",
+      "version": 1,
+      "status": "reviewed",
+      "created_at": "2026-10-25T18:43:23+00:00",
+      "creator": "demotech",
+      "reviewer": "demoreviewer",
+      "review_note": "SYNTHETIC DEMONSTRATION: arithmetic and provenance references inspected. No real test or PE certification.",
+      "reviewed_at": "2026-10-25T18:43:23+00:00",
+      "evidence_reference": "FAKE-GAUGE-PRINT-002",
+      "location": "FICTIONAL-LIFT-01",
+      "measurements": {
+        "density_unit": "pcf",
+        "mdd": 120,
+        "mdd_unit": "pcf",
+        "minComp": 95,
+        "moisture": 11.8,
+        "wet": 126
+      },
+      "project_code": "SYNTHETIC-ONLY",
+      "source": "synthetic",
+      "spec_reference": "DEMO-NOT-A-REAL-SPEC",
+      "test_type": "soil"
+    },
+    "qa": {
+      "profile": "qa-v1.1",
+      "test_type": "soil",
+      "blockers": 0,
+      "warnings": 1,
+      "can_submit": true,
+      "items": [
+        {
+          "severity": "warning",
+          "field": "minComp",
+          "code": "BELOW_USER_THRESHOLD",
+          "message": "Computed illustrative compaction is below a user-supplied threshold; method/rounding and specification require engineering review."
+        }
+      ],
+      "derived_illustrations": {
+        "estimated_dry_density_pcf": 112.7013,
+        "illustrative_compaction_pct": 93.9177
+      },
+      "disclaimer": "DATA QUALITY ONLY. No ASTM/AASHTO compliance, material acceptance, or professional certification."
+    },
+    "revisions": [
+      {
+        "version": 1,
+        "actor": "demotech",
+        "at": "2026-10-25T18:43:23+00:00",
+        "source_sha256": "7671bbf1b0ba29e43f4c2cf0093c6fc34ed7920f2c6355804cebeb04c5e741c7",
+        "body": {
+          "evidence_reference": "FAKE-GAUGE-PRINT-002",
+          "location": "FICTIONAL-LIFT-01",
+          "measurements": {
+            "density_unit": "pcf",
+            "mdd": 120,
+            "mdd_unit": "pcf",
+            "minComp": 95,
+            "moisture": 11.8,
+            "wet": 126
+          },
+          "project_code": "SYNTHETIC-ONLY",
+          "source": "synthetic",
+          "spec_reference": "DEMO-NOT-A-REAL-SPEC",
+          "test_type": "soil"
+        }
+      }
+    ],
+    "audit_events": [
+      {
+        "seq": 5,
+        "at": "2026-10-25T18:43:23+00:00",
+        "actor": "demotech",
+        "event": "CREATED",
+        "record_id": "PILOT-8922921C34B40028",
+        "details": "{\"content_sha256\":\"7671bbf1b0ba29e43f4c2cf0093c6fc34ed7920f2c6355804cebeb04c5e741c7\",\"version\":1}",
+        "prev_hash": "91d7f1664fd6d7d1dc2a5f266d1f7fd1a7a299a7532cb2a3a6870166a5fe1a20",
+        "event_hash": "b352034cd0349dc749fcddbbe041055ed7328e4a929568201712b9ee0f559005"
+      },
+      {
+        "seq": 6,
+        "at": "2026-10-25T18:43:23+00:00",
+        "actor": "demotech",
+        "event": "SUBMITTED",
+        "record_id": "PILOT-8922921C34B40028",
+        "details": "{\"version\":1}",
+        "prev_hash": "b352034cd0349dc749fcddbbe041055ed7328e4a929568201712b9ee0f559005",
+        "event_hash": "25b97417193151f2e3e9578e4edf3906612ddb1c61eef464a0406efb3690fd94"
+      },
+      {
+        "seq": 7,
+        "at": "2026-10-25T18:43:23+00:00",
+        "actor": "demoreviewer",
+        "event": "REVIEW_REVIEWED",
+        "record_id": "PILOT-8922921C34B40028",
+        "details": "{\"note\":\"SYNTHETIC DEMONSTRATION: arithmetic and provenance references inspected. No real test or PE certification.\",\"version\":1}",
+        "prev_hash": "25b97417193151f2e3e9578e4edf3906612ddb1c61eef464a0406efb3690fd94",
+        "event_hash": "ddaf18134887a2759fca696901bee94bdde34c1651d30ada68f05a461e52b06e"
+      }
+    ],
+    "audit_head_hash": "ddaf18134887a2759fca696901bee94bdde34c1651d30ada68f05a461e52b06e",
+    "limits": [
+      "No method compliance or PE signature established",
+      "Source evidence is referenced but not independently authenticated",
+      "Audit hashes are not externally notarized",
+      "Reviewed status is not a material acceptance decision"
+    ]
+  },
+  "payload_sha256": "9633db99e6aa70777bde883978f3f3e1f65a7640502aa063a1c394e1192d0674",
+  "checksum_note": "Checksum detects changes to these exported bytes; it is not a digital signature."
+}

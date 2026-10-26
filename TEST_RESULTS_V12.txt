@@ -1,0 +1,24 @@
+CMT Intelligence OS v1.2 — verification record — 2026-10-25
+
+Command: PYTHONPATH=. python -m pytest -q --disable-warnings
+Outcome: 89 passed in 32.79s (69 inherited v1.1 tests + 20 new v1.2 tests).
+
+New tests include:
+- Two independent human transcriptions, duplicate detection and required dispute adjudication
+- Refusal to emit partially resolved gold-label output
+- Evidence-based release gate blocks missing method, production-security and real AI data
+- Reject hostile Host headers (DNS rebinding mitigation) and oversized declared requests
+- Local security preflight refuses production-ready status even when local audit is healthy
+- Signed Ed25519 checkpoint, private key permissions, tampered signature rejection and audit divergence detection
+
+Command: python validation/reference_oracle.py
+Outcome: 10 independent numeric illustrative reference cases passed.
+
+Command: python -m validation.release_gate --methods validation/METHOD_APPROVAL_MATRIX_PENDING.csv --benchmark examples/SYNTHETIC_LABELLED_BENCHMARK.csv --security validation/SECURITY_EVIDENCE_PENDING.json --out validation/EVIDENCE_GATE_REPORT.json
+Outcome: BLOCKED / 31 missing evidence items (INTENDED FAIL-CLOSED RELEASE BEHAVIOR).
+
+Dashboard: READINESS_DASHBOARD.html evaluated in headless Chromium via set_content.
+Outcome: 31 issue DOM nodes displayed, status BLOCKED, zero page-level JavaScript errors.
+
+No licensed method compliance, actual field OCR accuracy, production penetration test,
+GET software integration, PE signature, or real labor savings is established.

@@ -1,0 +1,15 @@
+CMT Intelligence OS v1.1 — local test record — 2026-10-25
+
+Command: PYTHONPATH=. pytest -q --disable-warnings
+Result: 69 passed in 31.30s, exit status 0
+
+Command: python validation/reference_oracle.py
+Result: 10 independent numerical cases passed; NOT an ASTM/AASHTO conformance test.
+
+Command: PYTHONPATH=. python examples/make_synthetic_report.py
+Result: synthetic technician-create -> submit -> separate engineer review -> portable JSON report, checksum verified.
+
+Command: PYTHONPATH=. python -m server.report_verify examples/SYNTHETIC_REVIEW_WORKSHEET_UNCERTIFIED.json
+Result: checksum verified, not digitally signed.
+
+No real-field-OCR accuracy, certified calibration, vendor integration, penetration testing, performance SLA, regulatory or production readiness was measured.

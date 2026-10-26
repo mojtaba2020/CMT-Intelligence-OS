@@ -1,0 +1,9 @@
+case_id,source,test_type,field,gold,predicted,tolerance,critical,manual_seconds,assisted_seconds,correction_seconds
+DEMO-01,synthetic,soil,wet,126,126,0.2,true,75,32,4
+DEMO-01,synthetic,soil,moisture,11.8,11.8,0.1,true,65,30,5
+DEMO-01,synthetic,soil,mdd,120,120,0.2,true,80,32,5
+DEMO-02,synthetic,soil,proctor_id,P-123,P-123,0,true,70,38,2
+DEMO-03,synthetic,concrete,slump,5.25,5.75,0.1,true,75,38,44
+DEMO-03,synthetic,concrete,air,5.2,,0.1,true,62,25,55
+DEMO-04,synthetic,cylinder,break_load,141372,141372,5,true,70,32,6
+DEMO-04,synthetic,cylinder,diameter,4.00,4.00,0.01,true,70,29,4

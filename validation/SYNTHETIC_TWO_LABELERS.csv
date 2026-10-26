@@ -1,0 +1,3 @@
+case_id,source,test_type,field,labeler_a_id,labeler_a,labeler_b_id,labeler_b,adjudicator_id,adjudicated,predicted,tolerance,critical,manual_seconds,assisted_seconds,correction_seconds
+SYN-01,synthetic,soil,wet,lab-a,126,lab-b,126,,,126,0.2,true,60,20,5
+SYN-02,synthetic,soil,moisture,lab-a,11.8,lab-b,18.8,lab-c,11.8,18.8,0.1,true,60,25,40

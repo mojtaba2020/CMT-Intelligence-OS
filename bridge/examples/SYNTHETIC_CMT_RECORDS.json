@@ -1,0 +1,76 @@
+{
+  "label": "FICTIONAL TEST RECORDS; NOT FROM GET OR ELMTREE",
+  "records": [
+    {
+      "id": "TRAIN-1001",
+      "version": 1,
+      "status": "reviewed",
+      "source": "synthetic",
+      "creator": "fake_technician",
+      "reviewer": "fake_engineer",
+      "reviewed_at": "2026-01-01T12:00:00Z",
+      "project_code": "FICTION-ROAD-A",
+      "test_type": "soil",
+      "location": "Lot 4, Lift 2",
+      "spec_reference": "FICTIONAL-SPEC-A",
+      "evidence_reference": "FAKE-NDG-001",
+      "measurements": {
+        "wet": 126,
+        "moisture": 11.8,
+        "mdd": 120
+      },
+      "measurement_units": {
+        "measurements.wet": "pcf",
+        "measurements.moisture": "percent",
+        "measurements.mdd": "pcf"
+      }
+    },
+    {
+      "id": "TRAIN-1002",
+      "version": 1,
+      "status": "reviewed",
+      "source": "synthetic",
+      "creator": "fake_technician",
+      "reviewer": "fake_engineer",
+      "reviewed_at": "2026-01-01T12:01:00Z",
+      "project_code": "FICTION-ROAD-A",
+      "test_type": "soil",
+      "location": "Lot 4, Lift 3",
+      "spec_reference": "FICTIONAL-SPEC-A",
+      "evidence_reference": "FAKE-NDG-002",
+      "measurements": {
+        "wet": 128,
+        "moisture": 10.2,
+        "mdd": 120
+      },
+      "measurement_units": {
+        "measurements.wet": "pcf",
+        "measurements.moisture": "percent",
+        "measurements.mdd": "pcf"
+      }
+    },
+    {
+      "id": "TRAIN-1003",
+      "version": 1,
+      "status": "draft",
+      "source": "synthetic",
+      "creator": "fake_technician",
+      "reviewer": null,
+      "project_code": "FICTION-ROAD-A",
+      "test_type": "soil",
+      "location": "Lot 4, Lift 4",
+      "spec_reference": "FICTIONAL-SPEC-A",
+      "evidence_reference": "FAKE-NDG-003",
+      "measurements": {
+        "wet": 127,
+        "moisture": 11,
+        "mdd": 120
+      },
+      "measurement_units": {
+        "measurements.wet": "pcf",
+        "measurements.moisture": "percent",
+        "measurements.mdd": "pcf"
+      }
+    }
+  ]
+}

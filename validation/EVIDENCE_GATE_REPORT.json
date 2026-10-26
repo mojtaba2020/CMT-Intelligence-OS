@@ -1,0 +1,78 @@
+{
+  "schema": "cmt-release-evidence-gate-v1",
+  "release_decision": "BLOCKED",
+  "checks": {
+    "method_count": 15,
+    "expected_methods": 15,
+    "security_control_count": 10
+  },
+  "issues": [
+    "method has no independently documented lab approval: asphalt_core",
+    "method has no independently documented lab approval: asphalt_voids",
+    "method has no independently documented lab approval: atterberg",
+    "method has no independently documented lab approval: concrete",
+    "method has no independently documented lab approval: cylinder",
+    "method has no independently documented lab approval: cylinder_set",
+    "method has no independently documented lab approval: proctor",
+    "method has no independently documented lab approval: proctor_curve",
+    "method has no independently documented lab approval: rebar_cover",
+    "method has no independently documented lab approval: sand_cone",
+    "method has no independently documented lab approval: sieve",
+    "method has no independently documented lab approval: sieve_stack",
+    "method has no independently documented lab approval: soil",
+    "method has no independently documented lab approval: soil_moisture",
+    "method has no independently documented lab approval: unit_weight",
+    "security/deployment control unverified: network_tls",
+    "security/deployment control unverified: identity_mfa",
+    "security/deployment control unverified: encryption_at_rest",
+    "security/deployment control unverified: backup_encryption",
+    "security/deployment control unverified: restore_drill",
+    "security/deployment control unverified: penetration_review",
+    "security/deployment control unverified: external_audit_anchor",
+    "security/deployment control unverified: tenant_isolation",
+    "security/deployment control unverified: vendor_contract_test",
+    "security/deployment control unverified: operations_monitoring",
+    "not enough authorized, independently labeled fields",
+    "not enough authorized critical fields",
+    "critical extraction errors/abstentions present",
+    "authorized field accuracy below configured pilot target",
+    "missing authorized method coverage: asphalt_core, asphalt_voids, atterberg, concrete, cylinder, cylinder_set, proctor, proctor_curve, rebar_cover, sand_cone, sieve, sieve_stack, soil, soil_moisture, unit_weight",
+    "no paired, measured manual vs assisted timing"
+  ],
+  "benchmark": {
+    "schema": "cmt-benchmark-v1",
+    "dataset_types_never_pooled": true,
+    "by_source": {
+      "synthetic": {
+        "labeled_fields": 8,
+        "correct_fields": 6,
+        "field_accuracy": 0.75,
+        "field_accuracy_95pct_wilson": [
+          0.4093,
+          0.9285
+        ],
+        "abstentions": 1,
+        "critical_fields": 8,
+        "critical_errors_or_abstentions": 2,
+        "timed_observations": 8,
+        "baseline_total_seconds": 567.0,
+        "assisted_and_correction_total_seconds": 381.0,
+        "net_seconds_saved": 186.0,
+        "net_percent_saved": 32.8,
+        "slower_observations": 2,
+        "method_mix": {
+          "concrete": 2,
+          "cylinder": 2,
+          "soil": 4
+        }
+      }
+    },
+    "caveats": [
+      "Unverified external labels are not laboratory truth.",
+      "Small samples have wide confidence intervals.",
+      "No ASTM compliance or labor savings at GET implied.",
+      "Paired timing must reflect actual comparable tasks and all review/correction time."
+    ]
+  },
+  "disclaimer": "Even a clear automated gate is NOT production approval: authenticity, method licensing, independent review, engineering responsibility, security review, legal review and vendor consent remain human obligations."
+}

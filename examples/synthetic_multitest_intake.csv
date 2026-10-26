@@ -1,0 +1,6 @@
+type,project,tech,location,date,evidence,specRef,massWet,massDry,tare,ll,pl,piMax,breakLoad,diameter,age,designStrength,dryCore,ssdCore,underCore,gmmCore,rcMin,rcMax,sampleMass,retainedMass,sieveSize,passMin,passMax,gmb,gmm,voidMin,voidMax
+soil_moisture,DEMO-NONREAL,Training User,Soil bench 1,2026-10-25T10:00,SYNTH-TICKET-SM,SYNTHETIC-SPEC-NO-LEGAL-EFFECT,210,190,90,,,,,,,,,,,,,,,,,,,,,,
+atterberg,DEMO-NONREAL,Training User,Soil bench 2,2026-10-25T10:00,SYNTH-TICKET-AT,SYNTHETIC-SPEC-NO-LEGAL-EFFECT,,,,42,23,,,,,,,,,,,,,,,,,,,,
+cylinder,DEMO-NONREAL,Training User,Concrete lab 1,2026-10-25T10:00,SYNTH-TICKET-CC,SYNTHETIC-SPEC-NO-LEGAL-EFFECT,,,,,,,62831.85,4,28,,,,,,,,,,,,,,,,
+asphalt_core,DEMO-NONREAL,Training User,Asphalt lab 1,2026-10-25T10:00,SYNTH-TICKET-AC,SYNTHETIC-SPEC-NO-LEGAL-EFFECT,,,,,,,,,,,1160,1165,674,2.5,,,,,,,,,,,
+sieve,DEMO-NONREAL,Training User,Aggregate bench,2026-10-25T10:00,SYNTH-TICKET-SI,SYNTHETIC-SPEC-NO-LEGAL-EFFECT,,,,,,,,,,,,,,,,,1000,225,No. 4 (4.75 mm),,,,,,

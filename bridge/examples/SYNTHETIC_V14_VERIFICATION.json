@@ -1,0 +1,9 @@
+{
+  "ok": true,
+  "schema": "cmt-neutral-handoff-v1.4",
+  "review_only": true,
+  "prepared_rows": 2,
+  "quarantined_rows": 1,
+  "sha256_bundle": "ce3c36ba9d9135c5a0008875ecb8dac44aa509e7db8c6b8187a5e45471360c60",
+  "warning": "Self-contained integrity verification only; author identity/permissions not cryptographically proven."
+}

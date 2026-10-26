@@ -1,0 +1,948 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="CMT Intelligence OS: offline demonstrator for field tests, QA rules and human engineering review.">
+<title>CMT Intelligence OS — v1.2</title>
+<style>
+:root{color-scheme:dark;--bg:#0a1221;--panel:#152339;--ink:#edf6ff;--muted:#9db3cb;--edge:#31475f;--aqua:#45dbc7;--blue:#87bfff;--warn:#ffcc77;--bad:#ff9296;--good:#78ecc1}*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 85% -25%,#1c425d 1%,transparent 40%),var(--bg);font:14px/1.55 system-ui,-apple-system,'Segoe UI',sans-serif;color:var(--ink)}button,input,textarea,select{font:inherit}button{cursor:pointer}button:disabled{opacity:.5;cursor:not-allowed}.shell{max-width:1320px;margin:auto;padding:24px 21px 65px}.header{display:flex;align-items:center;justify-content:space-between;gap:15px}.brand{display:flex;align-items:center;gap:13px}.logo{border-radius:13px;width:48px;height:48px;background:linear-gradient(135deg,#147f82,#55ead1);display:grid;place-items:center;font-size:25px;color:#06272a;font-weight:900}h1{font-size:23px;letter-spacing:-.6px;line-height:1.16;margin:0}h2{font-size:21px;line-height:1.25;margin:0 0 12px}h3{font-size:16px;margin:2px 0 12px}p{margin:7px 0 14px}.sub,.muted{color:var(--muted)}.tiny{font-size:12px}.actionbar,.buttons,.between{display:flex;align-items:center;gap:8px;flex-wrap:wrap}.between{justify-content:space-between}.banner{margin:24px 0 20px;padding:19px 21px;border:1px solid #356a72;border-radius:16px;background:linear-gradient(110deg,#163842,#16273f)}.banner strong{color:var(--aqua)}.demo{font-size:12px;border-radius:999px;border:1px solid #416878;padding:6px 12px;color:#aaf4e5}.btn{border-radius:9px;padding:10px 13px;border:1px solid #446883;background:#213c53;color:white;font-weight:700}.btn.main{background:var(--aqua);color:#06343a;border-color:var(--aqua)}.btn.warn{background:#3f2b33;border-color:#874b56;color:#ffd2d5}.btn.small{font-size:12px;padding:7px 10px}.tabs{display:flex;gap:7px;flex-wrap:wrap;padding-bottom:14px;margin-bottom:19px;border-bottom:1px solid var(--edge)}.tab{border-radius:10px;background:transparent;border:1px solid transparent;color:var(--muted);padding:10px 15px;font-weight:700}.tab.on{background:#24445b;border-color:#3a6880;color:white}.stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:13px;margin-bottom:19px}.stat{border-radius:14px;border:1px solid var(--edge);padding:14px 17px;background:var(--panel)}.stat b{font-size:30px;display:block;line-height:1.1}.stat span{color:var(--muted);font-size:12px}.cols{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(290px,.75fr);gap:18px}.panel{border-radius:16px;border:1px solid var(--edge);padding:20px;background:var(--panel);margin-bottom:15px}.fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.full{grid-column:1/-1}label{display:block;color:#c0d5e9;font-size:12px;font-weight:700;margin:0 0 5px}input,textarea,select{width:100%;border:1px solid #3a5673;background:#0c1a2e;border-radius:9px;padding:10px 11px;color:white;outline:0}input:focus,textarea:focus,select:focus{border-color:var(--aqua);box-shadow:0 0 0 3px #40e1c41f}textarea{min-height:113px;resize:vertical}input[type=file]{padding:9px}.buttons{margin:17px 0 4px}.hidden{display:none!important}.label{font-size:12px;font-weight:700;color:#d3e3f4}.pill{display:inline-flex;align-items:center;border-radius:8px;padding:4px 8px;border:1px solid #6792ae;font-size:11px;font-weight:800;color:#b8ddfa}.pill.flag{color:var(--warn);border-color:#997544}.pill.approved{color:var(--good);border-color:#3f916b}.pill.returned{color:var(--bad);border-color:#a05b69}.rowitem{padding:15px 14px;background:#0e1d30;border:1px solid #2c425d;border-radius:12px;margin:11px 0}.rowitem.selected{border-color:var(--aqua)}.rowitem h4{margin:0;font-size:15px}.rowitem .meta{font-size:12px;color:var(--muted);margin:3px 0 7px}.note{padding:10px 12px;background:#203e4b;border-left:3px solid var(--aqua);border-radius:5px;font-size:13px}.warning{padding:10px 12px;background:#3a2c2e;border-left:3px solid #ffb17d;border-radius:5px;margin:8px 0;font-size:13px}.success{padding:10px 12px;background:#173b35;border-radius:7px;color:#c1fae7}.detailgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:14px 0}.detailgrid>div{padding:11px;background:#0d1b2e;border-radius:9px}.detailgrid small{display:block;color:var(--muted)}.detailgrid strong{font-size:18px;color:var(--aqua)}.step{display:flex;gap:13px;margin:17px 0}.step b{width:30px;min-width:30px;height:30px;border-radius:9px;background:#20575a;color:var(--aqua);display:grid;place-items:center}.step div strong{display:block}.filters{display:grid;grid-template-columns:1fr 160px;gap:10px;margin-top:12px}.empty{border:1px dashed var(--edge);border-radius:9px;padding:22px;text-align:center;color:var(--muted)}.tableout{overflow:auto}table{width:100%;border-collapse:collapse;min-width:750px}td,th{text-align:left;padding:10px;border-bottom:1px solid var(--edge);vertical-align:top}th{color:var(--muted);font-size:12px}.foot{font-size:12px;color:#8ba2bc;margin-top:25px}.badge{display:inline-block;padding:4px 8px;background:#1b424a;border-radius:7px;font-size:12px;color:#a8efe6}.how{line-height:1.9}.mono{font-family:ui-monospace,SFMono-Regular,Consolas,monospace}.report{display:none}.report h1{font-size:21px}.report th,.report td{border:1px solid #bbb;color:#111}.report table{min-width:0}.report p{color:#111}.report strong{color:#111}@media(max-width:820px){.cols{display:block}.stats{grid-template-columns:repeat(2,1fr)}.header{align-items:start}}@media(max-width:560px){.shell{padding:15px 13px 40px}.header{display:block}.actionbar{margin-top:13px}.stats,.fields,.detailgrid,.filters{grid-template-columns:1fr}.panel{padding:16px}.tabs{gap:1px}.tab{padding:8px;font-size:12px}h1{font-size:20px}}@media print{body{background:white;color:black}.shell{display:none}.report{display:block;padding:14px 22px;font:12px/1.5 Arial,sans-serif;color:black}.report .printnotice{border:2px solid #888;padding:9px;margin-top:15px}.report table{width:100%}}
+.photoimage{display:block;max-width:100%;max-height:300px;object-fit:contain;margin:10px auto;border:1px solid var(--edge);border-radius:12px;background:#0c1a2e}.photo-table{min-width:530px}.photo-table td input{min-width:145px}.photo-table input[type=checkbox]{width:20px;height:20px;accent-color:var(--aqua)}.statusbox{padding:12px;border-radius:10px;border:1px solid #365771;background:#10283c;margin-top:12px}.stepdot{display:inline-grid;place-items:center;width:23px;height:23px;border-radius:50%;background:#28747a;font-size:12px;font-weight:800;margin-right:8px}.tag{display:inline-block;font-size:11px;letter-spacing:.2px;border:1px solid #6588a7;border-radius:6px;padding:2px 6px;margin-right:5px}</style></head><body>
+<main class="shell">
+<header class="header"><div class="brand"><div class="logo">C</div><div><h1>CMT Intelligence OS</h1><div class="sub tiny">Soil · concrete · aggregates · asphalt · inspection · Experimental v1.2</div></div></div><div class="actionbar"><span class="demo">● OFFLINE DEMO</span><button class="btn small" id="exportJSON">Backup JSON</button><button class="btn small" id="exportCSV">Export CSV</button><button class="btn small" id="importTrigger">Restore backup</button><input class="hidden" type="file" id="importJSON" accept=".json,application/json"></div></header>
+<div class="banner"><strong>Working prototype — not an official CMT system.</strong> Capture test results, compare them with <strong>user-entered project limits</strong>, record the specification source, compare independently transcribed NDG gauge readings with field forms, stage imported CSV drafts for human review, track revisions and print a worksheet. Three additional multi-sample laboratory workbenches are now included, alongside twelve original workflows. Their method labels are references, not automated ASTM conformance; a photo-evidence workbench stages opt-in AI drafts for human verification; live AI requires a local backend; there is no automatic sync with company software. Use synthetic or authorized non-confidential test data only. The v0.8 Validation lab measures synthetic calculation regression, human-verified extraction fields, and paired workflow times separately. Screening calculations are NOT method-specific ASTM acceptance or reporting precision decisions.</div>
+<nav class="tabs" aria-label="App pages"><button class="tab on" data-page="capture">01 · Field entry</button><button class="tab" data-page="queue">02 · Engineer review</button><button class="tab" data-page="reconcile">03 · NDG evidence check</button><button class="tab" data-page="photo">04 · Photo workbench</button><button class="tab" data-page="audit">05 · Audit</button><button class="tab" data-page="connector">06 · CSV adapter</button><button class="tab" data-page="catalog">07 · Test catalog</button><button class="tab" data-page="advanced">08 · Advanced lab</button><button class="tab" data-page="validation">09 · Validation lab</button><button class="tab" data-page="roadmap">10 · Roadmap</button><button class="tab" data-page="securepilot">11 · Secure pilot</button></nav>
+<div class="stats"><div class="stat"><b id="total">0</b><span>Total tests</span></div><div class="stat"><b id="pending">0</b><span>Pending engineering review</span></div><div class="stat"><b id="flags">0</b><span>Pending with QA exceptions</span></div><div class="stat"><b id="approved">0</b><span>Manually reviewed</span></div></div>
+<section id="capture" class="page"><div class="cols"><div><article class="panel"><div class="between"><h2 id="entryTitle">New field test</h2><span class="badge" id="revisionBadge">New record</span></div><p class="muted">Enter measurements and the job's actual specification limits. These examples do not encode universal ASTM acceptance limits.</p><div class="fields"><div><label for="testType">Test category</label><select id="testType"><option value="soil">Soil — NDG / compaction</option><option value="concrete">Concrete — slump, air, temperature</option><optgroup label="New soil &amp; aggregates"><option value="soil_moisture">Soil — Oven moisture (D2216)</option><option value="atterberg">Soil — Atterberg (D4318)</option><option value="proctor">Soil — Proctor summary</option><option value="sand_cone">Soil — Sand cone density</option><option value="sieve">Aggregate — Single-sieve check</option></optgroup><optgroup label="New concrete, asphalt &amp; inspection"><option value="cylinder">Concrete — Cylinder strength</option><option value="unit_weight">Concrete — Fresh unit weight</option><option value="asphalt_core">Asphalt — Core bulk SG</option><option value="asphalt_voids">Asphalt — Air voids</option><option value="rebar_cover">Inspection — Rebar cover</option></optgroup></select></div><div><label for="source">Source</label><select id="source"><option>Manual entry</option><option>Transcription draft (unverified)</option><option>Mapped CSV draft (unverified)</option><option>Voice transcript draft (verified)</option></select></div><div><label for="project">Project / job number *</label><input id="project" value="DEMO-001" maxlength="80"></div><div><label for="tech">Field technician *</label><input id="tech" value="Training Technician" maxlength="80"></div><div><label for="location">Station / lift / pour area *</label><input id="location" value="Area A / lift 2" maxlength="120"></div><div><label for="date">Test date & time *</label><input id="date" type="datetime-local"></div><div class="full"><label for="evidence">Evidence reference (optional)</label><input id="evidence" placeholder="Form #, gauge printout #, ticket #; no file stored" maxlength="120"></div><div class="full"><label for="specRef">Project specification / revision reference</label><input id="specRef" value="" maxlength="120" placeholder="Example: approved spec section, drawing or approved mix revision"></div></div>
+<div id="soilFields"><h3 style="margin-top:21px">Soil compaction inputs</h3><div class="fields"><div><label for="wet">Measured wet density (pcf) *</label><input id="wet" type="number" step="any" value="126"></div><div><label for="moisture">Gravimetric moisture content (%) *</label><input id="moisture" type="number" step="any" value="11.8"></div><div><label for="mdd">Reference max. dry density (pcf) *</label><input id="mdd" type="number" step="any" value="120"></div><div><label for="minComp">Project minimum compaction (%) *</label><input id="minComp" type="number" step="any" value="95"></div><div class="full"><label for="proctor">Proctor report / reference</label><input id="proctor" value="DEMO-PROCTOR-01" maxlength="120"></div></div></div>
+<div id="concreteFields" class="hidden"><h3 style="margin-top:21px">Fresh concrete inputs</h3><div class="fields"><div><label for="slump">Slump (in) *</label><input id="slump" type="number" step="any" value="5.25"></div><div><label for="slumpMin">Job min. slump (in) *</label><input id="slumpMin" type="number" step="any" value="4"></div><div><label for="slumpMax">Job max. slump (in) *</label><input id="slumpMax" type="number" step="any" value="6"></div><div><label for="air">Air content (%) *</label><input id="air" type="number" step="any" value="5.2"></div><div><label for="airMin">Job min. air (%) *</label><input id="airMin" type="number" step="any" value="4"></div><div><label for="airMax">Job max. air (%) *</label><input id="airMax" type="number" step="any" value="7"></div><div><label for="temp">Concrete temp. (°F) *</label><input id="temp" type="number" step="any" value="78"></div><div><label for="tempMax">Job max. temp. (°F) *</label><input id="tempMax" type="number" step="any" value="95"></div><div class="full"><label for="mix">Mix design / truck ticket</label><input id="mix" value="DEMO-MIX-01" maxlength="120"></div></div></div>
+<div id="catalogFields" class="hidden"><h3 style="margin-top:21px" id="catalogHeading">Expanded test inputs</h3><p class="muted tiny" id="catalogMethod"></p><div class="fields" id="catalogForm"></div></div>
+<div class="buttons"><button class="btn main" id="save">Save & run QA checks</button><button class="btn" id="switch">Switch example type</button><button class="btn hidden" id="cancelEdit">Cancel revision</button></div><p id="saveMsg" class="tiny muted" role="status"></p></article></div>
+<aside><article class="panel"><h3>Transcription adapter · AI-ready</h3><p class="muted">Paste <code>key: value</code> text from a future OCR/voice model or a human transcription. This does <strong>not</strong> recognize photos or audio. Values must be compared to original evidence before submission.</p><textarea id="paste" class="mono" spellcheck="false">wet_density: 126
+moisture: 11.8
+max_dry_density: 120
+min_compaction: 95
+location: Area A</textarea><div class="buttons"><button class="btn" id="applyPaste">Fill fields from text</button></div><p id="pasteMsg" role="status" class="muted tiny"></p><div style="border-top:1px solid var(--edge);margin:15px 0;padding-top:14px"><h3>Optional live AI image extraction</h3><p class="muted tiny">Requires the included <strong>local Python backend</strong> and your own server-side API key. A selected form photo is sent to an external AI provider only when you click Extract with consent. No file is uploaded in offline-only mode.</p><label for="imageFile">Field sheet image (JPEG / PNG / WEBP, up to 4 MB)</label><input type="file" accept="image/png,image/jpeg,image/webp" id="imageFile"><label style="display:flex;align-items:start;gap:9px;margin:12px 0"><input style="width:auto;margin-top:3px" type="checkbox" id="aiConsent"><span>I am authorized to process this non-confidential image with the AI provider, and I will verify every extracted value.</span></label><button id="aiExtract" class="btn" disabled>Extract photo fields using AI</button><p id="aiStatus" class="tiny muted" role="status">Checking whether a local AI server is available…</p></div></article><article class="panel"><h3>Evidence & accountability</h3><div class="step"><b>1</b><div><strong>Capture</strong><span class="muted"> Technician + timestamp + job + location + evidence reference</span></div></div><div class="step"><b>2</b><div><strong>Calculate & validate</strong><span class="muted"> Soil density math and configurable job-specific limits</span></div></div><div class="step"><b>3</b><div><strong>Human decision</strong><span class="muted"> Review, explain exceptions or return for correction</span></div></div><div class="step"><b>4</b><div><strong>Revision & export</strong><span class="muted"> Preserve audit history, export records for a future authorized integration</span></div></div></article></aside></div></section>
+<section id="queue" class="page hidden"><div class="cols"><article class="panel"><h2>Engineer review queue</h2><p class="muted">Select a test and manually verify its original measurement evidence. Reviewer name is a demonstration field, <strong>not</strong> identity-verified electronic signature.</p><div class="filters"><input id="filterText" placeholder="Search project, location, technician, ID"><select id="filterStatus"><option value="all">All statuses</option><option value="review">Pending</option><option value="flagged">Pending exceptions</option><option value="approved">Reviewed</option><option value="returned">Returned</option></select></div><div id="records"></div></article><aside class="panel"><h2>Selected record</h2><div id="detail" class="empty">Select a test record.</div></aside></div></section>
+
+<section id="advanced" class="page hidden">
+ <div class="cols"><article class="panel"><div class="between"><h2>Advanced lab · 3 multi-sample workflows</h2><span class="badge" id="advRevision">New worksheet</span></div>
+ <p class="muted">Multiple measurements in one test record; transparent computations and a mandatory human review queue. This is a training calculation aid, not an ASTM method-compliance or acceptance engine.</p>
+ <div class="fields"><div class="full"><label for="advType">Laboratory worksheet</label><select id="advType"><option value="proctor_curve">Soil · Multi-point Proctor moisture-density curve</option><option value="sieve_stack">Aggregate · Complete dry sieve stack</option><option value="cylinder_set">Concrete · Multi-cylinder strength set</option></select></div>
+ <div><label for="advProject">Project / job *</label><input id="advProject" value="DEMO-001"></div><div><label for="advTech">Technician *</label><input id="advTech" value="Training Technician"></div><div><label for="advLocation">Sample / location *</label><input id="advLocation" value="Lab · sample S-001"></div><div><label for="advDate">Date *</label><input id="advDate" type="datetime-local"></div><div><label for="advEvidence">Original evidence / lab sheet reference</label><input id="advEvidence" placeholder="Original sheet / balance log ID"></div><div><label for="advSpecRef">Governing job specification + revision</label><input id="advSpecRef" placeholder="Approved drawing, contract spec, revision"></div></div>
+ <h3 id="advHeading" style="margin-top:20px">Moisture-density curve</h3><p class="tiny muted" id="advHelp"></p>
+ <div class="fields" id="advOptions"></div>
+ <div class="tableout"><table id="advTable" style="min-width:640px"><thead id="advTableHead"></thead><tbody id="advRows"></tbody></table></div>
+ <div class="buttons"><button id="advAdd" class="btn small">+ Add measurement</button><button id="advExample" class="btn small">Load synthetic example</button><button id="advReset" class="btn small">New worksheet</button></div>
+ <div id="advSummary" class="statusbox" role="status">Enter readings to preview calculations.</div>
+ <div id="advChart" style="margin-top:15px"></div>
+ <div class="buttons"><button class="btn main" id="advSave">Save lab worksheet · queue for engineer</button></div>
+ <p id="advMsg" class="tiny muted" role="status"></p>
+ </article><aside><article class="panel"><h3>Safety gates</h3><p class="muted">Every observation remains attached to its source worksheet. Inputs are validated, calculations do not silently fill missing measurements, and a human reviews the result.</p><p class="warning"><strong>Not automatic acceptance:</strong> A Proctor curve needs verified method/compactive effort and correction choices; sieve loss by washing is separate; a concrete strength-test average does not determine contractual acceptance on its own.</p></article><article class="panel"><h3>Lab calculation coverage</h3><div class="step"><b>1</b><div><strong>Proctor curve</strong><div class="muted">Wet-to-dry densities and optional local quadratic interpolation near the observed peak</div></div></div><div class="step"><b>2</b><div><strong>Sieve stack</strong><div class="muted">Cumulative retained, percent passing, mass balance, project-entered gradation ranges</div></div></div><div class="step"><b>3</b><div><strong>Cylinders</strong><div class="muted">Strength per specimen and sample set mean, age and minimum specimen count prompts</div></div></div></article></aside></div>
+</section>
+
+<section id="catalog" class="page hidden"><article class="panel"><h2>Multi-discipline test catalog · 15 workflows</h2><p class="muted">Twelve original workflows plus three multi-sample laboratory calculation and review workbenches. ASTM references are indicative only. The UI checks plausible inputs, simple formulas and entered project limits; method execution, equipment, sampling and acceptance rules require official documents and qualified review.</p><div class="tableout"><table style="min-width:720px"><thead><tr><th>Discipline</th><th>Workflow</th><th>Reference to verify</th><th>Important scope limitation</th><th></th></tr></thead><tbody id="catalogRows"></tbody></table></div></article></section>
+<section id="audit" class="page hidden"><article class="panel"><div class="between"><div><h2>Local audit history</h2><p class="muted">Every creation, decision, and revision is timestamped. This is editable browser-local data; <strong>not</strong> a tamper-proof compliance log.</p></div><button id="reset" class="btn warn">Reset to sample data</button></div><div class="tableout"><table><thead><tr><th>Date/time</th><th>Event</th><th>Record</th><th>Actor</th><th>Details</th></tr></thead><tbody id="auditBody"></tbody></table></div></article></section>
+<section id="connector" class="page hidden"><div class="cols"><article class="panel"><h2>Generic CSV intake adapter</h2><p class="muted">Map a small, authorized <strong>CSV export</strong> to a neutral CMT schema. This is <strong>not</strong> a direct ElmTree, QEST or gINT integration. Imported values stay unverified drafts until a reviewer compares their original evidence and job-specific limits.</p><div class="fields"><div class="full"><label for="csvFile">CSV file (UTF-8, up to 250 KB, max 150 data rows)</label><input type="file" id="csvFile" accept=".csv,text/csv"></div></div><div class="buttons"><button class="btn main" id="previewCSV">Validate & preview</button><button class="btn" id="templateCSV">Download neutral CSV template</button></div><p class="tiny muted" id="csvMsg" role="status">No file loaded. Import never updates third-party systems.</p><div id="csvPreview" class="tableout"></div><div class="buttons"><button class="btn main" id="commitCSV" disabled>Import validated drafts to review queue</button></div></article><article class="panel"><h3>Compatible input columns</h3><p class="muted">Names are matched case-insensitively; spaces/underscores are normalized. Missing readings are rejected, not guessed. Units must match the column descriptions.</p><p><strong>Common:</strong> type, project, tech, location, date, evidence, specRef</p><p><strong>Soil:</strong> wet (pcf), moisture (%), mdd (pcf), minComp (%), proctor</p><p><strong>Concrete:</strong> slump (in), slumpMin, slumpMax (in), air (%), airMin, airMax (%), temp, tempMax (°F), mix</p><p><strong>Expanded v0.6 catalog:</strong> use exact field keys from the Test catalog tab and the downloadable CSV template. Advanced multi-row worksheets (Proctor curve, sieve stack, cylinder set) must be entered in tab 08; use JSON backup for complete round-trip. CSV export includes serialized row arrays.</p><div class="warning"><strong>Privacy & engineering:</strong> Use only synthetic or permitted, non-confidential data. An imported CSV does not prove method compliance, measurement accuracy, source calibration or authorization. All records require human checks. Browser-local audit history is editable.</div><p class="tiny muted">No direct write-back connector, vendor API or automated engineering acceptance is provided.</p></article></div></section>
+<section id="reconcile" class="page hidden"><div class="cols"><article class="panel"><h2>NDG cross-source evidence comparison</h2><p class="muted">Select a saved soil test, then independently transcribe the <strong>NDG gauge/printout</strong> and <strong>approved Proctor/project specification</strong>. This compares two typed sets of values; it does not read, authenticate, or retain the actual documents.</p>
+<div class="fields"><div class="full"><label for="evRecord">Saved soil test (field-sheet values)</label><select id="evRecord"></select></div><div><label for="evTicket">Independent gauge printout reference *</label><input id="evTicket" maxlength="120" placeholder="e.g. GAUGE-PRINT-41"></div><div><label for="evSpec">Independent specification reference *</label><input id="evSpec" maxlength="120" placeholder="e.g. approved drawing rev B"></div>
+<div><label for="evDensityType">Gauge reading type</label><select id="evDensityType"><option value="wet">Wet density</option><option value="dry">Dry density</option></select></div><div><label for="evUnit">Gauge density unit</label><select id="evUnit"><option value="pcf">pcf (lb/ft³)</option><option value="kgm3">kg/m³</option></select></div><div><label for="evDensity">Gauge printed density *</label><input id="evDensity" type="number" step="any" placeholder="126"></div><div><label for="evMoisture">Gauge moisture (% dry-mass basis) *</label><input id="evMoisture" type="number" step="any" placeholder="11.8"></div>
+<div><label for="evMDD">Independent Proctor MDD (pcf) *</label><input id="evMDD" type="number" step="any" placeholder="120"></div><div><label for="evMinComp">Independent project minimum compaction (%) *</label><input id="evMinComp" type="number" step="any" placeholder="95"></div><div class="full"><label for="evProctor">Independent Proctor report ID *</label><input id="evProctor" maxlength="120" placeholder="e.g. PROCTOR-72"></div>
+<div><label for="evProject">Project ID on gauge source (optional)</label><input id="evProject" maxlength="80" placeholder="Only if visibly stated"></div><div><label for="evLocation">Station / lift on gauge source (optional)</label><input id="evLocation" maxlength="120" placeholder="Only if visibly stated"></div>
+<div><label for="evTolDensity">Density transcription tolerance (pcf)</label><input id="evTolDensity" type="number" step="any" min="0" max="2" value="0.10"></div><div><label for="evTolMoisture">Moisture transcription tolerance (percentage points)</label><input id="evTolMoisture" type="number" step="any" min="0" max="2" value="0.10"></div></div>
+<div class="buttons"><button id="evDemoMatch" class="btn small">Load synthetic matching example</button><button id="evDemoMismatch" class="btn small">Load synthetic conflict</button></div><div class="buttons"><button id="evCompare" class="btn main">Compare sources</button><button id="evAttach" class="btn" disabled>Attach comparison snapshot to review queue</button></div><p class="tiny muted" id="evMessage" role="status">Select a soil test and type the independent gauge readings; no value is copied automatically from the saved field sheet.</p><div id="evResults"></div></article>
+<aside><article class="panel"><h3>Three distinct questions</h3><div class="step"><b>1</b><div><strong>Does form match gauge?</strong><div class="muted">Wet/dry density and moisture are normalized to pcf and percent; only transcription tolerances are used</div></div></div><div class="step"><b>2</b><div><strong>Does form match project references?</strong><div class="muted">Independent MDD, minimum compaction and Proctor ID are compared to what the field record says</div></div></div><div class="step"><b>3</b><div><strong>What needs an engineer?</strong><div class="muted">Any discrepancy or missing identity goes into the reviewer queue; no automated approval or ASTM certification</div></div></div><div class="warning"><strong>Important:</strong> The 0.10 pcf / 0.10 percentage-point starting tolerances are editable <em>illustrative transcription thresholds</em>, not ASTM tolerances or project acceptance limits. If gauge and paper round differently, the reviewer must assess precision manually.</div><p class="tiny muted">Only synthetically generated or explicitly authorized, non-confidential values should be entered. The browser stores typed fields locally; records and logs can be modified locally.</p></article></aside></div></section>
+
+<section id="photo" class="page hidden"><div class="cols"><article class="panel">
+<h2>Photo → evidence draft → verified comparison</h2><p class="muted">Two distinct source documents: (1) an <strong>NDG gauge printout</strong> with measured readings; (2) an <strong>approved Proctor / job specification</strong> with reference limits. Images are not stored in this browser backup. AI never verifies their authenticity.</p>
+<div class="fields"><div class="full"><label for="photoRecord">Active soil record (field form)</label><select id="photoRecord"></select></div>
+<div><label for="photoKind">Independent source category</label><select id="photoKind"><option value="gauge_printout">NDG gauge printout</option><option value="proctor_spec">Proctor report / approved project spec</option></select></div>
+<div><label for="photoFile">Authorized document photo (JPEG / PNG / WEBP ≤4 MB)</label><input id="photoFile" type="file" accept="image/png,image/jpeg,image/webp"></div></div>
+<img id="photoPreview" class="photoimage hidden" alt="Selected source document; check extracted candidates against this original image">
+<label style="display:flex;gap:9px;align-items:start;margin-top:14px"><input type="checkbox" id="photoConsent" style="width:auto;margin-top:4px"><span>I have permission to send this non-confidential photo to the configured AI provider. I understand extraction is a <em>draft</em> requiring human checking.</span></label>
+<div class="buttons"><button class="btn main" id="photoExtract">Read image with local AI backend</button><button class="btn" id="photoDemoGauge">Load DEMO gauge draft</button><button class="btn" id="photoDemoSpec">Load DEMO specification draft</button></div>
+<div id="photoStatus" class="statusbox" role="status">No extraction staged. Use the synthetic buttons to try the entire verification workflow without AI or company documents.</div>
+<div id="photoDraft" class="hidden"><h3 style="margin-top:18px">Human verification of proposed fields</h3><p class="muted tiny">Check each value against the original document. Correct any transcription errors, then tick <strong>Verified</strong>. Editing a value automatically clears its verification checkbox. Fields not present in the image must remain absent. Every displayed value, including IDs, remains untrusted until checked.</p>
+<p id="photoSourceNote" class="tiny muted"></p><div class="tableout"><table class="photo-table"><thead><tr><th>Candidate field</th><th>Unverified draft</th><th>Visually verified?</th></tr></thead><tbody id="photoRows"></tbody></table></div>
+<div class="buttons"><button id="photoApply" class="btn main" disabled>Transfer checked fields to NDG comparison</button><button id="photoClear" class="btn small">Discard draft</button></div><p id="photoApplyStatus" class="muted tiny" role="status"></p></div>
+</article><aside><article class="panel"><h3>Independent document chain</h3><p><span class="stepdot">1</span> Select the soil test saved from the technician's field form</p><p><span class="stepdot">2</span> Read a separate gauge photo. Confirm measurement, moisture, wet/dry label and unit</p><p><span class="stepdot">3</span> Read a separate approved Proctor/spec photo. Confirm MDD, minimum compaction and IDs</p><p><span class="stepdot">4</span> Compare with the original field form in <strong>03 · NDG evidence check</strong> and attach a discrepancy snapshot for a human reviewer</p>
+<div class="warning"><strong>Safety gates:</strong> A photo upload alone proves neither source authenticity nor calibration. AI output is not a measured reading until the technician confirms it against the image. No project requirements are guessed. No engineering acceptance is generated.</div>
+<p class="tiny muted">The SHA-256 fingerprint returned by the live backend identifies the uploaded bytes only. It is not a signature or proof of chain of custody. Synthetic drafts have no image fingerprint.</p><h3>Applied to this record</h3><div id="photoApplied" class="statusbox tiny">No source fields transferred.</div></article></aside></div></section>
+
+<section id="validation" class="page hidden">
+ <article class="panel">
+  <div class="between"><h2>Validation lab · independent pilot evidence</h2><span class="badge">v0.8 features</span></div>
+  <p class="muted">Three separate measurements: <strong>synthetic calculator regression</strong>, <strong>reference-verified extraction labels</strong>, and <strong>paired real workflow times</strong>. Passing fixture tests does not establish AI extraction accuracy, compliance, or field performance. No external upload or AI call occurs here.</p>
+  <div class="warning">Do not enter proprietary project identifiers, client names, personal data, photos or company records without written authorization. Browser-local data can be modified or erased; this is a prototype measurement notebook, not a secured lab record.</div>
+  <div class="buttons"><button class="btn main" id="runFixtures">Run calculator fixtures</button><button class="btn" id="loadPilotDemo">Add synthetic pilot examples</button><button class="btn" id="exportPilot">Export pilot JSON</button><button class="btn warn" id="resetPilot">Clear pilot notebook</button></div>
+  <h3>1 · Synthetic computation &amp; boundary regression</h3>
+  <p class="tiny muted">Expected numbers were computed independently and encoded as fixed oracle cases. Test input is synthetic. Project acceptance and ASTM method conformity are intentionally NOT scored.</p>
+  <div class="statusbox" id="fixtureSummary" role="status">Run the reference fixtures.</div>
+  <div class="tableout"><table><thead><tr><th>Fixture</th><th>Reference expected</th><th>Actual calculator result</th><th>Status</th></tr></thead><tbody id="fixtureRows"></tbody></table></div>
+ </article>
+ <div class="cols">
+  <article class="panel"><h3>2 · Verify extracted field against ground truth</h3>
+   <p class="muted tiny">An independent, human-verified reference value is required. An empty AI prediction counts as an abstention/error. Critical errors are counted separately. This is not an OCR reader: enter its candidate output manually after reviewing authorized evidence.</p>
+   <div class="fields">
+    <div><label for="valSource">Dataset</label><select id="valSource"><option value="authorized">Authorized / independently reviewed</option><option value="synthetic">Synthetic training only</option></select></div>
+    <div><label for="valCase">De-identified case ID</label><input id="valCase" maxlength="64" placeholder="CASE-001"></div>
+    <div class="full"><label for="valField">Critical field</label><select id="valField"></select><p class="muted tiny" id="valFieldHelp"></p></div>
+    <div><label for="valGold">Human-verified gold value</label><input id="valGold" maxlength="80" placeholder="126"></div>
+    <div><label for="valPred">Candidate AI field (blank = abstain)</label><input id="valPred" maxlength="80" placeholder="126"></div>
+    <div><label for="valTol">Numeric matching tolerance (absolute)</label><input id="valTol" type="number" min="0" step="any" value="0"></div>
+   </div>
+   <div class="buttons"><button class="btn main" id="addLabel">Save comparison</button></div><p id="valStatus" class="tiny muted" role="status"></p>
+  </article>
+  <aside><article class="panel"><h3>3 · Paired time study</h3><p class="tiny muted">Time the <strong>same type of task</strong> manually and with the software, including human source review and error-correction time. Enter measured minutes, not estimates. Results may show negative savings.</p>
+    <div class="fields">
+     <div><label for="timeSource">Dataset</label><select id="timeSource"><option value="authorized">Authorized / observed</option><option value="synthetic">Synthetic training only</option></select></div>
+     <div><label for="timeCase">De-identified case ID</label><input id="timeCase" maxlength="64" placeholder="CASE-001"></div>
+     <div><label for="timeType">Task category</label><select id="timeType"><option>NDG</option><option>Fresh concrete</option><option>Proctor</option><option>Sieve stack</option><option>Cylinder set</option><option>Other</option></select></div>
+     <div><label for="timeManual">Manual process minutes</label><input id="timeManual" type="number" min="0.01" step="any" placeholder="6.5"></div>
+     <div><label for="timeAssist">Assisted task minutes</label><input id="timeAssist" type="number" min="0" step="any" placeholder="3"></div>
+     <div><label for="timeCorrection">Review + correction minutes</label><input id="timeCorrection" type="number" min="0" step="any" placeholder="1"></div>
+    </div>
+    <div class="buttons"><button class="btn main" id="addTime">Save paired observation</button></div><p id="timeStatus" class="tiny muted" role="status"></p>
+  </article></aside>
+ </div>
+ <article class="panel"><div class="between"><h3>Measured pilot results · dataset-separated</h3><select id="valSourceFilter" style="max-width:290px"><option value="authorized">Authorized only</option><option value="synthetic">Synthetic only</option></select></div>
+  <div id="pilotMetrics"></div>
+  <h3>Reference labels (most recent 100)</h3><div class="tableout"><table><thead><tr><th>Case / field</th><th>Gold</th><th>Candidate</th><th>Assessment</th><th>Delete</th></tr></thead><tbody id="labelRows"></tbody></table></div>
+  <h3>Paired time observations (most recent 100)</h3><div class="tableout"><table><thead><tr><th>Case / task</th><th>Manual min</th><th>Assisted + review min</th><th>Savings</th><th>Delete</th></tr></thead><tbody id="pairRows"></tbody></table></div>
+  <p class="tiny muted">Do not extrapolate ROI from small samples. Pilot reporting must document who verified each gold value, form/device variants, failures, false confidence, task complexity, operator, rework and confidence intervals in an external controlled study.</p>
+ </article>
+</section>
+
+
+<section id="securepilot" class="page hidden">
+ <article class="panel"><div class="between"><h2>11 · Local role-based pilot · v1.2</h2><span class="badge">Separate server database</span></div>
+ <div class="warning"><strong>Development sandbox only.</strong> Run the included Python server on 127.0.0.1, with individually created accounts. Offline browser records and authenticated server records are separate. Do not upload confidential company records; no HTTPS, formal e-signature, external audit anchoring, standardized acceptance determination or production security certification.</div>
+ <div class="cols">
+  <div><h3>Sign in</h3><div class="fields"><div><label for="pilotUser">Username</label><input id="pilotUser" autocomplete="username" placeholder="technician1"></div><div><label for="pilotPass">Password</label><input id="pilotPass" type="password" autocomplete="current-password" placeholder="Created using local CLI"></div></div>
+  <div class="buttons"><button class="btn main" id="pilotLogin">Sign in</button><button class="btn" id="pilotLogout">Sign out</button><button class="btn" id="pilotReload">Refresh records</button></div>
+  <p class="muted tiny" id="pilotSession" role="status">Not signed in. Offline HTML mode cannot access secure pilot features.</p></div>
+  <aside><h3>Role separation</h3><p class="muted tiny"><strong>Technician:</strong> create, revise and submit only their own records. <strong>Engineer:</strong> independently mark submitted records as reviewed, returned or rejected. Review never certifies an ASTM result. Authors cannot review their own records. All changes create server audit events.</p>
+  <p class="muted tiny">Passwords and session cookies are not stored by this page. The CSRF token is kept in memory and resets on page reload.</p></aside>
+ </div></article>
+ <div class="cols">
+ <article class="panel"><div class="between"><h3>Create / revise server-side draft</h3><span id="pilotSelected" class="badge">New draft</span></div>
+ <p class="tiny muted">Make changes to a draft or a returned record. Past revisions remain retained. A selected browser-local record can be copied only after an explicit click and authorization check.</p>
+ <div class="fields"><div><label for="pilotType">Test / inspection</label><select id="pilotType"></select></div>
+ <div><label for="pilotSource">Dataset type</label><select id="pilotSource"><option value="synthetic">Synthetic training</option><option value="authorized">Authorized de-identified pilot</option></select></div>
+ <div><label for="pilotProject">De-identified project code</label><input id="pilotProject" maxlength="80" value="DEMO-001"></div>
+ <div><label for="pilotLocation">Location label</label><input id="pilotLocation" maxlength="120" value="Area A / lift 2"></div>
+ <div><label for="pilotSpec">Specification and revision reference</label><input id="pilotSpec" maxlength="120" value="SYN-SPEC-REV-A"></div>
+ <div><label for="pilotEvidence">Original evidence reference (ID only)</label><input id="pilotEvidence" maxlength="120" value="SYN-GAUGE-001"></div>
+ <div class="full"><label for="pilotMeasurements">Measurements JSON</label><textarea id="pilotMeasurements" class="mono" spellcheck="false">{"wet":126,"moisture":11.8,"mdd":120,"minComp":95}</textarea></div></div>
+ <label style="display:flex;align-items:start;gap:10px;margin-top:14px"><input type="checkbox" id="pilotAuthorized" style="width:auto;margin-top:4px"><span>I confirm I am authorized to enter these de-identified measurements into the local database. Nothing is sent to the external AI provider by this action.</span></label>
+ <div class="buttons"><button class="btn" id="pilotPreviewQA">Check entered fields</button><button class="btn main" id="pilotCreate">Create server draft</button><button class="btn" id="pilotRevise">Save revision</button><button class="btn" id="pilotImport">Copy selected browser record into form</button><button class="btn" id="pilotSubmit">Submit for engineer review</button><button class="btn" id="pilotNew">Clear selection</button></div><p id="pilotActionStatus" class="tiny muted" role="status"></p>
+ </article>
+ <aside><article class="panel"><h3>Server review queue</h3><div id="pilotRecords" class="tiny muted">Sign in to load server records.</div></article>
+ <article class="panel"><h3>Engineer review · not certification</h3><label for="pilotDecision">Human review outcome</label><select id="pilotDecision"><option value="needs_correction">Return for correction</option><option value="reviewed">Reviewed — no issues noted</option><option value="rejected">Rejected</option></select>
+ <label for="pilotNote">Required note (10+ characters)</label><textarea id="pilotNote" placeholder="Describe source checks, exceptions and limitations"></textarea><button class="btn main" id="pilotReview">Record engineer review</button><p class="tiny muted">An engineering sign-off or regulatory acceptance requires separate qualified procedures.</p></article></aside></div>
+ <article class="panel"><div class="between"><h3>12 · Data Quality Preflight</h3><span class="badge">Advisory — not material acceptance</span></div>
+ <p class="tiny muted">Inspect arithmetic, provenance, and implausible entries before submission. Red blockers stop submission; amber warnings are visible to the reviewer. This is not an ASTM/AASHTO acceptance engine. Values in this view are illustrations until a qualified engineer validates the method and project rules.</p>
+ <div class="buttons"><button class="btn main" id="pilotCheckSelected">Check selected server record</button><button class="btn" id="pilotCsv">Export neutral CSV (engineer)</button></div>
+ <div id="pilotQAStatus" role="status" class="tiny muted">No server-side preflight completed.</div>
+ <pre id="pilotQAReport" class="statusbox mono" style="white-space:pre-wrap;overflow:auto">Use Check entered fields or Check selected server record.</pre></article>
+ <article class="panel"><h3>13 · ElmTree Bridge v1.3 — local review only</h3><p class="tiny muted">Operator-defined CSV mapping, engineer-reviewed candidate export and offline reconciliation. No ElmTree API access or automatic vendor import.</p><a href="/bridge" target="_blank" rel="noopener" class="btn main">Open ElmTree Bridge workbench (when local server is running)</a><p class="tiny muted">Offline standalone: <a href="bridge/ELMTREE_BRIDGE.html" target="_blank" rel="noopener">open bridge/ELMTREE_BRIDGE.html from extracted source package</a>.</p></article>
+<article class="panel"><h3>Revision &amp; integrity controls</h3><div class="buttons"><button class="btn" id="pilotHistory">View immutable revisions</button><button class="btn" id="pilotAudit">Verify hash-linked audit</button><button class="btn" id="pilotDownload">Export server snapshot (engineer only)</button><button class="btn main" id="pilotReport">Download selected review worksheet (JSON)</button></div><pre id="pilotIntegrity" class="statusbox mono" style="white-space:pre-wrap;overflow:auto">No audit verification performed.</pre></article>
+</section>
+
+<section id="roadmap" class="page hidden"><div class="cols"><article class="panel"><h2>Production-readiness milestones (not yet complete)</h2><div class="step"><b>1</b><div><strong>Validated lab images → structured JSON</strong><div class="muted">NDG/Proctor image draft extraction is prototyped; multi-test lab forms need extraction models, labeled verification datasets and error benchmarks</div></div></div><div class="step"><b>2</b><div><strong>Units and cross-document checks</strong><div class="muted">Broaden the unit registry, document/version match, instrument calibration, Proctor oversize handling and method-specific precision rules</div></div></div><div class="step"><b>3</b><div><strong>Local role-based review prototype (v1.0)</strong><div class="muted">Technician and engineer identities, locked reviewed records, revision history and SQLite hash-chain implemented for local sandbox. Formal signatures, multi-tenant hardening and external audit anchoring are not implemented.</div></div></div><div class="step"><b>4</b><div><strong>Neutral CSV export and QA preflight (v1.0)</strong><div class="muted">Engineer-only vendor-neutral CSV, reversible audit-checked SQLite backup, server-side preflight, and synthetic benchmarking. ElmTree/GET API connector and field validation are not complete.</div></div></div><div class="step"><b>5</b><div><strong>Authorized LIMS connector</strong><div class="muted">Only after authorization, validate data mapping to the actual company software or supported vendor API</div></div></div></article><article class="panel"><h2>Testing references</h2><p class="muted">For design orientation: ASTM D6938 (nuclear field density/moisture), ASTM C143 (slump), C231 (pressure air) and C1064 (temperature). Actual applicability, versions, procedures and acceptance requirements must come from the project specifications and licensed standards.</p><div class="note">AI should propose values, not invent field observations or autonomously approve a construction test.</div></article></div></section>
+<div class="foot">CMT Intelligence OS v1.3 · Local experimental release · Experimental software · Offline test records stay in browser local storage; separately authenticated pilot records stay in local SQLite. Export backups. Not for field acceptance, regulatory reporting or confidential projects without security and method validation.</div>
+</main><div class="report" id="report"></div>
+<script>
+'use strict';
+const $=id=>document.getElementById(id), KEY='cmt-intelligence-os-v07', PREV_KEY='cmt-intelligence-os-v06', PREV2_KEY='cmt-intelligence-os-v05', OLD_KEY='cmt-intelligence-os-v04', OLDER_KEY='cmt-intelligence-os-v03', FIRST_KEY='cmt-intelligence-os-v02';
+const now=()=>new Date().toISOString(),round=n=>Math.round((n+Number.EPSILON)*100)/100,txt=id=>$(id).value.trim(),nval=id=>Number(txt(id));
+const esc=v=>String(v==null?'':v).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const localTime=()=>{const d=new Date();return new Date(d.getTime()-d.getTimezoneOffset()*6e4).toISOString().slice(0,16)};
+
+// v0.7 retains stand-alone configurable multi-test catalog. This is NOT a replacement for licensed standards.
+const CATALOG={
+ soil_moisture:{name:'Soil — Oven moisture',group:'Soil',standard:'ASTM D2216',note:'Computes gravimetric water content from three recorded masses; oven procedure and drying completeness are not validated.',fields:[
+  ['massWet','Container + moist soil (g)',210,0,100000],['massDry','Container + dry soil (g)',190,0,100000],['tare','Empty container mass (g)',90,0,100000]]},
+ atterberg:{name:'Soil — Atterberg limits',group:'Soil',standard:'ASTM D4318',note:'Computes PI from entered LL/PL. Does not perform multi-point liquid-limit test or verify apparatus/procedure.',fields:[
+  ['ll','Liquid limit LL (%)',42,0,200],['pl','Plastic limit PL (%)',23,0,200],['piMax','Project PI maximum (%) · optional',20,0,200,'optional']]},
+ proctor:{name:'Soil — Proctor summary',group:'Soil',standard:'ASTM D698 / D1557',note:'Transcribes MDD and OMC from an independently approved Proctor curve; this does NOT calculate a compaction curve.',fields:[
+  ['maxDry','Approved MDD (pcf)',121,1,300],['optMoist','Approved OMC (%)',12,0,100],['proctorMethod','Standard or modified effort', 'Standard (D698)',null,null,'text']]},
+ sand_cone:{name:'Soil — Sand cone density',group:'Soil',standard:'ASTM D1556',note:'Calculates wet and dry densities from excavated wet mass, calibrated hole volume and independent moisture test.',fields:[
+  ['excavatedMass','Moist excavated soil (lb)',7.8,0.001,10000],['holeVolume','Calibrated hole volume (ft³)',0.0625,0.00001,100],['sandMoist','Moisture content (%)',10,0,100],['refMdd','Approved reference MDD (pcf)',115,1,300],['sandMinComp','Project minimum compaction (%)',95,0,110]]},
+ sieve:{name:'Aggregate — Single-sieve checkpoint',group:'Aggregates',standard:'ASTM C136 / C117',note:'One cumulative-retained sieve checkpoint only; not a full sieve stack, washing procedure or standard gradation test.',fields:[
+  ['sampleMass','Dry sample mass (g)',1000,0.001,1e7],['retainedMass','Cumulative retained mass on selected sieve (g)',225,0,1e7],['sieveSize','Sieve designation', 'No. 4 (4.75 mm)',null,null,'text'],['passMin','Project passing minimum (%) · optional',70,0,100,'optional'],['passMax','Project passing maximum (%) · optional',90,0,100,'optional']]},
+ cylinder:{name:'Concrete — Cylinder compressive strength',group:'Concrete',standard:'ASTM C39',note:'Calculates single-cylinder strength; acceptance of concrete requires the governing specification, specimen set and age criteria.',fields:[
+  ['breakLoad','Recorded maximum load (lbf)',141372,0.001,1e8],['diameter','Measured average diameter (in)',4,0.1,24],['age','Specimen age (days)',28,0.01,730],['designStrength','Project reference strength f′c (psi) · optional',4000,0,50000,'optional']]},
+ unit_weight:{name:'Concrete — Fresh unit weight',group:'Concrete',standard:'ASTM C138',note:'Computes fresh concrete unit weight from container calibration volume and masses; not full yield/air computation.',fields:[
+  ['fullMass','Container + concrete (lb)',56.0,0,100000],['emptyMass','Empty container (lb)',20.8,0,100000],['calVolume','Calibrated container volume (ft³)',0.25,0.001,100],['uwMin','Job minimum (pcf) · optional',135,0,300,'optional'],['uwMax','Job maximum (pcf) · optional',155,0,300,'optional']]},
+ asphalt_core:{name:'Asphalt — Core bulk SG / %Gmm',group:'Asphalt',standard:'ASTM D2726 (non-absorptive) / D2041',note:'Estimates bulk SG from dry/SSD/submerged masses and % of supplied Gmm; method applicability and water-temperature corrections are not checked.',fields:[
+  ['dryCore','Core dry mass in air (g)',1160,0.001,1e7],['ssdCore','Core SSD mass in air (g)',1165,0.001,1e7],['underCore','Core submerged mass (g)',674,0,1e7],['gmmCore','Approved theoretical maximum SG Gmm',2.5,0.01,5],['rcMin','Project minimum %Gmm · optional',92,0,110,'optional'],['rcMax','Project maximum %Gmm · optional',98,0,110,'optional']]},
+ asphalt_voids:{name:'Asphalt — Air voids from SG',group:'Asphalt',standard:'ASTM D2041 / D2726',note:'Calculates air voids from supplied Gmm and Gmb; does not itself test either specific gravity.',fields:[
+  ['gmb','Bulk specific gravity Gmb',2.35,0.01,5],['gmm','Maximum theoretical specific gravity Gmm',2.50,0.01,5],['voidMin','Project air void minimum (%) · optional',3,0,100,'optional'],['voidMax','Project air void maximum (%) · optional',6,0,100,'optional']]},
+ rebar_cover:{name:'Inspection — Rebar concrete cover',group:'Inspection',standard:'Approved structural plans / project requirements',note:'Field cover checkpoint only. Cover requirements and allowable tolerances must come from approved drawings/specifications.',fields:[
+  ['cover','Measured clear cover (in)',2,0,30],['coverMin','Required cover minimum (in)',1.5,0,30],['coverMax','Allowed cover maximum (in) · optional',3,0,30,'optional'],['barRef','Bar/element ID','DEMO-RB-1',null,null,'text']]}
+};
+const CATALOG_KEYS=Object.keys(CATALOG);
+function catalogErrors(type,d){const x=CATALOG[type],errors=[];if(!x)return ['Unknown test type.'];
+ for(const [k,label,_def,min,max,mode] of x.fields){
+  if(mode==='text'){if(!String(d[k]||'').trim())errors.push(`${label} is required.`);continue}
+  const v=d[k];if(mode==='optional'&&v==null)continue;
+  if(typeof v!=='number'||!Number.isFinite(v))errors.push(`${label} must be a valid number.`);
+  else if(v<min||v>max)errors.push(`${label} outside demonstrator input bounds (${min}–${max}).`);
+ }
+ const greater=(a,b,msg)=>{if(Number.isFinite(d[a])&&Number.isFinite(d[b])&&!(d[a]>d[b]))errors.push(msg)};
+ switch(type){
+ case 'soil_moisture':greater('massWet','massDry','Wet mass must exceed dry mass.');greater('massDry','tare','Dry + container mass must exceed container mass.');break;
+ case 'atterberg':if(d.ll<d.pl)errors.push('LL must not be below PL.');break;
+ case 'sieve':if(d.retainedMass>d.sampleMass)errors.push('Cumulative retained cannot exceed sample mass.');break;
+ case 'unit_weight':greater('fullMass','emptyMass','Full container must exceed empty container mass.');break;
+ case 'asphalt_core':greater('ssdCore','underCore','SSD mass must exceed submerged mass.');if(d.ssdCore<d.dryCore)errors.push('SSD mass cannot be less than dry mass.');break;
+ case 'sand_cone':break;
+ }
+ const pairs={sieve:['passMin','passMax'],unit_weight:['uwMin','uwMax'],asphalt_core:['rcMin','rcMax'],asphalt_voids:['voidMin','voidMax']};
+ if(pairs[type]){const [a,b]=pairs[type];if(d[a]!=null&&d[b]!=null&&d[a]>d[b])errors.push('Project minimum cannot exceed maximum.');}
+ if(type==='rebar_cover'&&d.coverMax!=null&&d.coverMin>d.coverMax)errors.push('Cover minimum cannot exceed maximum.');
+ return errors;
+}
+function catalogCalculate(type,d){const f=[],v={},fmt=(x)=>round(x),check=(key,min,max,unit)=>{
+ if(min!=null&&v[key]<min||max!=null&&v[key]>max)f.push(`${key} ${fmt(v[key])}${unit} is outside entered project bounds ${min??'—'}–${max??'—'}${unit}. Review source/specification.`)};
+ switch(type){
+ case 'soil_moisture': v.waterContent=fmt(100*(d.massWet-d.massDry)/(d.massDry-d.tare));break;
+ case 'atterberg':v.plasticityIndex=fmt(d.ll-d.pl);if(d.piMax!=null&&v.plasticityIndex>d.piMax)f.push(`PI ${v.plasticityIndex}% exceeds project maximum ${d.piMax}%.`);break;
+ case 'proctor':v.maxDry=fmt(d.maxDry);v.optMoist=fmt(d.optMoist);f.push('Reference Proctor curve and test method/effort require independent engineer verification.');break;
+ case 'sand_cone':{const wet=d.excavatedMass/d.holeVolume,dry=wet/(1+d.sandMoist/100),pct=dry/d.refMdd*100;v.wetDensity=fmt(wet);v.dryDensity=fmt(dry);v.compaction=fmt(pct);if(pct<d.sandMinComp)f.push(`Calculated compaction ${v.compaction}% (unrounded comparison) is below entered job minimum ${d.sandMinComp}%.`);break;}
+ case 'sieve':{const pct=100*(1-d.retainedMass/d.sampleMass);v.percentPassing=fmt(pct);if(d.passMin!=null&&pct<d.passMin||d.passMax!=null&&pct>d.passMax)f.push(`Selected sieve passing ${v.percentPassing}% outside entered job range ${d.passMin??'—'}–${d.passMax??'—'}%.`);break;}
+ case 'cylinder':{const psi=d.breakLoad/(Math.PI*d.diameter*d.diameter/4);v.strengthPsi=fmt(psi);if(d.designStrength!=null&&psi<d.designStrength)f.push(`Single cylinder ${v.strengthPsi} psi is below entered f′c reference ${d.designStrength} psi (unrounded comparison); this is NOT a concrete acceptance decision.`);break;}
+ case 'unit_weight':{const unit=(d.fullMass-d.emptyMass)/d.calVolume;v.unitWeightPcf=fmt(unit);if(d.uwMin!=null&&unit<d.uwMin||d.uwMax!=null&&unit>d.uwMax)f.push(`Unit weight ${v.unitWeightPcf} pcf is outside entered job bounds ${d.uwMin??'—'}–${d.uwMax??'—'} pcf.`);break;}
+ case 'asphalt_core':{const bulk=d.dryCore/(d.ssdCore-d.underCore),pct=bulk/d.gmmCore*100;v.bulkSG=fmt(bulk);v.relativeGmm=fmt(pct);if(d.rcMin!=null&&pct<d.rcMin||d.rcMax!=null&&pct>d.rcMax)f.push(`Relative density ${v.relativeGmm}% of Gmm outside entered job limits ${d.rcMin??'—'}–${d.rcMax??'—'}%.`);if(bulk>d.gmmCore)f.push('Bulk SG exceeds theoretical maximum SG: verify sources, sampling, units and applicability.');break;}
+ case 'asphalt_voids':{const voids=100*(1-d.gmb/d.gmm);v.airVoidsPercent=fmt(voids);if(d.voidMin!=null&&voids<d.voidMin||d.voidMax!=null&&voids>d.voidMax)f.push(`Air voids ${v.airVoidsPercent}% outside entered project range ${d.voidMin??'—'}–${d.voidMax??'—'}%.`);if(d.gmb>d.gmm)f.push('Gmb exceeds Gmm: check source data; reported air voids are physically implausible.');break;}
+ case 'rebar_cover':v.coverMeasured=d.cover;if(d.cover<d.coverMin||d.coverMax!=null&&d.cover>d.coverMax)f.push(`Clear cover ${d.cover} in outside entered job bounds ${d.coverMin}–${d.coverMax??'—'} in.`);break;
+ }
+ return {flags:f,results:v};
+}
+function formatCatalogValues(type,r){const c=CATALOG[type];if(!c)return[];const items=c.fields.map(([k,label])=>[label, r.data[k]==null?'Not specified':String(r.data[k])]);for(const [k,v] of Object.entries(r.results||{}))items.push([({waterContent:'Calculated water content (%)',plasticityIndex:'Calculated PI (%)',wetDensity:'Wet density (pcf)',dryDensity:'Dry density (pcf)',compaction:'Compaction (%)',percentPassing:'Selected sieve passing (%)',strengthPsi:'Single-cylinder strength (psi)',unitWeightPcf:'Unit weight (pcf)',bulkSG:'Bulk SG',relativeGmm:'Density (% Gmm)',airVoidsPercent:'Air voids (%)',coverMeasured:'Cover reading (in)'})[k]||k,String(v)]);items.push(['Indicative test method',c.standard]);return items}
+
+const ADVANCED_META={
+ proctor_curve:{name:'Soil — Multi-point Proctor curve',group:'Soil',standard:'ASTM D698 / D1557 (reference only)',note:'Observed curve + illustrative local interpolation, not full procedure or adopted MDD/OMC.'},
+ sieve_stack:{name:'Aggregate — Multi-sieve gradation',group:'Aggregates',standard:'ASTM C136/C136M (reference only)',note:'Dry retained-mass series, grading math and balance checks; separate C117 wash results are not calculated.'},
+ cylinder_set:{name:'Concrete — Multi-cylinder set',group:'Concrete',standard:'ASTM C39/C39M; ACI criteria need qualified review',note:'Individual strengths and specimen-set mean only; does not assert concrete acceptance.'}
+};
+
+const required={soil:['wet','moisture','mdd','minComp'],concrete:['slump','slumpMin','slumpMax','air','airMin','airMax','temp','tempMax']};
+for(const [t,c] of Object.entries(CATALOG))required[t]=c.fields.filter(f=>f[5]!=='optional'&&f[5]!=='text').map(f=>f[0]);
+const labels={wet:'Wet density',moisture:'Moisture content',mdd:'Reference dry density',minComp:'Required compaction',slump:'Slump',slumpMin:'Minimum slump',slumpMax:'Maximum slump',air:'Air content',airMin:'Minimum air',airMax:'Maximum air',temp:'Temperature',tempMax:'Maximum temperature'};
+function evaluate(type,d){if(ADVANCED_META[type])return calcAdvanced(type,d);if(CATALOG[type])return catalogCalculate(type,d);const flags=[],results={};if(type==='soil'){
+  const rawDry=d.wet/(1+d.moisture/100);results.dryDensity=round(rawDry);results.compaction=round(100*rawDry/d.mdd);results.compactionUnrounded=round(100000*(100*rawDry/d.mdd))/100000;
+  if(100*rawDry/d.mdd<d.minComp)flags.push(`Compaction ${results.compactionUnrounded}% (unrounded evaluation) is below the entered job requirement of ${d.minComp}%.`);
+  if(results.compaction>110)flags.push(`Unusually high compaction ${results.compaction}%; verify Proctor selection and readings.`);
+  if(!d.proctor)flags.push('Reference Proctor report number is missing.');
+}else{results.slump=d.slump;results.air=d.air;results.temp=d.temp;
+  if(d.slump<d.slumpMin||d.slump>d.slumpMax)flags.push(`Slump ${d.slump} in is outside the entered job range ${d.slumpMin}–${d.slumpMax} in.`);
+  if(d.air<d.airMin||d.air>d.airMax)flags.push(`Air ${d.air}% is outside the entered job range ${d.airMin}–${d.airMax}%.`);
+  if(d.temp>d.tempMax)flags.push(`Concrete temperature ${d.temp}°F exceeds the entered job max ${d.tempMax}°F.`);
+ }return {flags,results}}
+function contextFlags(rec,records,excludeId=null){
+ const flags=[];
+ if(!rec.specRef)flags.push('Project specification/revision reference is missing; entered limits are not traceable.');
+ if(!rec.evidence)flags.push('Original measurement evidence reference is missing.');
+ if(rec.source==='Mapped CSV draft (unverified)' || rec.source==='Transcription draft (unverified)')flags.push('Imported/transcribed values must be checked against original evidence before review.');
+ const same=records.find(x=>x.id!==excludeId && x.id!==rec.parentId && !x.replacedBy && x.status!=='returned' &&
+  x.project===rec.project && x.type===rec.type && x.location===rec.location && x.date===rec.date &&
+  JSON.stringify(x.data)===JSON.stringify(rec.data));
+ if(same)flags.push(`Potential duplicate of ${same.id}: same project, location, time and measurements. Check whether this is a separate reading.`);
+ return flags;
+}
+function evaluateFull(rec,records,excludeId=null){const out=evaluate(rec.type,rec.data);return {...out,flags:[...out.flags,...contextFlags(rec,records,excludeId)]}}
+
+function inputErrors(type,d){if(ADVANCED_META[type])return advancedErrors(type,d);if(CATALOG[type])return catalogErrors(type,d);const out=[];for(const key of required[type])if(!Number.isFinite(d[key]))out.push(`${labels[key]} must be a finite number.`);
+if(type==='soil'){if(!(d.wet>0)||d.wet>1000)out.push('Wet density must be above zero and not exceed the demonstrator safety bound of 1000 pcf.');if(!(d.mdd>0)||d.mdd>1000)out.push('Reference dry density must be above zero and not exceed the demonstrator safety bound of 1000 pcf.');if(d.moisture<0||d.moisture>=100)out.push('Moisture must be at least 0% and below 100%.');if(d.minComp<0||d.minComp>110)out.push('Required compaction must be between 0% and 110%.');}
+else{if(d.slump<0||d.slump>24||d.slumpMin<0||d.slumpMax>24)out.push('Slump and its project limits must be in 0–24 in for this demo.');if(d.air<0||d.air>100||d.airMin<0||d.airMax>100)out.push('Air values must be in 0–100%.');if(d.slumpMin>d.slumpMax)out.push('Slump min cannot exceed max.');if(d.airMin>d.airMax)out.push('Air min cannot exceed max.');if(d.temp<0||d.temp>250||d.tempMax<0||d.tempMax>250)out.push('Temperatures must be in 0–250°F for this demo.');}
+return out}
+function sample(){const a={id:'DEMO-S-001',parentId:null,version:1,type:'soil',project:'DEMO-001',tech:'Example Technician',location:'Area A / lift 2',date:localTime(),source:'Synthetic demo',evidence:'SAMPLE-NDG-FORM',specRef:'DEMO-SPEC-REV-A',data:{wet:126,moisture:11.8,mdd:120,minComp:95,proctor:'DEMO-PROCTOR-01'},status:'review',reviewer:'',note:''};const b={id:'DEMO-C-002',parentId:null,version:1,type:'concrete',project:'DEMO-001',tech:'Example Technician',location:'Slab pour / truck 12',date:localTime(),source:'Synthetic demo',evidence:'SAMPLE-TRUCK-12',specRef:'DEMO-SPEC-REV-A',data:{slump:5.25,slumpMin:4,slumpMax:6,air:5.2,airMin:4,airMax:7,temp:78,tempMax:95,mix:'DEMO-MIX'},status:'review',reviewer:'',note:''};for(const a0 of [a,b])Object.assign(a0,evaluate(a0.type,a0.data));return{schema:7,records:[a,b],audit:[{time:now(),event:'DEMO INIT',id:'—',actor:'System',detail:'Synthetic testing data; not actual field measurements.'}]}}
+function isRecord(r){if(!(r&&typeof r.id==='string'&&['soil','concrete',...CATALOG_KEYS,...Object.keys(ADVANCED_META)].includes(r.type)&&r.data&&typeof r.data==='object'&&['review','approved','returned'].includes(r.status)&&Array.isArray(r.flags)&&r.results&&typeof r.results==='object'&&typeof r.project==='string'&&typeof r.tech==='string'&&typeof r.location==='string'&&typeof r.date==='string'))return false;if(ADVANCED_META[r.type]){try{return advancedErrors(r.type,r.data).length===0}catch{return false}}return true}
+function migrate(v){
+ if(!v || ![2,3,4,5,6,7].includes(v.schema) || !Array.isArray(v.records) || !v.records.every(isRecord) || !Array.isArray(v.audit))return null;
+ if(v.schema===2){for(const r of v.records){r.specRef='';if(r.status==='review'&&!r.flags.includes('Project specification/revision reference is missing; entered limits are not traceable.'))r.flags.push('Project specification/revision reference is missing; entered limits are not traceable.');}
+  v.schema=3;v.audit.unshift({time:now(),event:'BACKUP MIGRATED',id:'ALL',actor:'System',detail:'V0.2 records imported; unspecified project-specification references must be verified.'});}
+ if(v.schema===3){v.schema=4;v.audit.unshift({time:now(),event:'BACKUP MIGRATED',id:'ALL',actor:'System',detail:'V0.3 records carried forward; no independent evidence check exists for older records.'});}
+ if(v.schema===4){v.schema=5;v.audit.unshift({time:now(),event:'BACKUP MIGRATED',id:'ALL',actor:'System',detail:'V0.4 records carried forward; photo drafts are never restored from an older backup.'});}
+ if(v.schema===5){v.schema=6;v.audit.unshift({time:now(),event:'BACKUP MIGRATED',id:'ALL',actor:'System',detail:'V0.5 records carried forward into multi-test catalog.'});}
+ if(v.schema===6){v.schema=7;v.audit.unshift({time:now(),event:'BACKUP MIGRATED',id:'ALL',actor:'System',detail:'V0.6 records preserved; advanced laboratory worksheets enabled.'});}
+ return v;
+}
+function load(){try{let raw=localStorage.getItem(KEY);if(!raw)raw=localStorage.getItem(PREV_KEY);if(!raw)raw=localStorage.getItem(PREV2_KEY);if(!raw)raw=localStorage.getItem(OLD_KEY);if(!raw)raw=localStorage.getItem(OLDER_KEY);if(!raw)raw=localStorage.getItem(FIRST_KEY);return migrate(JSON.parse(raw))||sample()}catch{return sample()}}
+
+let db=load(),chosen=db.records[0]?.id||null,editing=null;
+const store=()=>{try{localStorage.setItem(KEY,JSON.stringify(db))}catch{$('saveMsg').textContent='Browser storage unavailable. Export JSON backup before closing this page.'}};
+function log(event,id,actor,detail){db.audit.unshift({time:now(),event,id,actor,detail})}
+function counts(){const q=db.records.filter(r=>r.status==='review');$('total').textContent=db.records.length;$('pending').textContent=q.length;$('flags').textContent=q.filter(r=>r.flags.length).length;$('approved').textContent=db.records.filter(r=>r.status==='approved').length}
+function page(name){for(const e of document.querySelectorAll('.page'))e.classList.toggle('hidden',e.id!==name);for(const e of document.querySelectorAll('[data-page]'))e.classList.toggle('on',e.dataset.page===name);if(name==='queue')renderQueue();if(name==='audit')renderAudit();if(name==='reconcile')renderReconcilePicker();if(name==='photo')renderPhotoPicker();if(name==='catalog')renderCatalog();if(name==='advanced')renderAdvanced();if(name==='validation')renderValidation();if(name==='securepilot')pilotRefresh()}
+for(const e of document.querySelectorAll('[data-page]'))e.addEventListener('click',()=>page(e.dataset.page));
+function renderCatalog(){const rows=[['Soil','Soil — NDG field compaction','ASTM D6938','Field density & compaction only','soil'],['Concrete','Fresh concrete slump/air/temp','ASTM C143 / C231 / C1064','Project-entered limits; not full method validation','concrete'],...CATALOG_KEYS.map(k=>[CATALOG[k].group,CATALOG[k].name,CATALOG[k].standard,CATALOG[k].note,k]),...Object.entries(ADVANCED_META).map(([k,x])=>[x.group,x.name,x.standard,x.note,k])];$('catalogRows').innerHTML=rows.map(([group,name,std,note,key])=>`<tr><td>${esc(group)}</td><td><strong>${esc(name)}</strong></td><td>${esc(std)}</td><td>${esc(note)}</td><td><button class="btn small" data-use="${esc(key)}">Enter</button></td></tr>`).join('');for(const b of $('catalogRows').querySelectorAll('[data-use]'))b.onclick=()=>{if(ADVANCED_META[b.dataset.use]){$('advType').value=b.dataset.use;advReset(false);page('advanced')}else{$('testType').value=b.dataset.use;switchType();page('capture')}}}
+function switchType(){const type=txt('testType');$('soilFields').classList.toggle('hidden',type!=='soil');$('concreteFields').classList.toggle('hidden',type!=='concrete');$('catalogFields').classList.toggle('hidden',!CATALOG[type]);
+ if(CATALOG[type]){const c=CATALOG[type];$('catalogHeading').textContent=c.name;$('catalogMethod').textContent=`Indicative: ${c.standard}. ${c.note} Use actual job specification for decisions.`;
+ $('catalogForm').innerHTML=c.fields.map(([k,label,def,min,max,mode])=>`<div><label for="${esc(k)}">${esc(label)} ${mode==='optional'?'':'*'}</label><input id="${esc(k)}" ${mode==='text'?'type="text"':'type="number" step="any"'} value="${esc(mode==='optional'?'':def)}" ${mode==='text'?'maxlength="120"':''}></div>`).join('');
+ if(!editing)$('paste').value=c.fields.filter(f=>f[5]!=='optional').map(([k,,def])=>`${k}: ${def}`).join('\n');
+ }else if(!editing)$('paste').value=type==='soil'?'wet_density: 126\nmoisture: 11.8\nmax_dry_density: 120\nmin_compaction: 95\nlocation: Area A':'slump: 5.25\nslump_min: 4\nslump_max: 6\nair: 5.2\nair_min: 4\nair_max: 7\ntemperature: 78';
+ $('aiExtract').disabled=!aiReady||!!CATALOG[type];
+}
+$('testType').addEventListener('change',switchType);$('switch').onclick=()=>{$('testType').value=txt('testType')==='soil'?'concrete':'soil';switchType()};$('date').value=localTime();
+function readData(type){if(CATALOG[type]){const d={};for(const [k,label,def,min,max,mode] of CATALOG[type].fields){const val=txt(k);d[k]=mode==='text'?val:mode==='optional'&&val===''?null:val===''?NaN:Number(val)}return d}const d={};for(const k of required[type])d[k]=txt(k)===''?NaN:nval(k);if(type==='soil')d.proctor=txt('proctor');else d.mix=txt('mix');return d}
+function readCommon(){return{project:txt('project'),tech:txt('tech'),location:txt('location'),date:txt('date'),source:txt('source'),evidence:txt('evidence'),specRef:txt('specRef')}}
+function makeID(){let id;do{id='CMT-'+Date.now().toString(36).toUpperCase()+'-'+Math.random().toString(36).slice(2,6).toUpperCase()}while(db.records.some(x=>x.id===id));return id}
+function save(){const type=txt('testType'),common=readCommon(),data=readData(type);const err=inputErrors(type,data);
+for(const f of ['project','tech','location','date'])if(!common[f])err.push(`${f} is required.`);
+if(err.length){$('saveMsg').textContent='Cannot save: '+err.join(' ');return}
+const recBase={id:makeID(),type,...common,data,parentId:editing?editing.id:null};const out=evaluateFull(recBase,db.records);const rec={...recBase,...out,status:'review',reviewer:'',note:'',version:editing?editing.version+1:1,parentId:editing?editing.id:null};db.records.unshift(rec);
+log(editing?'REVISED':'CREATED',rec.id,rec.tech,`${type} test; ${out.flags.length} flag(s).`+(editing?` Previous version ${editing.id}.`:''));
+if(editing){const r=db.records.find(r=>r.id===editing.id);if(r)r.replacedBy=rec.id;editing=null;}
+store();counts();chosen=rec.id;resetForm(false);page('queue')}
+$('save').onclick=save;
+function resetForm(resetValues=true){editing=null;$('entryTitle').textContent='New field test';$('revisionBadge').textContent='New record';$('cancelEdit').classList.add('hidden');$('save').textContent='Save & run QA checks';$('testType').disabled=false;$('saveMsg').textContent='';if(resetValues){$('project').value='DEMO-001';$('tech').value='Training Technician';$('location').value='Area A / lift 2';$('date').value=localTime();$('evidence').value='';$('specRef').value='';}}
+$('cancelEdit').onclick=()=>resetForm();
+function fillFromRecord(r){if(ADVANCED_META[r.type]){loadAdvancedRecord(r);return}editing=r;$('testType').value=r.type;switchType();$('testType').disabled=true;for(const k of ['project','tech','location','date','evidence','specRef'])$(k).value=r[k]||'';$('source').value=['Manual entry','Transcription draft (unverified)','Mapped CSV draft (unverified)','Voice transcript draft (verified)'].includes(r.source)?r.source:'Manual entry';for(const k of required[r.type])$(k).value=r.data[k];if(CATALOG[r.type]){for(const [k] of CATALOG[r.type].fields)$(k).value=r.data[k]??'';}else if(r.type==='soil')$('proctor').value=r.data.proctor||'';else $('mix').value=r.data.mix||'';$('entryTitle').textContent='Correct returned test';$('revisionBadge').textContent=`Version ${r.version+1} · supersedes ${r.id}`;$('cancelEdit').classList.remove('hidden');$('save').textContent='Save corrected version';page('capture');window.scrollTo({top:0,behavior:'smooth'})}
+const pasteMap={wet_density:'wet',wet:'wet',moisture:'moisture',water_content:'moisture',max_dry_density:'mdd',mdd:'mdd',min_compaction:'minComp',proctor:'proctor',slump:'slump',slump_min:'slumpMin',slump_max:'slumpMax',air:'air',air_min:'airMin',air_max:'airMax',temperature:'temp',temp:'temp',temp_max:'tempMax',location:'location',project:'project',technician:'tech',mix:'mix',evidence:'evidence',spec_reference:'specRef',spec_ref:'specRef'};
+for(const c of Object.values(CATALOG))for(const [k] of c.fields)pasteMap[k.toLowerCase()]=k;
+$('applyPaste').onclick=()=>{let count=0;const issues=[],applied=[];const t=txt('testType');const allowed=new Set([...required[t],...['location','project','tech','evidence','specRef'],...(CATALOG[t]?CATALOG[t].fields.map(f=>f[0]):[t==='soil'?'proctor':'mix'])]);for(const line of txt('paste').split(/\r?\n/)){if(!line.trim())continue;const m=line.match(/^\s*([\w ]+)\s*[:=]\s*(.*?)\s*$/);if(!m){issues.push('Unparsed line');continue}const k=pasteMap[m[1].toLowerCase().replace(/\s+/g,'_')];if(!k||!allowed.has(k)){issues.push(m[1]+' not recognized for this test');continue}if($(k).type==='number'){if(!/^[+-]?(?:\d+\.?\d*|\.\d+)$/.test(m[2])){issues.push(m[1]+' is not a plain number');continue}$(k).value=m[2]}else $(k).value=m[2];count++;applied.push(k)}if(count)$('source').value='Transcription draft (unverified)';$('pasteMsg').textContent=`Applied ${count} field(s): ${applied.join(', ')}. ${issues.length?'Ignored: '+issues.join('; ')+'. ':''}Every value still requires source verification.`}
+let aiReady=false;
+async function checkAI(){if(location.protocol==='file:'){ $('aiStatus').textContent='Offline HTML mode. To use AI, start the included local server.';return }try{const response=await fetch('/api/status',{cache:'no-store'});if(!response.ok)throw Error('Unavailable');const data=await response.json();aiReady=!!data.configured;$('aiStatus').textContent=aiReady?'Local AI backend configured. Upload is opt-in and requires authorization.':'Local server detected; set OPENAI_API_KEY to activate extraction.';$('aiExtract').disabled=!aiReady||!!CATALOG[txt('testType')]}catch{$('aiStatus').textContent='AI server not connected. Manual entry and paste adapter still work offline.'}}
+$('aiExtract').onclick=async()=>{if(!aiReady){$('aiStatus').textContent='Server unavailable';return}const f=$('imageFile').files?.[0];if(!f){$('aiStatus').textContent='Choose a photo first.';return}if(!['image/jpeg','image/png','image/webp'].includes(f.type)||f.size>4e6){$('aiStatus').textContent='Use JPEG, PNG or WEBP under 4 MB.';return}if(!$('aiConsent').checked){$('aiStatus').textContent='Please confirm authorization before uploading.';return}const data=new FormData();data.append('file',f);data.append('type_hint',txt('testType'));data.append('consent','true');$('aiExtract').disabled=true;$('aiStatus').textContent='Analyzing selected image on the configured AI backend…';try{const response=await fetch('/api/extract',{method:'POST',body:data});const ans=await response.json();if(!response.ok)throw Error(ans.detail||'AI extraction failed');const lines=(ans.fields||[]).map(x=>`${x.key}: ${x.value}`);if(!lines.length)throw Error('No reliable fields detected. Enter them manually.');$('paste').value=lines.join('\n');$('pasteMsg').textContent='Draft from image extraction; click Fill fields from text, then compare against the original photo.';$('aiStatus').textContent=`AI draft: ${lines.length} values. ${ans.uncertain_fields?.length?'Uncertain fields: '+ans.uncertain_fields.join(', ')+'. ':''}${ans.notes||''}`;}catch(err){$('aiStatus').textContent='Extraction unavailable: '+err.message}finally{$('aiExtract').disabled=!aiReady||!!CATALOG[txt('testType')]}};
+checkAI();
+const stateLabel=r=>r.status==='approved'?'Reviewed':r.status==='returned'?'Returned':r.flags.length?'Needs QA review':'Pending';const pillClass=r=>r.status==='approved'?'approved':r.status==='returned'?'returned':r.flags.length?'flag':'';
+function summarize(r){if(ADVANCED_META[r.type])return Object.entries(r.results||{}).filter(([k,v])=>!Array.isArray(v)).map(([k,v])=>`${k}: ${v}`).join(' · ');if(CATALOG[r.type])return Object.entries(r.results||{}).map(([k,v])=>`${k}: ${v}`).join(' · ')||'Entered measurements; manual review required';return r.type==='soil'?`Dry density ${r.results.dryDensity} pcf · Compaction ${r.results.compaction}%`:`Slump ${r.data.slump} in · Air ${r.data.air}% · Temp ${r.data.temp}°F`}
+function renderQueue(){const search=txt('filterText').toLowerCase(),s=txt('filterStatus');const list=db.records.filter(r=>(s==='all'||s==='flagged'&&r.status==='review'&&r.flags.length||r.status===s)&&[r.id,r.project,r.location,r.tech].some(v=>String(v).toLowerCase().includes(search)));const host=$('records');host.innerHTML='';if(!list.length)host.innerHTML='<div class="empty">No matching test records.</div>';for(const r of list){const row=document.createElement('article');row.className='rowitem'+(chosen===r.id?' selected':'');row.innerHTML=`<div class="between"><h4>${esc(r.project)} · ${esc((ADVANCED_META[r.type]?.name||CATALOG[r.type]?.name)|| (r.type==='soil'?'Soil compaction':'Fresh concrete'))}</h4><span class="pill ${pillClass(r)}">${stateLabel(r)}</span></div><div class="meta">${esc(r.id)} · ${esc(r.location)} · ${esc(r.tech)}</div><div>${esc(summarize(r))}</div><div class="buttons"><button class="btn small">Open</button></div>`;row.querySelector('button').onclick=()=>{chosen=r.id;renderQueue()};host.appendChild(row)}renderDetail()}
+for(const id of ['filterText','filterStatus'])$(id).addEventListener('input',renderQueue);
+function detailValues(r){if(ADVANCED_META[r.type])return advancedDetailValues(r);if(CATALOG[r.type])return formatCatalogValues(r.type,r);const d=r.data;return r.type==='soil'?[
+['Wet density',`${d.wet} pcf`],['Moisture',`${d.moisture}%`],['Dry density',`${r.results.dryDensity} pcf`],['Relative compaction',`${r.results.compaction}%`],['Required compaction',`${d.minComp}%`],['Proctor reference',d.proctor||'Not provided']
+]:[['Slump',`${d.slump} in`],['Job slump range',`${d.slumpMin}–${d.slumpMax} in`],['Air',`${d.air}%`],['Job air range',`${d.airMin}–${d.airMax}%`],['Temperature',`${d.temp}°F`],['Job temp max',`${d.tempMax}°F`],['Mix / truck',d.mix||'Not provided']]}
+function renderDetail(){const r=db.records.find(x=>x.id===chosen),host=$('detail');if(!r){host.className='empty';host.textContent='Select a record';return}host.className='';host.innerHTML=`<div class="between"><strong class="mono">${esc(r.id)}</strong><span class="pill ${pillClass(r)}">${stateLabel(r)}</span></div><p class="tiny muted">${esc(r.project)} · ${esc(r.location)}<br> ${esc(r.date)} · ${esc(r.source)} · v${r.version}<br> Evidence ref: ${esc(r.evidence||'Not linked')}<br> Project spec/revision: ${esc(r.specRef||'NOT SUPPLIED')}</p><div class="detailgrid">${detailValues(r).map(([k,v])=>`<div><small>${esc(k)}</small><strong>${esc(v)}</strong></div>`).join('')}</div><h3>NDG evidence comparison</h3>${r.type==='soil'?renderEvidenceDetail(r):'<p class="tiny muted">Gauge cross-check currently supports soil NDG only.</p>'}<h3>Automated QA exceptions</h3>${r.flags.length?r.flags.map(f=>`<div class="warning">⚠ ${esc(f)}</div>`).join(''):'<div class="success">No exceptions against entered job limits. This does not constitute ASTM compliance or official acceptance.</div>'}${r.parentId?`<p class="tiny muted">Revision of ${esc(r.parentId)}</p>`:''}${r.replacedBy?`<p class="tiny muted">Superseded by ${esc(r.replacedBy)}</p>`:''}<div class="buttons"><button id="printRecord" class="btn small">Print review worksheet</button></div>`;
+if(r.status==='review')host.innerHTML+=`<div style="margin-top:20px"><label for="reviewer">Reviewer (required)</label><input id="reviewer" maxlength="100" placeholder="Engineer / quality reviewer"></div><div style="margin-top:10px"><label for="reason">Decision rationale ${r.flags.length?'(required for exceptions)':''}</label><textarea id="reason" placeholder="Evidence reviewed, acceptance rationale or correction required"></textarea></div><div class="buttons"><button class="btn main" id="approveRecord">Mark manually reviewed</button><button class="btn warn" id="returnRecord">Return for correction</button></div><p class="tiny muted" id="reviewMsg" role="status"></p>`;
+else host.innerHTML+=`<div class="note">Decision: ${esc(stateLabel(r))} by ${esc(r.reviewer||'Unknown')}.<br>Rationale: ${esc(r.note||'None')}</div>${r.status==='returned'&&!r.replacedBy?'<div class="buttons"><button id="revise" class="btn main">Create corrected version</button></div>':''}`;
+$('printRecord').onclick=()=>printRecord(r);if(r.status==='review'){$('approveRecord').onclick=()=>decision('approved');$('returnRecord').onclick=()=>decision('returned')}else if(r.status==='returned'&&!r.replacedBy)$('revise').onclick=()=>fillFromRecord(r)}
+function decision(s){const r=db.records.find(x=>x.id===chosen),who=txt('reviewer'),note=txt('reason');if(!who){$('reviewMsg').textContent='Enter a reviewer name.';return}if((s==='returned'||r.flags.length)&&!note){$('reviewMsg').textContent='A rationale is required for returned or flagged tests.';return}r.status=s;r.reviewer=who;r.note=note;log(s==='approved'?'MANUALLY REVIEWED':'RETURNED',r.id,who,note||'No QA exception against entered limits; source verified by reviewer.');store();counts();renderQueue()}
+function renderAudit(){$('auditBody').innerHTML=db.audit.map(a=>`<tr><td>${esc(new Date(a.time).toLocaleString())}</td><td>${esc(a.event)}</td><td class="mono">${esc(a.id)}</td><td>${esc(a.actor)}</td><td>${esc(a.detail)}</td></tr>`).join('')}
+function download(filename,s,mime){const u=URL.createObjectURL(new Blob([s],{type:mime})),a=document.createElement('a');a.href=u;a.download=filename;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(u),1000)}
+$('exportJSON').onclick=()=>download('CMT_Intelligence_OS_backup_v07.json',JSON.stringify(db,null,2),'application/json');
+function csvCell(v){let s=String(v==null?'':v);if(/^[\s]*[=+@-]/.test(s))s="'"+s;return '"'+s.replace(/"/g,'""')+'"'}
+$('exportCSV').onclick=()=>{const cols=['id','parentId','version','type','project','tech','location','date','source','evidence','specRef','status','reviewer','note','flags','evidenceCheck','advancedPointsJSON','wet','moisture','mdd','minComp','dryDensity','compaction','slump','slumpMin','slumpMax','air','airMin','airMax','temp','tempMax','mix','proctor',...new Set(Object.values(CATALOG).flatMap(c=>c.fields.map(f=>f[0])))];const rows=db.records.map(r=>cols.map(k=>csvCell(k==='flags'?r.flags.join(' | '):k==='evidenceCheck'?(r.evidenceChecks?.at(-1)?.status||'NOT CHECKED'):k==='advancedPointsJSON'&&ADVANCED_META[r.type]?JSON.stringify(r.data.points):r[k]??r.data[k]??r.results[k]??'')).join(','));download('CMT_Intelligence_OS_records_v07.csv',[cols.join(','),...rows].join('\r\n'),'text/csv;charset=utf-8')};
+$('importTrigger').onclick=()=>$('importJSON').click();$('importJSON').onchange=async e=>{const f=e.target.files[0];if(!f)return;try{if(f.size>5e6)throw Error('Backup exceeds 5 MB.');const payload=JSON.parse(await f.text());if(![2,3,4,5,6,7].includes(payload.schema)||!Array.isArray(payload.records)||!payload.records.every(isRecord)||!Array.isArray(payload.audit)||payload.records.length>5000||payload.audit.length>20000||new Set(payload.records.map(r=>r.id)).size!==payload.records.length)throw Error('Invalid or unsupported backup structure.');if(!confirm(`Replace all local data with ${payload.records.length} imported records?`))return;db=migrate(payload);chosen=db.records[0]?.id||null;store();counts();renderQueue();renderAudit();alert('Backup restored into this browser.')}catch(err){alert('Restore failed: '+err.message)}finally{$('importJSON').value=''}};
+$('reset').onclick=()=>{if(confirm('Reset all local records and audit entries to two synthetic examples? Export a backup first.')){db=sample();chosen=db.records[0].id;editing=null;advEditing=null;store();counts();renderQueue();renderAudit()}};
+function printRecord(r){const table=detailValues(r).map(([k,v])=>`<tr><th>${esc(k)}</th><td>${esc(v)}</td></tr>`).join('');$('report').innerHTML=`<h1>CMT Intelligence OS — TEST REVIEW WORKSHEET</h1><p>Record: <strong>${esc(r.id)}</strong> | Type: ${esc(r.type)} | Project: ${esc(r.project)}</p><p>Technician: ${esc(r.tech)} | Location: ${esc(r.location)} | Test date: ${esc(r.date)}</p><p>Source: ${esc(r.source)} | NDG comparison: ${esc(r.evidenceChecks?.at(-1)?.status||'NOT CHECKED')} | Evidence reference: ${esc(r.evidence||'Not attached')} | Project spec/revision: ${esc(r.specRef||'NOT SUPPLIED')}</p><table>${table}</table><h3>QA exceptions</h3><p>${r.flags.map(esc).join(' / ')||'None against entered project limits'}</p><p>Status: ${esc(stateLabel(r))} | Reviewer: ${esc(r.reviewer||'Not yet reviewed')}</p><p>Decision note: ${esc(r.note||'None')}</p><div class="printnotice">DEMONSTRATION ONLY. NOT AN OFFICIAL TEST REPORT, ENGINEER'S SIGNATURE, OR ASTM CERTIFICATION. Measurements and project limits require source verification.</div>`;window.print()}
+
+// Neutral CSV intake only; never writes to any vendor's system.
+const CSV_COLS=['type','project','tech','location','date','evidence','specRef','wet','moisture','mdd','minComp','proctor','slump','slumpMin','slumpMax','air','airMin','airMax','temp','tempMax','mix',...new Set(Object.values(CATALOG).flatMap(c=>c.fields.map(f=>f[0])))];
+const normHeader=s=>String(s).trim().toLowerCase().replace(/[^a-z0-9]/g,'');
+const HEADER_ALIASES={
+ type:['testtype','testcategory','materialtype'],project:['job','jobnumber','projectnumber','jobno','projectid'],
+ tech:['technician','inspector','fieldtechnician'],location:['station','testlocation','lift','pourarea'],
+ date:['testdate','testedat','datetime','testdatetime'],evidence:['formref','formnumber','gaugeticket','ticket'],
+ specRef:['spec','specification','specificationref','specreference','specificationrevision'],
+ wet:['wetdensity','wetdensitypcf','measuredwetdensity'],moisture:['moisturepercent','watercontent'],
+ mdd:['maxdrydensity','maximumdrydensity','proctormdd'],minComp:['minimumcompaction','requiredcompaction'],
+ proctor:['proctorref','proctornumber','proctorreport'],slump:['slumpin','slumpinches'],
+ slumpMin:['minslump','slumpminimum'],slumpMax:['maxslump','slumpmaximum'],
+ air:['aircontent','airpercent'],airMin:['minair','airminimum'],airMax:['maxair','airmaximum'],
+ temp:['temperature','concretetemperature','tempf'],tempMax:['maxtemp','maximumtemperature'],
+ mix:['mixid','mixnumber','truck','trucknumber']};
+const LOOKUP={};for(const k of CSV_COLS){LOOKUP[normHeader(k)]=k;for(const a of HEADER_ALIASES[k]||[])LOOKUP[normHeader(a)]=k}
+function parseCSV(text){
+ const rows=[];let row=[],val='',quoted=false;const s=text.replace(/^\uFEFF/,'');
+ for(let i=0;i<s.length;i++){
+  const c=s[i];if(quoted){if(c==='"'&&s[i+1]==='"'){val+='"';i++}else if(c==='"')quoted=false;else val+=c}
+  else if(c==='"'){if(val!=='')throw Error('Unexpected quote in CSV');quoted=true}
+  else if(c===','){row.push(val);val=''}
+  else if(c==='\n'||c==='\r'){if(c==='\r'&&s[i+1]==='\n')i++;row.push(val);val='';if(row.some(x=>x!==''))rows.push(row);row=[]}
+  else val+=c;
+ }
+ if(quoted)throw Error('Unclosed CSV quote');row.push(val);if(row.some(x=>x!==''))rows.push(row);
+ return rows;
+}
+function readCSVRecord(row,col,rowNo){
+ const f={};for(const [key,idx] of Object.entries(col))f[key]=(row[idx]||'').trim();
+ const type=(f.type||'').toLowerCase();if(!['soil','concrete',...CATALOG_KEYS].includes(type))throw Error('Unknown test type: '+type);
+ for(const k of ['project','tech','location','date'])if(!f[k])throw Error('Missing '+k);
+ if(!/^\d{4}-\d\d-\d\dT\d\d:\d\d$/.test(f.date)||!Number.isFinite(new Date(f.date).getTime()))throw Error('date must be YYYY-MM-DDTHH:MM');
+ const d={};if(CATALOG[type]){for(const [k,label,def,min,max,mode] of CATALOG[type].fields){const raw=f[k]||'';if(mode==='text'){d[k]=raw;continue}if(mode==='optional'&&raw===''){d[k]=null;continue}if(!/^[+-]?(?:\d+\.?\d*|\.\d+)$/.test(raw))throw Error('Missing/non-numeric '+k);d[k]=Number(raw)}}else{for(const k of required[type]){if(!/^[+-]?(?:\d+\.?\d*|\.\d+)$/.test(f[k]||''))throw Error('Missing/non-numeric '+k);d[k]=Number(f[k]);}if(type==='soil')d.proctor=f.proctor||'';else d.mix=f.mix||'';}
+ const errors=inputErrors(type,d);if(errors.length)throw Error(errors.join(' '));
+ const rec={id:makeID(),parentId:null,version:1,type,project:f.project.slice(0,80),tech:f.tech.slice(0,80),location:f.location.slice(0,120),date:f.date,
+  evidence:(f.evidence||'').slice(0,120),specRef:(f.specRef||'').slice(0,120),source:'Mapped CSV draft (unverified)',data:d,status:'review',reviewer:'',note:'',originRow:rowNo};
+ return {...rec,...evaluateFull(rec,db.records)};
+}
+let csvStaged=null;
+$('templateCSV').onclick=()=>{
+ const a={type:'soil',project:'DEMO-JOB',tech:'Demo Tech',location:'Station 10+00',date:localTime(),evidence:'DEMO-NDG-1',specRef:'DEMO-SPEC-A',wet:126,moisture:11.8,mdd:120,minComp:95,proctor:'DEMO-PROCTOR'};
+ const b={type:'concrete',project:'DEMO-JOB',tech:'Demo Tech',location:'Pour A',date:localTime(),evidence:'DEMO-CONCRETE-1',specRef:'DEMO-SPEC-A',slump:5.25,slumpMin:4,slumpMax:6,air:5.2,airMin:4,airMax:7,temp:78,tempMax:95,mix:'DEMO-MIX'};
+ download('CMT_neutral_intake_template.csv',[CSV_COLS.map(csvCell).join(','),...[a,b].map(r=>CSV_COLS.map(k=>csvCell(r[k]??'')).join(','))].join('\r\n'),'text/csv;charset=utf-8');
+};
+$('csvFile').addEventListener('change',()=>{csvStaged=null;$('commitCSV').disabled=true;$('csvPreview').textContent='';$('csvMsg').textContent='New file selected. Click Validate & preview.'});
+$('previewCSV').onclick=async()=>{
+ csvStaged=null;$('commitCSV').disabled=true;$('csvPreview').textContent='';const f=$('csvFile').files?.[0];
+ if(!f){$('csvMsg').textContent='Choose a CSV first.';return}
+ if(f.size>250_000){$('csvMsg').textContent='File must be 250 KB or less.';return}
+ try{
+  const rows=parseCSV(await f.text());if(rows.length<2||rows.length>151)throw Error('CSV must contain a header and 1–150 data rows.');
+  const keys=rows[0].map(h=>LOOKUP[normHeader(h)]||null),col={};keys.forEach((k,i)=>{if(k){if(k in col)throw Error('Duplicate mapped column '+k);col[k]=i}});
+  if(!['type','project','tech','location','date'].every(k=>k in col))throw Error('Required columns: type, project, tech, location, date.');
+  const accepted=[],rejected=[];
+  for(let i=1;i<rows.length;i++){
+   try{const rec=readCSVRecord(rows[i],col,i+1);if(rows[i].length!==rows[0].length)throw Error('Column count mismatch');
+     if(accepted.some(x=>x.project===rec.project&&x.type===rec.type&&x.location===rec.location&&x.date===rec.date&&JSON.stringify(x.data)===JSON.stringify(rec.data)))rec.flags.push('Possible duplicate of another row in this CSV batch.');
+     accepted.push(rec);
+   }catch(e){rejected.push({row:i+1,error:String(e.message).slice(0,220)})}
+  }
+  csvStaged=accepted.length?{accepted,rejected}:null;
+  $('commitCSV').disabled=!csvStaged;
+  $('csvMsg').textContent=`Preview only: ${accepted.length} valid draft(s), ${rejected.length} rejected. ${accepted.length?'Original evidence still requires human review.':''}`;
+  const frag=document.createElement('div');const tbl=document.createElement('table');
+  const tr=document.createElement('tr');for(const t of ['Row','Project','Type','Calculated result','QA observations']){const th=document.createElement('th');th.textContent=t;tr.appendChild(th)}tbl.appendChild(tr);
+  for(const r of accepted.slice(0,30)){const tr=document.createElement('tr');for(const val of [r.originRow,r.project,r.type,r.type==='soil'?r.results.compaction+'%':r.type==='concrete'?r.data.slump+' in':Object.entries(r.results).map(([k,v])=>k+': '+v).join(' | '),r.flags.length+' flagged']){const td=document.createElement('td');td.textContent=val;tr.appendChild(td)}tbl.appendChild(tr)}
+  for(const r of rejected.slice(0,20)){const tr=document.createElement('tr');for(const val of [r.row,'REJECTED','', '',r.error]){const td=document.createElement('td');td.textContent=val;tr.appendChild(td)}tbl.appendChild(tr)}
+  frag.appendChild(tbl);$('csvPreview').appendChild(frag);
+ }catch(e){$('csvMsg').textContent='Could not preview: '+e.message}
+};
+$('commitCSV').onclick=()=>{
+ if(!csvStaged?.accepted.length)return;
+ const arr=csvStaged.accepted;if(!confirm(`Add ${arr.length} unverified draft records to the local review queue?`))return;
+ for(const r of arr){r.flags=[...evaluateFull(r,db.records).flags,...r.flags.filter(x=>x.includes('another row in this CSV batch'))];db.records.unshift(r);log('IMPORTED DRAFT',r.id,r.tech,'Unverified neutral CSV row '+r.originRow+'; original evidence requires verification.');}
+ const rejected=csvStaged.rejected.length;chosen=arr[0].id;csvStaged=null;$('commitCSV').disabled=true;store();counts();renderQueue();
+ $('csvMsg').textContent=`Imported ${arr.length} local drafts for review; ${rejected} rejected row(s) were not added. No external system changed.`;page('queue');
+};
+
+
+// ---- NDG evidence comparison: independent typed sources, NEVER an automatic field-acceptance decision. ----
+let evPreview=null;
+const evNum=id=>txt(id)===''?NaN:Number(txt(id));
+const normalizeId=x=>String(x||'').trim().replace(/\s+/g,' ').toUpperCase();
+function compareNDGEvidence(r,s){
+ if(!r||r.type!=='soil'||r.status!=='review'||r.replacedBy)throw Error('Choose an active soil test awaiting review.');
+ for(const k of ['density','moisture','mdd','minComp','tolDensity','tolMoisture'])if(!Number.isFinite(s[k]))throw Error('All independent numerical readings and tolerances must be entered.');
+ if(!s.ticket||!s.spec||!s.proctor)throw Error('Printout, project specification and Proctor source references are required.');
+ if(!['wet','dry'].includes(s.densityType)||!['pcf','kgm3'].includes(s.unit))throw Error('Unsupported density type or unit.');
+ if(!(s.density>0&&s.density<20000&&s.mdd>0&&s.mdd<=1000&&s.moisture>=0&&s.moisture<100&&s.minComp>=0&&s.minComp<=110&&s.tolDensity>=0&&s.tolDensity<=2&&s.tolMoisture>=0&&s.tolMoisture<=2))throw Error('Source numbers/tolerances are outside demonstrator input bounds.');
+ const gaugeDensity=s.density*(s.unit==='kgm3'?0.0624279606:1);
+ const gaugeWet=s.densityType==='wet'?gaugeDensity:gaugeDensity*(1+s.moisture/100);
+ const gaugeDry=s.densityType==='dry'?gaugeDensity:gaugeDensity/(1+s.moisture/100);
+ if(gaugeWet>1000)throw Error('Normalized gauge density exceeds demo safety bound. Check unit and printed reading.');
+ const checks=[];
+ const numeric=(label,fieldValue,sourceValue,tolerance,unit)=>{const delta=fieldValue-sourceValue;checks.push({label,fieldValue:round(fieldValue),sourceValue:round(sourceValue),delta:round(delta),unit,status:Math.abs(delta)<=tolerance+1e-9?'match':'conflict'});};
+ const reference=(label,a,b)=>checks.push({label,fieldValue:String(a??''),sourceValue:String(b??''),delta:'—',unit:'',status:normalizeId(a)===normalizeId(b)?'match':'conflict'});
+ numeric('Field wet density vs gauge wet density',r.data.wet,gaugeWet,s.tolDensity,'pcf');
+ numeric('Field moisture vs gauge moisture',r.data.moisture,s.moisture,s.tolMoisture,'pp');
+ numeric('Proctor max dry density',r.data.mdd,s.mdd,0.01,'pcf');
+ numeric('Project minimum compaction',r.data.minComp,s.minComp,0.001,'pp');
+ reference('Proctor report ID',r.data.proctor,s.proctor);
+ if(r.specRef)reference('Specification revision reference',r.specRef,s.spec);
+ if(s.project)reference('Project on printout',r.project,s.project);
+ if(s.location)reference('Station / lift on printout',r.location,s.location);
+ const notes=[];
+ if(!s.project)notes.push('Project ID is not independently shown on the transcribed gauge source.');
+ if(!s.location)notes.push('Location is not independently shown on the transcribed gauge source.');
+ if(!r.evidence)notes.push('Saved field sheet has no evidence reference.');
+ if(!r.specRef)notes.push('Saved field sheet has no specification/revision reference.');
+ // Relative compaction against independent MDD is informative only, never field acceptance.
+ const gaugeCompaction=100*gaugeDry/s.mdd;
+ if(gaugeCompaction<s.minComp)notes.push('Gauge-derived compaction is below the separately transcribed project minimum; engineer must investigate.');
+ const discrepancies=checks.filter(c=>c.status==='conflict');
+ const status=discrepancies.length?'DISCREPANCY':notes.length?'MATCHED_WITH_GAPS':'MATCHED_UNVERIFIED';
+ return {status,checks,notes,discrepancies:discrepancies.length,gaugeDry:round(gaugeDry),gaugeWet:round(gaugeWet),gaugeCompaction:round(gaugeCompaction),warning:'Typed source values were not authenticated. All readings, gauges, printouts and project limits require independent verification.'};
+}
+function renderReconcilePicker(){
+ const selector=$('evRecord'),previous=selector.value;
+ selector.innerHTML='';
+ const eligible=db.records.filter(r=>r.type==='soil'&&r.status==='review'&&!r.replacedBy);
+ for(const r of eligible){const opt=document.createElement('option');opt.value=r.id;opt.textContent=`${r.id} · ${r.project} · ${r.location}`;selector.appendChild(opt)}
+ if(eligible.some(r=>r.id===previous))selector.value=previous;
+ evPreview=null;$('evAttach').disabled=true;
+ if(!eligible.length){$('evMessage').textContent='No active pending soil tests. Create a soil test first.';$('evResults').textContent='';}
+}
+for(const [button,mismatch] of [['evDemoMatch',false],['evDemoMismatch',true]])$(button).onclick=()=>{
+ if(txt('evRecord')!=='DEMO-S-001'){$('evMessage').textContent='Synthetic example buttons only work with built-in DEMO-S-001. Enter actual authorized values manually for other records.';return}
+ const fixed={evTicket:'DEMO-GAUGE-41',evSpec:'DEMO-SPEC-REV-A',evDensity:String(mismatch?132:126),evMoisture:'11.8',evMDD:'120',evMinComp:'95',evProctor:'DEMO-PROCTOR-01',evProject:'DEMO-001',evLocation:'Area A / lift 2',evTolDensity:'0.10',evTolMoisture:'0.10'};
+ for(const [k,v] of Object.entries(fixed))$(k).value=v;
+ $('evUnit').value='pcf';$('evDensityType').value='wet';evPreview=null;$('evAttach').disabled=true;$('evResults').textContent='';
+ $('evMessage').textContent=`SYNTHETIC ${mismatch?'mismatch':'match'} loaded for training. These values are fictional; click Compare sources.`;
+};
+$('evRecord').onchange=()=>{evPreview=null;$('evAttach').disabled=true;$('evResults').textContent='';$('evMessage').textContent='Enter values independently from the gauge and approved specification; do not copy the field sheet.'};
+for(const id of ['evTicket','evSpec','evDensityType','evUnit','evDensity','evMoisture','evMDD','evMinComp','evProctor','evProject','evLocation','evTolDensity','evTolMoisture'])$(id).addEventListener('input',()=>{evPreview=null;$('evAttach').disabled=true});
+$('evCompare').onclick=()=>{
+ const r=db.records.find(r=>r.id===$('evRecord').value);
+ const source={ticket:txt('evTicket'),spec:txt('evSpec'),densityType:txt('evDensityType'),unit:txt('evUnit'),density:evNum('evDensity'),moisture:evNum('evMoisture'),mdd:evNum('evMDD'),minComp:evNum('evMinComp'),proctor:txt('evProctor'),project:txt('evProject'),location:txt('evLocation'),tolDensity:evNum('evTolDensity'),tolMoisture:evNum('evTolMoisture')};
+ try{
+  const result=compareNDGEvidence(r,source);const provenance=verifiedPhotoProvenance(r.id);if(provenance.gaps.length)result.notes.push(...provenance.gaps);if(provenance.checks.length){result.checks.push(...provenance.checks);result.discrepancies+=provenance.checks.filter(c=>c.status==='conflict').length;if(result.discrepancies)result.status='DISCREPANCY';}evPreview={recordId:r.id,source,result,provenance:provenance.sources};
+  $('evAttach').disabled=false;
+  $('evMessage').textContent=`Comparison preview: ${result.discrepancies} discrepancy(s), ${result.notes.length} follow-up note(s). Preview alone changes no record.`;
+  const rows=result.checks.map(c=>`<tr><td>${esc(c.label)}</td><td>${esc(c.fieldValue)} ${esc(c.unit)}</td><td>${esc(c.sourceValue)} ${esc(c.unit)}</td><td>${esc(c.delta)} ${esc(c.unit)}</td><td><span class="pill ${c.status==='match'?'approved':'flag'}">${esc(c.status.toUpperCase())}</span></td></tr>`).join('');
+  $('evResults').innerHTML=`<h3>${esc(result.status)} · NDG evidence comparison</h3><p class="muted">Gauge-derived wet density: ${result.gaugeWet} pcf · dry density: ${result.gaugeDry} pcf · compaction: ${result.gaugeCompaction}% against the independently entered MDD.</p><div class="tableout"><table><thead><tr><th>Check</th><th>Field sheet</th><th>Independent source</th><th>Field minus source</th><th>Result</th></tr></thead><tbody>${rows}</tbody></table></div>${result.notes.map(n=>`<div class="warning">${esc(n)}</div>`).join('')}<p class="tiny muted">${esc(result.warning)}</p>`;
+ }catch(err){evPreview=null;$('evAttach').disabled=true;$('evMessage').textContent='Cannot compare: '+err.message;$('evResults').textContent='';}
+};
+$('evAttach').onclick=()=>{
+ if(!evPreview)return;
+ const r=db.records.find(x=>x.id===evPreview.recordId);
+ if(!r||r.status!=='review'||r.replacedBy){$('evMessage').textContent='Record is no longer available for review.';return;}
+ const snapshot={...structuredClone(evPreview),time:now()};
+ r.evidenceChecks=[...(r.evidenceChecks||[]).slice(-29),snapshot];
+ r.flags=r.flags.filter(x=>!x.startsWith('Evidence reconciliation:'));
+ if(snapshot.result.discrepancies)r.flags.push(`Evidence reconciliation: ${snapshot.result.discrepancies} conflicting field(s) against separately transcribed gauge/specification values.`);
+ if(snapshot.result.notes.length)r.flags.push(`Evidence reconciliation: ${snapshot.result.notes.length} unresolved source/engineering note(s); see latest evidence snapshot.`);
+ log('EVIDENCE COMPARED',r.id,'Demo evidence reviewer',`${snapshot.result.status}; ${snapshot.result.discrepancies} mismatches; ${snapshot.result.notes.length} notes; typed references: ${snapshot.source.ticket}, ${snapshot.source.spec}.`);
+ store();counts();chosen=r.id;evPreview=null;$('evAttach').disabled=true;
+ $('evMessage').textContent='Comparison snapshot attached to local record. Status remains PENDING engineering review. Original field measurements were not modified.';
+};
+function renderEvidenceDetail(r){
+ const snapshots=r.evidenceChecks||[],s=snapshots.at(-1);
+ if(!s)return '<p class="warning">No independent gauge-vs-form reconciliation has been attached to this record.</p>';
+ return `<div class="note"><strong>${esc(s.result.status)}</strong> · ${esc(s.time)}<br>Gauge source: ${esc(s.source.ticket)}<br>Independent specification: ${esc(s.source.spec)}<br>Conflicts: ${s.result.discrepancies}; follow-up notes: ${s.result.notes.length}; snapshots retained: ${snapshots.length}.<br>Typed evidence only — original documents not authenticated.<br>Photo provenance: ${esc(s.provenance?.map(p=>p.source_type+': '+p.mode+(p.source_sha256?' / SHA-256 '+p.source_sha256.slice(0,16)+'…':'')).join('; ')||'Not used')}</div>${s.result.checks.filter(c=>c.status==='conflict').map(c=>`<div class="warning">${esc(c.label)}: saved ${esc(c.fieldValue)} vs source ${esc(c.sourceValue)} ${esc(c.unit)}</div>`).join('')}`;
+}
+
+
+// ---- v0.5: photo source draft staging, never automatic engineering approval. ----
+let stagedPhoto=null;
+let photoUrl=null;
+const appliedPhotos={};
+const PHOTO_REQUIRED={
+ gauge_printout:['ticket','density','density_type','density_unit','moisture'],
+ proctor_spec:['spec','mdd','minComp','proctor']
+};
+const PHOTO_FIELDS={
+ gauge_printout:['ticket','density','density_type','density_unit','moisture','project','location'],
+ proctor_spec:['spec','mdd','minComp','proctor','project']
+};
+const PHOTO_TARGET={
+ gauge_printout:{ticket:'evTicket',density:'evDensity',density_type:'evDensityType',density_unit:'evUnit',moisture:'evMoisture',project:'evProject',location:'evLocation'},
+ proctor_spec:{spec:'evSpec',mdd:'evMDD',minComp:'evMinComp',proctor:'evProctor'}
+};
+const PHOTO_LABELS={ticket:'Gauge printout reference',density:'Printed gauge density',density_type:'Wet or dry reading',density_unit:'Printed density unit',moisture:'Printed moisture (%)',project:'Project identifier',location:'Station / location',spec:'Approved spec reference',mdd:'Proctor max dry density (pcf)',minComp:'Job min compaction (%)',proctor:'Proctor report ID'};
+const PHOTO_NUMBER=new Set(['density','moisture','mdd','minComp']);
+function renderPhotoPicker(){
+ const sel=$('photoRecord'),prev=sel.value;
+ sel.replaceChildren();
+ for(const r of db.records.filter(x=>x.type==='soil'&&x.status==='review'&&!x.replacedBy)){
+  const o=document.createElement('option');o.value=r.id;o.textContent=`${r.id} · ${r.project} · ${r.location}`;sel.appendChild(o);
+ }
+ if([...sel.options].some(o=>o.value===prev))sel.value=prev;
+ discardPhotoDraft();updateAppliedPhotoStatus();
+}
+function discardPhotoDraft(){stagedPhoto=null;$('photoDraft').classList.add('hidden');$('photoRows').replaceChildren();$('photoApply').disabled=true;}
+function updateAppliedPhotoStatus(){
+ const entries=Object.entries(appliedPhotos[$('photoRecord').value]||{});
+ $('photoApplied').textContent=entries.length?entries.map(([kind,a])=>`${kind}: ${a.mode} · ${a.keys.length} checked values · ${a.source_sha256?'SHA-256 '+a.source_sha256.slice(0,16)+'…':'synthetic data only'}`).join(' | '):'No verified source draft transferred for this record in this browser session.';
+}
+$('photoRecord').addEventListener('change',()=>{discardPhotoDraft();updateAppliedPhotoStatus();});
+$('photoKind').addEventListener('change',()=>{discardPhotoDraft();$('photoStatus').textContent='Source category changed; select or generate a new draft.';});
+$('photoFile').addEventListener('change',()=>{
+ if(photoUrl){URL.revokeObjectURL(photoUrl);photoUrl=null;}
+ $('photoPreview').classList.add('hidden');discardPhotoDraft();
+ const f=$('photoFile').files?.[0];
+ if(f&&['image/png','image/jpeg','image/webp'].includes(f.type)&&f.size<=4e6){photoUrl=URL.createObjectURL(f);$('photoPreview').src=photoUrl;$('photoPreview').classList.remove('hidden');}
+ $('photoStatus').textContent=f?`Local image selected: ${f.name}. No upload has occurred.`:'No image selected.';
+});
+function stagePhoto(ans){
+ if(!PHOTO_FIELDS[ans.source_type])throw Error('Unsupported extraction source type.');
+ const recordId=$('photoRecord').value;if(!recordId)throw Error('Choose a pending soil record.');
+ const filtered=(ans.fields||[]).filter(x=>PHOTO_FIELDS[ans.source_type].includes(x.key)&&typeof x.value==='string');
+ stagedPhoto={recordId,source_type:ans.source_type,mode:ans.mode,source_sha256:ans.source_sha256||null,fields:filtered,uncertain_fields:ans.uncertain_fields||[],notes:ans.notes||''};
+ const host=$('photoRows');host.replaceChildren();
+ for(const field of filtered){
+  const tr=document.createElement('tr');tr.dataset.key=field.key;
+  const name=document.createElement('td');name.textContent=PHOTO_LABELS[field.key]||field.key;
+  const val=document.createElement('td');const input=document.createElement('input');input.value=field.value;input.maxLength=120;input.setAttribute('aria-label',field.key+' extracted value');input.dataset.key=field.key;val.appendChild(input);
+  const verified=document.createElement('td');const check=document.createElement('input');check.type='checkbox';check.dataset.verify=field.key;check.setAttribute('aria-label','Verify '+field.key);verified.appendChild(check);
+  input.oninput=()=>{check.checked=false;$('photoApply').disabled=false};check.onchange=()=>{$('photoApply').disabled=false};
+  tr.append(name,val,verified);host.appendChild(tr);
+ }
+ $('photoDraft').classList.remove('hidden');$('photoApply').disabled=false;
+ $('photoKind').value=ans.source_type;
+ const missing=PHOTO_REQUIRED[ans.source_type].filter(k=>!filtered.some(f=>f.key===k));
+ $('photoSourceNote').textContent=`${ans.mode==='synthetic'?'SYNTHETIC DEMO — NO IMAGE WAS READ.':'LIVE AI DRAFT — HUMAN VERIFICATION REQUIRED.'} ${ans.source_sha256?'Uploaded bytes SHA-256: '+ans.source_sha256+'.':''} ${ans.uncertain_fields?.length?'Uncertain: '+ans.uncertain_fields.join(', ')+'.':''} ${missing.length?'Missing required fields: '+missing.join(', ')+'. They must be obtained from source; do not invent values.':''} ${ans.notes||''}`;
+ $('photoApplyStatus').textContent='Review candidate values and tick verified for each value to be transferred. This is not a source authenticity check.';
+ $('photoStatus').textContent=`Draft extracted for ${recordId}: ${filtered.length} proposed fields. No engineering record has changed.`;
+}
+function syntheticPhoto(kind){
+ const ans=kind==='gauge_printout' ? {
+ source_type:kind,fields:[{key:'ticket',value:'DEMO-GAUGE-41'},{key:'density',value:'132'},{key:'density_type',value:'wet'},{key:'density_unit',value:'pcf'},{key:'moisture',value:'11.8'},{key:'project',value:'DEMO-001'},{key:'location',value:'Area A / lift 2'}]
+ } : {source_type:kind,fields:[{key:'spec',value:'DEMO-SPEC-REV-A'},{key:'mdd',value:'120'},{key:'minComp',value:'95'},{key:'proctor',value:'DEMO-PROCTOR-01'},{key:'project',value:'DEMO-001'}]};
+ if($('photoRecord').value!=='DEMO-S-001'){$('photoStatus').textContent='Synthetic samples are for DEMO-S-001 only. Choose that pending record or use authorized documents.';return;}
+ stagePhoto({...ans,mode:'synthetic',source_sha256:null,notes:'Fictional training values, never extracted from a real photo.',uncertain_fields:[]});
+}
+$('photoDemoGauge').onclick=()=>syntheticPhoto('gauge_printout');
+$('photoDemoSpec').onclick=()=>syntheticPhoto('proctor_spec');
+$('photoClear').onclick=()=>{discardPhotoDraft();$('photoStatus').textContent='Draft discarded.';};
+$('photoExtract').onclick=async()=>{
+ const f=$('photoFile').files?.[0],kind=txt('photoKind');
+ if(!f||!['image/png','image/jpeg','image/webp'].includes(f.type)||!f.size||f.size>4e6){$('photoStatus').textContent='Select JPEG/PNG/WEBP photo between 1 byte and 4 MB.';return;}
+ if(!$('photoConsent').checked){$('photoStatus').textContent='Explicit permission and consent are required before upload.';return;}
+ if(location.protocol==='file:'){$('photoStatus').textContent='Offline mode cannot call AI. To read a real image, start the included local Python server with your server-side API key.';return;}
+ const recordId=$('photoRecord').value;if(!recordId){$('photoStatus').textContent='Choose an active pending soil record.';return;}
+ const fdata=new FormData();fdata.append('file',f);fdata.append('consent','true');fdata.append('source_kind',kind);
+ discardPhotoDraft();$('photoExtract').disabled=true;$('photoStatus').textContent='Submitting authorized image to local AI backend for draft transcription…';
+ try{
+  const res=await fetch('/api/evidence/extract',{method:'POST',body:fdata});const obj=await res.json();
+  if(!res.ok)throw Error(typeof obj.detail==='string'?obj.detail:'Extraction returned an error');
+  if(recordId!==$('photoRecord').value||kind!==$('photoKind').value)throw Error('Selected record or source changed during extraction; discard the stale result.');
+  stagePhoto(obj);
+ }catch(err){$('photoStatus').textContent='Photo extraction unavailable: '+err.message;}
+ finally{$('photoExtract').disabled=false;}
+};
+$('photoApply').onclick=()=>{
+ if(!stagedPhoto)return;
+ const a=stagedPhoto;const rec=db.records.find(r=>r.id===a.recordId&&r.type==='soil'&&r.status==='review'&&!r.replacedBy);
+ if(!rec||$('photoRecord').value!==a.recordId||txt('photoKind')!==a.source_type){$('photoApplyStatus').textContent='Stale selection; reload the draft for the active soil test.';return;}
+ const out={},unchecked=[];
+ for(const tr of $('photoRows').querySelectorAll('tr')){
+  const k=tr.dataset.key,val=tr.querySelector('input:not([type=checkbox])').value.trim(),checked=tr.querySelector('input[type=checkbox]').checked;
+  if(!checked){unchecked.push(k);continue;}
+  if(!val){$('photoApplyStatus').textContent='Verified values cannot be blank: '+k;return;}
+  if(PHOTO_NUMBER.has(k)&&(!/^(?:\d+(?:\.\d*)?|\.\d+)$/.test(val)||!Number.isFinite(Number(val)))){$('photoApplyStatus').textContent='Only plain numeric values are accepted: '+k;return;}
+  if(k==='density_type'&&!['wet','dry'].includes(val)||k==='density_unit'&&!['pcf','kgm3'].includes(val)){$('photoApplyStatus').textContent='Unit and density type must match supported explicit options.';return;}
+  out[k]=val;
+ }
+ const missing=PHOTO_REQUIRED[a.source_type].filter(k=>!Object.prototype.hasOwnProperty.call(out,k));
+ if(missing.length){$('photoApplyStatus').textContent='Cannot transfer: independently check these REQUIRED source fields: '+missing.join(', ')+'. Missing readings must not be guessed.';return;}
+ // A partially verified photo must not silently become an asserted complete source.
+ // Discard stale values from this same source category before applying the newly checked image.
+ for(const id of Object.values(PHOTO_TARGET[a.source_type]))$(id).value='';
+ for(const [key,value] of Object.entries(out)){
+  if(PHOTO_TARGET[a.source_type][key])$(PHOTO_TARGET[a.source_type][key]).value=value;
+ }
+ if(txt('evRecord')!==a.recordId){renderReconcilePicker();$('evRecord').value=a.recordId;}
+ const mapped={};for(const [key,value] of Object.entries(out))if(PHOTO_TARGET[a.source_type][key])mapped[PHOTO_TARGET[a.source_type][key]]=value;
+ if(!appliedPhotos[a.recordId])appliedPhotos[a.recordId]={};
+ appliedPhotos[a.recordId][a.source_type]={source_type:a.source_type,mode:a.mode,source_sha256:a.source_sha256,keys:Object.keys(out),values:out,mapped,verified_at:now(),notices:unchecked};
+ evPreview=null;$('evAttach').disabled=true;
+ $('photoApplyStatus').textContent=`Transferred ${Object.keys(out).length} visually confirmed ${a.mode==='synthetic'?'DEMO':'AI-draft'} values into the comparison form. They are not accepted, signed or certified. Continue to NDG evidence check and compare.`;
+ updateAppliedPhotoStatus();
+};
+function verifiedPhotoProvenance(recordId){
+ const src=[],gaps=[],checks=[],entries=Object.values(appliedPhotos[recordId]||{});
+ for(const a of entries){
+  if(!Object.entries(a.mapped).every(([id,val])=>$(id).value===val)){
+   gaps.push(`Photo-derived ${a.source_type} readings changed after verification. Re-verify the original document.`);continue;
+  }
+  src.push({source_type:a.source_type,mode:a.mode,source_sha256:a.source_sha256,keys:a.keys,verified_at:a.verified_at});
+  if(a.source_type==='proctor_spec'&&a.values.project){
+   const rec=db.records.find(x=>x.id===recordId);
+   checks.push({label:'Proctor/spec image project vs field form',fieldValue:rec?.project||'',sourceValue:a.values.project,delta:'—',unit:'',status:normalizeId(rec?.project)===normalizeId(a.values.project)?'match':'conflict'});
+  }
+  if(a.mode==='synthetic')gaps.push('Synthetic training source used; this is not actual instrument/project evidence.');
+ }
+ if(src.length===1)gaps.push('Only one document category was photo-checked; remaining sources are independent typed values.');
+ return {sources:src,gaps,checks};
+}
+
+// Multi-observation workbenches. These are explicitly NON-CERTIFYING preview calculators.
+const ADVANCED_DEFAULT={
+ proctor_curve:{method:'Standard (D698)',sampleId:'DEMO-SOIL-01',points:[{moisture:7,wet:120},{moisture:9,wet:129},{moisture:11,wet:136},{moisture:13,wet:140},{moisture:15,wet:138},{moisture:17,wet:133}]},
+ sieve_stack:{sampleId:'DEMO-AGG-01',sampleMass:1000,balanceTol:0.5,points:[{sieve:'3/8 in',mm:9.5,mass:70,min:null,max:null},{sieve:'No. 4',mm:4.75,mass:190,min:null,max:null},{sieve:'No. 10',mm:2,mass:250,min:null,max:null},{sieve:'No. 40',mm:0.425,mass:290,min:null,max:null},{sieve:'No. 200',mm:0.075,mass:140,min:null,max:null},{sieve:'Pan',mm:0,mass:60,min:null,max:null}]},
+ cylinder_set:{sampleId:'DEMO-POUR-01',nominalDiameter:4,designStrength:null,points:[{id:'DEMO-C1',age:28,diameter:4.01,load:63500},{id:'DEMO-C2',age:28,diameter:4.00,load:64600},{id:'DEMO-C3',age:28,diameter:3.99,load:62900}]}
+};
+function advancedErrors(type,d){
+ const errors=[],a=d?.points;
+ if(!ADVANCED_META[type])return ['Invalid advanced test type'];
+ if(!d||typeof d!=='object'||!Array.isArray(a)||a.length>60)return ['A valid observation array of up to 60 rows is required.'];
+ if(!d.sampleId||typeof d.sampleId!=='string'||d.sampleId.length>120)errors.push('Sample ID (1–120 characters) is required.');
+ const numeric=(v,lo,hi)=>typeof v==='number'&&Number.isFinite(v)&&v>=lo&&v<=hi;
+ if(type==='proctor_curve'){
+  if(a.length<4)errors.push('At least four moisture-density readings are required.');
+  if(!['Standard (D698)','Modified (D1557)'].includes(d.method))errors.push('Select standard or modified effort; verify exact method separately.');
+  const seen=new Set();
+  for(let i=0;i<a.length;i++){const x=a[i];if(!numeric(x.moisture,0,100)||!numeric(x.wet,30,250))errors.push(`Point ${i+1}: invalid moisture / wet density.`);if(seen.has(x.moisture))errors.push(`Point ${i+1}: duplicate water content.`);seen.add(x.moisture);}
+ }
+ if(type==='sieve_stack'){
+  if(a.length<4)errors.push('Enter at least three sieves and a pan.');
+  if(!numeric(d.sampleMass,0.001,1e8)||!numeric(d.balanceTol,0,10))errors.push('Invalid dry sample mass or chosen mass-balance review tolerance.');
+  let prev=Infinity;
+  for(let i=0;i<a.length;i++){const x=a[i];if(typeof x.sieve!=='string'||!x.sieve.trim()||x.sieve.length>80)errors.push(`Row ${i+1}: sieve designation required.`);if(!numeric(x.mm,0,150)||!numeric(x.mass,0,1e8))errors.push(`Row ${i+1}: aperture and retained mass must be valid.`);if(x.mm>=prev)errors.push('Sieve apertures must be strictly descending, ending with pan at 0 mm.');prev=x.mm;
+   if(x.min!==null&&!numeric(x.min,0,100)||x.max!==null&&!numeric(x.max,0,100)||x.min!==null&&x.max!==null&&x.min>x.max)errors.push(`Row ${i+1}: invalid project gradation bounds.`);
+  }
+  if(a.length&&a[a.length-1].mm!==0)errors.push('Last row must be a 0 mm pan.');
+ }
+ if(type==='cylinder_set'){
+  if(a.length<2)errors.push('Enter at least two specimens to review a set.');
+  if(![4,6].includes(d.nominalDiameter))errors.push('Choose a nominal 4 or 6 inch cylinder set.');
+  if(d.designStrength!==null&&!numeric(d.designStrength,0.001,50000))errors.push('Invalid optional job f′c reference.');
+  const seen=new Set();
+  for(let i=0;i<a.length;i++){const x=a[i];if(typeof x.id!=='string'||!x.id.trim()||x.id.length>80||seen.has(x.id))errors.push(`Specimen ${i+1}: distinct specimen ID required.`);seen.add(x.id);if(!numeric(x.age,0.1,730)||!numeric(x.diameter,1,12)||!numeric(x.load,0.001,1e9))errors.push(`Specimen ${i+1}: age, measured diameter and load must be valid.`);if(Math.abs(x.diameter-d.nominalDiameter)>0.4)errors.push(`Specimen ${i+1}: diameter deviates from nominal set; check specimen and units.`);}
+ }
+ return errors;
+}
+function calcAdvanced(type,d){
+ const flags=[],results={};
+ if(type==='proctor_curve'){
+  const pts=d.points.map(x=>({...x,dry:x.wet/(1+x.moisture/100)})).sort((a,b)=>a.moisture-b.moisture);
+  const k=pts.reduce((best,p,i)=>p.dry>pts[best].dry?i:best,0),peak=pts[k];
+  results.measuredMdd=round(peak.dry);results.measuredOmc=peak.moisture;results.pointCount=pts.length;
+  results.curve=pts.map(p=>({moisture:p.moisture,wet:round(p.wet),dry:round(p.dry)}));
+  if(k===0||k===pts.length-1){flags.push('Maximum measured density is at an end point: the peak is not bracketed by test observations.');results.fitStatus='Not attempted — boundary peak';}
+  else{
+   const trio=[pts[k-1],pts[k],pts[k+1]],[[x1,y1],[x2,y2],[x3,y3]]=trio.map(x=>[x.moisture,x.dry]);
+   const a=((y3-y1)/(x3-x1)-(y2-y1)/(x2-x1))/(x3-x2), b=(y2-y1)/(x2-x1)-a*(x1+x2);
+   const xv=-b/(2*a),yv=y2+a*(xv*xv-x2*x2)+b*(xv-x2);
+   if(Number.isFinite(xv)&&Number.isFinite(yv)&&a<0&&xv>=x1&&xv<=x3){results.illustrativePeakMdd=round(yv);results.illustrativePeakOmc=round(xv);results.fitStatus='Illustrative 3-point quadratic fit — not certified MDD/OMC';results.fitCoefficients={a,b,c:y2-a*x2*x2-b*x2};}
+   else{flags.push('Local quadratic peak is unstable or outside bracketing points; use an independently reviewed curve.');results.fitStatus='Local fit rejected';}
+  }
+  flags.push('Method, apparatus, mold volume, moisture procedure, oversize correction and curve adoption are not checked; a qualified reviewer must determine official MDD/OMC.');
+ }
+ if(type==='sieve_stack'){
+  let cumulative=0;results.rows=d.points.map(x=>{cumulative+=x.mass;const passing=100*(1-cumulative/d.sampleMass);if(x.min!=null&&passing<x.min||x.max!=null&&passing>x.max)flags.push(`${x.sieve}: passing ${round(passing)}% outside entered job gradation bounds ${x.min??'—'}–${x.max??'—'}%.`);return {sieve:x.sieve,mm:x.mm,mass:x.mass,cumulativeMass:round(cumulative),retainedPercent:round(100*x.mass/d.sampleMass),cumulativePercent:round(100*cumulative/d.sampleMass),passingPercent:round(passing)};});
+  results.totalRetained=round(cumulative);results.massDifference=round(d.sampleMass-cumulative);results.massDifferencePct=round(100*(d.sampleMass-cumulative)/d.sampleMass);results.sieveCount=d.points.length;
+  if(Math.abs(100*(d.sampleMass-cumulative)/d.sampleMass)>d.balanceTol)flags.push(`Mass-balance deviation ${results.massDifferencePct}% exceeds your entered review tolerance ±${d.balanceTol}%; verify sample weights.`);
+  flags.push('Finer than 75 µm material from washing (C117), sieve condition and sampling/method details have NOT been validated.');
+ }
+ if(type==='cylinder_set'){
+  const specimens=d.points.map(x=>({...x,psi:x.load/(Math.PI*x.diameter*x.diameter/4)}));
+  results.specimens=specimens.map(x=>({id:x.id,age:x.age,diameter:x.diameter,load:x.load,psi:round(x.psi)}));
+  results.specimenCount=specimens.length;const ages=new Set(specimens.map(x=>x.age));
+  if(ages.size>1){results.setMeanPsi=null;flags.push('Specimens have differing ages: a single strength-test mean is not computed; group by age and sample.');}
+  else {const mean=specimens.reduce((z,x)=>z+x.psi,0)/specimens.length;results.setMeanPsi=round(mean);results.testAge=specimens[0].age;if(d.designStrength!=null&&mean<d.designStrength)flags.push(`Set mean ${round(mean)} psi is below entered f′c ${d.designStrength} psi; this is not an automatic acceptance/failure decision.`);}
+  const minimum=d.nominalDiameter===4?3:2;
+  if(specimens.length<minimum)flags.push(`Common ACI structural acceptance sampling guidance specifies ≥${minimum} specimens for nominal ${d.nominalDiameter} in cylinders from one sample; verify governing code and approved sampling plan.`);
+  const strengths=specimens.map(x=>x.psi);results.spreadPsi=round(Math.max(...strengths)-Math.min(...strengths));
+  flags.push('Curing, preparation, age tolerance, loading rate, fracture type and consecutive-strength-test acceptance criteria require independent verification.');
+ }
+ return {results,flags};
+}
+function advancedDetailValues(r){
+ const x=r.results,rows=[['Sample ID',r.data.sampleId],['Method reference',ADVANCED_META[r.type]?.standard||'—']];
+ if(r.type==='proctor_curve')return [...rows,['Effort',r.data.method],['Measured peak dry density',`${x.measuredMdd} pcf`],['Measured peak moisture',`${x.measuredOmc}%`],['Interpolation',x.fitStatus||'—'],['Illustrative peak',x.illustrativePeakMdd==null?'Not calculated':`${x.illustrativePeakMdd} pcf at ${x.illustrativePeakOmc}%`],...x.curve.map((p,i)=>[`Point ${i+1} · ${p.moisture}%`,`${p.wet} wet / ${p.dry} dry pcf`])];
+ if(r.type==='sieve_stack')return [...rows,['Dry sample mass',`${r.data.sampleMass} g`],['Mass difference',`${x.massDifference} g / ${x.massDifferencePct}%`],...x.rows.map(p=>[`${p.sieve} (${p.mm} mm)`,`${p.mass} g retained · ${p.passingPercent}% passing`])];
+ return [...rows,['Nominal diameter',`${r.data.nominalDiameter} in`],['Specimen age',`${x.testAge??'mixed'} days`],['Set mean (not acceptance)',x.setMeanPsi==null?'Not calculated':`${x.setMeanPsi} psi`],...x.specimens.map(p=>[`${p.id} / ${p.age} days`,`${p.psi} psi · ${p.load} lbf / ${p.diameter} in`])];
+}
+const ADV_ROWS={
+ proctor_curve:[['moisture','Water (%)'],['wet','Wet density (pcf)']],
+ sieve_stack:[['sieve','Sieve ID'],['mm','Opening (mm)'],['mass','Retained (g)'],['min','Passing min (%)'],['max','Passing max (%)']],
+ cylinder_set:[['id','Cylinder ID'],['age','Age (days)'],['diameter','Measured Ø (in)'],['load','Failure load (lbf)']]
+};
+const ADV_OPTION_DEFS={
+ proctor_curve:[['sampleId','Sample identifier','text'],['method','Compactive effort','select']],
+ sieve_stack:[['sampleId','Sample identifier','text'],['sampleMass','Dry starting mass (g)','number'],['balanceTol','Your mass-balance review tolerance ± (%)','number']],
+ cylinder_set:[['sampleId','Sample / batch identifier','text'],['nominalDiameter','Nominal cylinder diameter (in)','select'],['designStrength','Approved project reference f′c (psi) — optional','number']]
+};
+let advEditing=null;
+function advTemplate(t){return JSON.parse(JSON.stringify(ADVANCED_DEFAULT[t]));}
+function readAdv(){
+ const type=txt('advType'),d={};for(const [k,,mode] of ADV_OPTION_DEFS[type]){let value=$('adv-'+k).value.trim();if(mode==='number'||mode==='select'&&k==='nominalDiameter')d[k]=value===''?null:Number(value);else d[k]=value;}
+ d.points=Array.from($('advRows').querySelectorAll('tr')).map(tr=>{const row={};for(const [key] of ADV_ROWS[type]){const val=tr.querySelector(`[data-field="${key}"]`).value.trim();row[key]=['id','sieve'].includes(key)?val:(['min','max'].includes(key)&&val===''?null:val===''?NaN:Number(val));}return row;});return d;
+}
+function setAdvRows(rows){const type=txt('advType');$('advRows').innerHTML='';for(const x of rows)addAdvRow(x);}
+function addAdvRow(value={}){const type=txt('advType'),tr=document.createElement('tr');tr.innerHTML=ADV_ROWS[type].map(([k])=>`<td><input data-field="${esc(k)}" aria-label="${esc(k)}" ${['sieve','id'].includes(k)?'type="text" maxlength="80"':'type="number" step="any"'} value="${esc(value[k]??'')}"></td>`).join('')+'<td><button type="button" class="btn warn small" data-delete="true">Remove</button></td>';
+ tr.querySelector('[data-delete]').onclick=()=>{tr.remove();updateAdvPreview();};for(const inp of tr.querySelectorAll('input'))inp.addEventListener('input',updateAdvPreview);$('advRows').appendChild(tr);
+}
+function renderAdvanced(){if(!$('advRows').children.length)advReset(false);else updateAdvPreview();}
+function advReset(clear=true){advEditing=null;$('advRevision').textContent='New worksheet';$('advSave').textContent='Save lab worksheet · queue for engineer';if(clear){$('advProject').value='DEMO-001';$('advTech').value='Training Technician';$('advLocation').value='Lab · sample S-001';$('advEvidence').value='';$('advSpecRef').value='';}
+ $('advDate').value=localTime();loadAdvTemplate(advTemplate(txt('advType')));$('advMsg').textContent='';}
+function loadAdvTemplate(d){const type=txt('advType');$('advHeading').textContent=ADVANCED_META[type].name;$('advHelp').textContent=ADVANCED_META[type].note+' Values here are synthetic until replaced with documented laboratory measurements.';
+ $('advOptions').innerHTML=ADV_OPTION_DEFS[type].map(([k,label,mode])=>`<div><label for="adv-${esc(k)}">${esc(label)}</label>${mode==='select'?`<select id="adv-${k}">${k==='method'?'<option>Standard (D698)</option><option>Modified (D1557)</option>':'<option value="4">4 inches</option><option value="6">6 inches</option>'}</select>`:`<input id="adv-${k}" type="${mode==='number'?'number':'text'}" ${mode==='number'?'step="any"':''} maxlength="120">`}</div>`).join('');
+ for(const [k] of ADV_OPTION_DEFS[type]){$('adv-'+k).value=d[k]==null?'':d[k];$('adv-'+k).addEventListener('input',updateAdvPreview);}
+ $('advTableHead').innerHTML='<tr>'+ADV_ROWS[type].map(([k,label])=>`<th>${esc(label)}</th>`).join('')+'<th>Remove</th></tr>';setAdvRows(d.points);updateAdvPreview();}
+function plotAdvanced(t,results){
+ let pts=[];if(t==='proctor_curve')pts=results.curve.map(p=>[p.moisture,p.dry]);
+ else if(t==='sieve_stack')pts=results.rows.filter(p=>p.mm>0).map(p=>[Math.log10(p.mm),p.passingPercent]).sort((a,b)=>a[0]-b[0]);
+ else pts=results.specimens.map((p,i)=>[i+1,p.psi]);
+ if(pts.length<2)return '';
+ const W=650,H=235,pad=38,xs=pts.map(p=>p[0]),ys=pts.map(p=>p[1]);let minX=Math.min(...xs),maxX=Math.max(...xs),minY=Math.min(...ys),maxY=Math.max(...ys);if(minX===maxX)maxX=minX+1;if(minY===maxY)maxY=minY+1;const spread=maxY-minY;minY-=spread*0.1;maxY+=spread*0.1;
+ const px=x=>pad+(W-2*pad)*(x-minX)/(maxX-minX),py=y=>H-pad-(H-2*pad)*(y-minY)/(maxY-minY);
+ const points=pts.map(([x,y])=>`${px(x).toFixed(1)},${py(y).toFixed(1)}`).join(' ');
+ const circles=pts.map(([x,y])=>`<circle cx="${px(x)}" cy="${py(y)}" r="4.5" fill="#45dbc7"/>`).join('');
+ return `<svg role="img" aria-label="Calculated observations only; not a certified lab curve" viewBox="0 0 ${W} ${H}" style="width:100%;max-width:700px;border:1px solid #355069;border-radius:12px;background:#102038"><line x1="${pad}" y1="${H-pad}" x2="${W-pad}" y2="${H-pad}" stroke="#7e9ab7"/><line x1="${pad}" y1="${pad}" x2="${pad}" y2="${H-pad}" stroke="#7e9ab7"/><polyline fill="none" stroke="#68bafa" stroke-width="2.5" points="${points}"/>${circles}<text x="${pad}" y="22" fill="#b9d8ed" font-size="12">${t==='proctor_curve'?'Dry density vs moisture':t==='sieve_stack'?'Percent passing vs sieve size (log opening)':'Individual cylinder strengths'} — preliminary data</text><text x="${pad}" y="${H-8}" fill="#91b3ca" font-size="10">x: ${minX.toFixed(2)} – ${maxX.toFixed(2)}</text><text x="${W-135}" y="${H-8}" fill="#91b3ca" font-size="10">y: ${minY.toFixed(1)} – ${maxY.toFixed(1)}</text></svg>`;
+}
+function updateAdvPreview(){const t=txt('advType'),d=readAdv(),errs=advancedErrors(t,d);if(errs.length){$('advSummary').innerHTML=`<strong>Fix before saving:</strong><div class="warning">${errs.map(esc).join(' · ')}</div>`;$('advChart').innerHTML='';return;}
+ const out=calcAdvanced(t,d);$('advSummary').innerHTML=`<strong>Calculation preview · not official acceptance</strong><div class="detailgrid">${Object.entries(out.results).filter(([k,v])=>!Array.isArray(v)&&v!==null&&typeof v!=='object').map(([k,v])=>`<div><small>${esc(k)}</small><strong>${esc(v)}</strong></div>`).join('')}</div>${out.flags.map(f=>`<div class="warning">${esc(f)}</div>`).join('')}`;$('advChart').innerHTML=plotAdvanced(t,out.results);
+}
+function saveAdvanced(){const t=txt('advType'),d=readAdv(),common={project:txt('advProject'),tech:txt('advTech'),location:txt('advLocation'),date:txt('advDate'),evidence:txt('advEvidence'),specRef:txt('advSpecRef'),source:'Manual multi-point entry'};
+ const errs=advancedErrors(t,d);for(const k of ['project','tech','location','date'])if(!common[k])errs.push(`${k} required.`);
+ if(errs.length){$('advMsg').textContent='Cannot save: '+errs.join(' ');return;}
+ if(db.records.length>=5000){$('advMsg').textContent='Local record limit reached. Export and archive a backup.';return;}
+ const out=evaluateFull({type:t,data:d,...common,parentId:advEditing?.id||null},db.records);
+ const rec={id:makeID(),type:t,data:d,...common,...out,status:'review',reviewer:'',note:'',version:advEditing?advEditing.version+1:1,parentId:advEditing?.id||null};db.records.unshift(rec);
+ if(advEditing){const old=db.records.find(x=>x.id===advEditing.id);if(old)old.replacedBy=rec.id;}
+ log(advEditing?'REVISED MULTI-SAMPLE':'CREATED MULTI-SAMPLE',rec.id,rec.tech,`${t} · ${d.points.length} observations · ${out.flags.length} QA notes`);advEditing=null;chosen=rec.id;store();counts();advReset(false);page('queue');
+}
+function loadAdvancedRecord(r){$('advType').value=r.type;advEditing=r;loadAdvTemplate(JSON.parse(JSON.stringify(r.data)));$('advProject').value=r.project;$('advTech').value=r.tech;$('advLocation').value=r.location;$('advDate').value=r.date;$('advEvidence').value=r.evidence||'';$('advSpecRef').value=r.specRef||'';$('advRevision').textContent=`Correction v${r.version+1} of ${r.id}`;$('advSave').textContent='Save corrected multi-sample version';page('advanced');}
+$('advDate').value=localTime();$('advType').addEventListener('change',()=>advReset(false));$('advAdd').onclick=()=>{addAdvRow();updateAdvPreview()};$('advExample').onclick=()=>loadAdvTemplate(advTemplate(txt('advType')));$('advReset').onclick=()=>advReset();$('advSave').onclick=saveAdvanced;
+
+counts();store();switchType();
+
+/* CMT Intelligence OS v0.8 — offline pilot measurement workbench.
+   No engineering acceptance and no claims of standards conformance.
+   This code is embedded in index.html for the standalone demo. */
+const VALIDATION_KEY='cmt-intelligence-os-validation-v01';
+const PILOT_FIELDS={
+ wet:{label:'NDG wet density',kind:'number',critical:true,unit:'pcf'},
+ dry:{label:'NDG dry density',kind:'number',critical:true,unit:'pcf'},
+ moisture:{label:'NDG moisture content',kind:'number',critical:true,unit:'%'},
+ mdd:{label:'Proctor MDD reference',kind:'number',critical:true,unit:'pcf'},
+ proctor_id:{label:'Proctor report ID',kind:'id',critical:true,unit:'—'},
+ project_id:{label:'Project ID',kind:'id',critical:true,unit:'—'},
+ spec_revision:{label:'Project spec revision',kind:'id',critical:true,unit:'—'},
+ slump:{label:'Concrete slump',kind:'number',critical:true,unit:'in'},
+ air:{label:'Concrete air',kind:'number',critical:true,unit:'%'},
+ temp:{label:'Concrete temperature',kind:'number',critical:false,unit:'°F'},
+ break_load:{label:'Cylinder peak load',kind:'number',critical:true,unit:'lbf'},
+ diameter:{label:'Cylinder measured diameter',kind:'number',critical:true,unit:'in'},
+ sieve_mass:{label:'Sieve retained mass',kind:'number',critical:true,unit:'g'}
+};
+const validationStarter=()=>({schema:1,labels:[],pairs:[]});
+function validationLoad(){try{const d=JSON.parse(localStorage.getItem(VALIDATION_KEY));if(d&&d.schema===1&&Array.isArray(d.labels)&&Array.isArray(d.pairs)&&d.labels.length<=2000&&d.pairs.length<=2000)return d;}catch(e){}return validationStarter()}
+let vdb=validationLoad();
+function validationSave(){try{localStorage.setItem(VALIDATION_KEY,JSON.stringify(vdb))}catch(e){$('valStatus').textContent='Local browser storage unavailable. Export the validation dataset now.'}}
+const pilotId=()=>('PILOT-'+(globalThis.crypto?.randomUUID?.()||String(Date.now())+Math.random().toString(36).slice(2)));
+function isPlainNumber(s){return /^[+-]?(?:\d+\.?\d*|\.\d+)$/.test(String(s).trim())&&Number.isFinite(Number(s))}
+function normalizedId(s){return String(s).trim().replace(/\s+/g,' ').toUpperCase()}
+function labelResult(row){const field=PILOT_FIELDS[row.field];if(!field)return 'invalid';const gold=String(row.gold||'').trim(),pred=String(row.pred||'').trim();if(!gold)return 'invalid';if(!pred)return 'abstain';if(field.kind==='number'){
+ if(!isPlainNumber(gold)||!isPlainNumber(pred)||!Number.isFinite(row.tolerance)||row.tolerance<0)return 'invalid';
+ return Math.abs(Number(gold)-Number(pred))<=row.tolerance+1e-10?'match':'mismatch';
+}return normalizedId(gold)===normalizedId(pred)?'match':'mismatch';}
+function pilotLabelMetrics(rows){const valid=rows.filter(x=>labelResult(x)!=='invalid'),matches=valid.filter(x=>labelResult(x)==='match'),critical=valid.filter(x=>PILOT_FIELDS[x.field]?.critical),criticalCorrect=critical.filter(x=>labelResult(x)==='match');
+ return {total:valid.length,correct:matches.length,mismatched:valid.filter(x=>labelResult(x)==='mismatch').length,abstained:valid.filter(x=>labelResult(x)==='abstain').length,accuracy:valid.length?100*matches.length/valid.length:null,criticalTotal:critical.length,criticalCorrect:criticalCorrect.length,criticalErrors:critical.length-criticalCorrect.length};}
+function pilotTimeMetrics(rows){const valid=rows.filter(x=>x.baseline>0&&x.assisted>=0&&x.correction>=0&&Number.isFinite(x.baseline+x.assisted+x.correction));const vals=valid.map(x=>({saved:x.baseline-x.assisted-x.correction,baseline:x.baseline,assisted:x.assisted+x.correction}));const totalBaseline=vals.reduce((t,x)=>t+x.baseline,0),totalAssisted=vals.reduce((t,x)=>t+x.assisted,0),sorted=vals.map(x=>x.saved).sort((a,b)=>a-b),n=sorted.length;
+ return {n,totalBaseline,totalAssisted,totalSaved:totalBaseline-totalAssisted,percentSaved:totalBaseline>0?100*(totalBaseline-totalAssisted)/totalBaseline:null,medianSaved:n%2?sorted[(n-1)/2]:n?(sorted[n/2-1]+sorted[n/2])/2:null,slower:vals.filter(x=>x.saved<0).length};}
+const fmtMetric=(v,d=1)=>v==null?'—':Number(v).toFixed(d);
+const calcFixtures=[
+ ['NDG · dry density',()=>evaluate('soil',{wet:126,moisture:11.8,mdd:120,minComp:95,proctor:'DEMO'}).results.dryDensity,112.70,0.001],
+ ['NDG · compaction %',()=>evaluate('soil',{wet:126,moisture:11.8,mdd:120,minComp:95,proctor:'DEMO'}).results.compaction,93.92,0.001],
+ ['NDG · below job threshold is flagged',()=>evaluate('soil',{wet:126,moisture:11.8,mdd:120,minComp:95,proctor:'DEMO'}).flags.some(f=>/below/.test(f)),true,0],
+ ['NDG · exactly at threshold is not flagged',()=>evaluate('soil',{wet:120,moisture:0,mdd:120,minComp:100,proctor:'DEMO'}).flags.some(f=>/below/.test(f)),false,0],
+ ['Soil · oven water content %',()=>catalogCalculate('soil_moisture',{massWet:210,massDry:190,tare:90}).results.waterContent,20,0],
+ ['Soil · plasticity index %',()=>catalogCalculate('atterberg',{ll:42,pl:23,piMax:null}).results.plasticityIndex,19,0],
+ ['Soil · sand cone dry pcf',()=>catalogCalculate('sand_cone',{excavatedMass:7.8,holeVolume:.0625,sandMoist:10,refMdd:115,sandMinComp:95}).results.dryDensity,113.45,.001],
+ ['Aggregates · one-sieve passing %',()=>catalogCalculate('sieve',{sampleMass:1000,retainedMass:225,sieveSize:'No 4',passMin:null,passMax:null}).results.percentPassing,77.5,0],
+ ['Concrete · cylinder psi',()=>catalogCalculate('cylinder',{breakLoad:141372,diameter:4,age:28,designStrength:null}).results.strengthPsi,11250.03,.001],
+ ['Concrete · unit weight pcf',()=>catalogCalculate('unit_weight',{fullMass:56,emptyMass:20.8,calVolume:.25,uwMin:null,uwMax:null}).results.unitWeightPcf,140.8,0],
+ ['Asphalt · bulk SG',()=>catalogCalculate('asphalt_core',{dryCore:1160,ssdCore:1165,underCore:674,gmmCore:2.5,rcMin:null,rcMax:null}).results.bulkSG,2.36,0],
+ ['Asphalt · air voids %',()=>catalogCalculate('asphalt_voids',{gmb:2.35,gmm:2.5,voidMin:null,voidMax:null}).results.airVoidsPercent,6,0],
+ ['Reject · zero reference density',()=>inputErrors('soil',{wet:126,moisture:11.8,mdd:0,minComp:95}).length>0,true,0],
+ ['Reject · inverted wet/dry oven masses',()=>catalogErrors('soil_moisture',{massWet:180,massDry:190,tare:90}).length>0,true,0],
+ ['Reject · invalid sieve-stack order',()=>{const d=advTemplate('sieve_stack');d.points[1].mm=d.points[0].mm;return advancedErrors('sieve_stack',d).length>0},true,0],
+ ['Cylinder set · mixed ages never mean',()=>{const d=advTemplate('cylinder_set');d.points[1].age=7;return calcAdvanced('cylinder_set',d).results.setMeanPsi},null,0],
+ ['Proctor · end-point peak rejects fitted peak',()=>{const d=advTemplate('proctor_curve');d.points=[{moisture:5,wet:140},{moisture:7,wet:139},{moisture:9,wet:136},{moisture:11,wet:130}];return 'illustrativePeakMdd' in calcAdvanced('proctor_curve',d).results},false,0],
+ ['Sieve stack · 1.5% mass loss',()=>{const d=advTemplate('sieve_stack');d.points[d.points.length-1].mass=45;return calcAdvanced('sieve_stack',d).results.massDifferencePct},1.5,0]
+];
+function runValidationFixtures(){const rows=calcFixtures.map(([name,fn,expected,tolerance])=>{try{const actual=fn();const pass=typeof expected==='number'?typeof actual==='number'&&Math.abs(actual-expected)<=tolerance+1e-9:actual===expected;return {name,expected,actual,pass}}catch(e){return{name,expected,actual:String(e),pass:false}}});$('fixtureSummary').textContent=`${rows.filter(x=>x.pass).length}/${rows.length} synthetic calculation/regression checks passed. These fixtures do NOT demonstrate ASTM procedural compliance, OCR accuracy, or production readiness.`;
+ $('fixtureRows').innerHTML=rows.map(x=>`<tr><td>${esc(x.name)}</td><td class="mono">${esc(x.expected===null?'null':x.expected)}</td><td class="mono">${esc(x.actual===null?'null':x.actual)}</td><td>${x.pass?'✓ PASS':'✕ FAIL'}</td></tr>`).join('');return rows;}
+function currentPilotSource(){return txt('valSourceFilter')}
+function renderPilot(){const source=currentPilotSource(),labels=vdb.labels.filter(x=>x.source===source),pairs=vdb.pairs.filter(x=>x.source===source),a=pilotLabelMetrics(labels),b=pilotTimeMetrics(pairs);
+ $('pilotMetrics').innerHTML=`<div class="detailgrid"><div><small>Verified extracted fields</small><strong>${a.total}</strong></div><div><small>Field match rate</small><strong>${a.total?fmtMetric(a.accuracy)+'%':'Not measured'}</strong></div><div><small>Critical field misses (incl. abstain)</small><strong>${a.criticalTotal?a.criticalErrors:'Not measured'}</strong></div><div><small>Paired tasks measured</small><strong>${b.n}</strong></div><div><small>Median minutes saved / task</small><strong>${b.n?fmtMetric(b.medianSaved)+' min':'Not measured'}</strong></div><div><small>Total minutes saved</small><strong>${b.n?fmtMetric(b.totalSaved)+' min':'Not measured'}</strong></div></div><p class="tiny muted">Source: ${esc(source)} only. AI extraction quality is measured per verified gold-value/AI draft pair, not inferred from calculator fixtures. Paired time results include correction minutes and can be negative.</p>`;
+ $('labelRows').innerHTML=labels.length?labels.slice(-100).reverse().map(x=>`<tr><td>${esc(x.caseId)} · ${esc(PILOT_FIELDS[x.field]?.label||x.field)}</td><td class="mono">${esc(x.gold)}</td><td class="mono">${esc(x.pred||'ABSTAIN')}</td><td>${esc(labelResult(x))}</td><td><button class="btn small" data-del-label="${esc(x.id)}">Delete</button></td></tr>`).join(''):'<tr><td colspan="5">No labeled fields yet.</td></tr>';
+ $('pairRows').innerHTML=pairs.length?pairs.slice(-100).reverse().map(x=>`<tr><td>${esc(x.caseId)} · ${esc(x.testType)}</td><td>${esc(x.baseline)}</td><td>${esc(x.assisted)} + ${esc(x.correction)}</td><td>${fmtMetric(x.baseline-x.assisted-x.correction)} min</td><td><button class="btn small" data-del-pair="${esc(x.id)}">Delete</button></td></tr>`).join(''):'<tr><td colspan="5">No paired time observations yet.</td></tr>';
+ $('labelRows').querySelectorAll('[data-del-label]').forEach(b=>b.onclick=()=>{if(!confirm('Delete this local labeled field?'))return;vdb.labels=vdb.labels.filter(x=>x.id!==b.dataset.delLabel);validationSave();renderPilot()});
+ $('pairRows').querySelectorAll('[data-del-pair]').forEach(b=>b.onclick=()=>{if(!confirm('Delete this local timed task?'))return;vdb.pairs=vdb.pairs.filter(x=>x.id!==b.dataset.delPair);validationSave();renderPilot()});}
+function addPilotLabel(){const f=txt('valField'),caseId=txt('valCase'),gold=txt('valGold'),pred=txt('valPred'),tolerance=txt('valTol'),info=PILOT_FIELDS[f],source=txt('valSource');if(!caseId||caseId.length>64||!gold||gold.length>80||pred.length>80||!info){$('valStatus').textContent='Enter a non-identifying case ID, one field and the independently verified reference value.';return}
+ const tol=info.kind==='number'&&isPlainNumber(tolerance)?Number(tolerance):info.kind==='id'?0:NaN;
+ const x={id:pilotId(),caseId,field:f,gold,pred,tolerance:tol,unit:info.unit,source,time:now()};if(labelResult(x)==='invalid'||(info.kind==='number'&&(!isPlainNumber(gold)||pred!==''&&!isPlainNumber(pred)))){$('valStatus').textContent='Invalid numeric gold value, candidate value, or tolerance. Blank candidate means abstain.';return}
+ if(vdb.labels.length>=2000){$('valStatus').textContent='Label limit reached. Export and archive before adding more.';return}vdb.labels.push(x);validationSave();$('valStatus').textContent=`Saved as ${source} case. Outcome: ${labelResult(x)}. No original document was uploaded.`;renderPilot()}
+function addPilotPair(){const caseId=txt('timeCase'),testType=txt('timeType'),source=txt('timeSource'),vals=['timeManual','timeAssist','timeCorrection'].map(txt);if(!caseId||caseId.length>64||vals.some(x=>!isPlainNumber(x))){$('timeStatus').textContent='Enter a case ID and valid numeric minutes.';return}
+ const [baseline,assisted,correction]=vals.map(Number);if(baseline<=0||assisted<0||correction<0||[baseline,assisted,correction].some(x=>x>1440)){$('timeStatus').textContent='Baseline must be positive; other durations nonnegative; all <= 1440 minutes.';return}
+ if(vdb.pairs.length>=2000){$('timeStatus').textContent='Study limit reached. Export and archive.';return}
+ vdb.pairs.push({id:pilotId(),caseId,testType,baseline,assisted,correction,source,time:now()});validationSave();$('timeStatus').textContent='Paired task recorded. These are user-entered times, not measured automatically.';renderPilot()}
+function pilotExport(){const payload={schema:1,product:'CMT Intelligence OS v0.8',study:'Non-certified pilot measurements',generatedAt:now(),notes:'No full source documents or images. Numeric tolerance is evaluation tolerance, not ASTM acceptance precision.',labels:vdb.labels,pairs:vdb.pairs};download('CMT_pilot_evaluation_v08.json',JSON.stringify(payload,null,2),'application/json')}
+function loadSyntheticPilot(){if(!confirm('Append 3 clearly marked SYNTHETIC field labels and 2 SYNTHETIC timing cases? They do NOT count toward authorized results.'))return;
+ for(const [caseId,field,gold,pred,tolerance] of [['SYN-001','wet','126.0','126',.01],['SYN-001','moisture','11.8','18.8',.1],['SYN-002','proctor_id','DEMO-P-01','',0]])vdb.labels.push({id:pilotId(),caseId,field,gold,pred,tolerance,unit:PILOT_FIELDS[field].unit,source:'synthetic',time:now()});
+ for(const [caseId,baseline,assisted,correction] of [['SYN-001',6.5,3,1],['SYN-002',5,4,2]])vdb.pairs.push({id:pilotId(),caseId,testType:'NDG',baseline,assisted,correction,source:'synthetic',time:now()});validationSave();$('valSourceFilter').value='synthetic';renderPilot()}
+function renderValidation(){renderPilot();if(!$('fixtureRows').children.length)runValidationFixtures()}
+$('valField').innerHTML=Object.entries(PILOT_FIELDS).map(([k,v])=>`<option value="${esc(k)}">${esc(v.label)}${v.critical?' · CRITICAL':''}</option>`).join('');
+function selectedPilotField(){const p=PILOT_FIELDS[txt('valField')];$('valFieldHelp').textContent=p.kind==='number'?`Reference unit: ${p.unit}. Numeric evaluation tolerance is absolute, not a project acceptance tolerance.`:'Identifier comparison ignores capitalization and repeated spaces; enter no personal details.';$('valTol').disabled=p.kind==='id';$('valTol').value=p.kind==='id'?'0':'0';}
+$('valField').onchange=selectedPilotField;selectedPilotField();
+$('runFixtures').onclick=runValidationFixtures;
+$('addLabel').onclick=addPilotLabel;
+$('addTime').onclick=addPilotPair;
+$('valSourceFilter').onchange=renderPilot;
+$('loadPilotDemo').onclick=loadSyntheticPilot;
+$('exportPilot').onclick=pilotExport;
+$('resetPilot').onclick=()=>{if(!confirm('Permanently delete all locally stored validation labels AND timing cases? Export first.'))return;vdb=validationStarter();validationSave();renderPilot()};
+
+
+// v1.0: local authenticated pilot. No automatic upload or approval. API is independent of offline localStorage.
+const pilotAllowedTypes=['soil','concrete',...CATALOG_KEYS,...Object.keys(ADVANCED_META)];
+$('pilotType').innerHTML=pilotAllowedTypes.map(k=>`<option value="${esc(k)}">${esc((ADVANCED_META[k]||CATALOG[k])?.name||k)}</option>`).join('');
+let pilotSession=null,pilotRecords=[],pilotCurrent=null;
+function pilotNotice(x){$('pilotActionStatus').textContent=x}
+async function pilotCall(path, method='GET', data=undefined){
+ const headers={}; if(data!==undefined)headers['Content-Type']='application/json';
+ if(method!=='GET'&&pilotSession)headers['X-CMT-CSRF']=pilotSession.csrf;
+ const r=await fetch('/api/pilot'+path,{method,headers,credentials:'same-origin',cache:'no-store',body:data===undefined?undefined:JSON.stringify(data)});
+ let obj;try{obj=await r.json()}catch{obj={detail:'Invalid server response'}};
+ if(!r.ok)throw Error(`${r.status}: ${typeof obj.detail==='string'?obj.detail:'Server request failed'}`);
+ return obj;
+}
+async function pilotRefresh(){
+ if(!pilotSession){$('pilotSession').textContent=location.protocol==='file:'?'Offline demo: start the Python local server for authenticated pilot.':'Sign in using accounts created with the Python CLI.';return}
+ try{const ans=await pilotCall('/records');pilotRecords=ans.records;pilotRenderRecords();$('pilotSession').textContent=`Signed in as ${pilotSession.username} (${pilotSession.role}). Local experimental server only.`}
+ catch(e){$('pilotSession').textContent='Server session unavailable: '+e.message;pilotRecords=[];pilotCurrent=null;pilotRenderRecords()}
+}
+function pilotRenderRecords(){
+ const root=$('pilotRecords');root.innerHTML='';
+ if(!pilotRecords.length){root.textContent='No server records visible to this account.';return}
+ for(const r of pilotRecords){const item=document.createElement('div');item.className='rowitem';item.innerHTML=`<strong>${esc(r.project_code)} · ${esc(r.test_type)}</strong><div class="meta">${esc(r.id)} · v${r.version} · ${esc(r.status)} · ${esc(r.creator)}</div><button class="btn small">Select</button>`;
+ item.querySelector('button').onclick=()=>pilotSelect(r.id);root.appendChild(item)}
+}
+function pilotSelect(id){pilotCurrent=pilotRecords.find(x=>x.id===id)||null;if(!pilotCurrent)return;
+ const r=pilotCurrent;
+ $('pilotSelected').textContent=`${r.id} · v${r.version} · ${r.status}`;
+ $('pilotProject').value=r.project_code;$('pilotLocation').value=r.location;$('pilotType').value=r.test_type;
+ $('pilotSpec').value=r.spec_reference;$('pilotEvidence').value=r.evidence_reference;$('pilotSource').value=r.source;
+ $('pilotMeasurements').value=JSON.stringify(r.measurements,null,2);
+ pilotNotice(`Selected ${r.id}. Current content loaded; only creator may revise drafts or returned records.`)}
+function pilotClear(){pilotCurrent=null;$('pilotSelected').textContent='New draft';pilotNotice('Ready to create a NEW server draft.')} 
+$('pilotNew').onclick=pilotClear;
+$('pilotLogin').onclick=async()=>{try{
+ const ans=await pilotCall('/login','POST',{username:txt('pilotUser'),password:$('pilotPass').value});
+ pilotSession=ans;$('pilotPass').value='';pilotNotice('Login successful; no default users are provided.');await pilotRefresh();
+ }catch(e){pilotNotice('Sign in failed: '+e.message)}};
+$('pilotLogout').onclick=async()=>{try{if(pilotSession)await pilotCall('/logout','POST')}catch(e){pilotNotice(e.message)}
+ finally{pilotSession=null;pilotCurrent=null;pilotRecords=[];$('pilotPass').value='';pilotRenderRecords();$('pilotSession').textContent='Signed out.'}};
+$('pilotReload').onclick=pilotRefresh;
+function pilotForm(){
+ if(!$('pilotAuthorized').checked)throw Error('Check operator authorization before copying data to server');
+ let measurements;try{measurements=JSON.parse(txt('pilotMeasurements'))}catch{throw Error('Measurements JSON invalid')}
+ if(!measurements||typeof measurements!=='object'||Array.isArray(measurements))throw Error('Measurements must be a JSON object');
+ return {test_type:txt('pilotType'),project_code:txt('pilotProject'),location:txt('pilotLocation'),
+  spec_reference:txt('pilotSpec'),evidence_reference:txt('pilotEvidence'),source:txt('pilotSource'),
+  authorization_confirmed:$('pilotAuthorized').checked,measurements};
+}
+async function pilotMutate(path, data, method='POST'){
+ try{if(!pilotSession)throw Error('Please sign in');const r=await pilotCall(path,method,data);pilotNotice(`${r.id}: ${r.status}, version ${r.version}. No engineering certification issued.`);
+ await pilotRefresh();if(r.id)pilotSelect(r.id)}catch(e){pilotNotice(e.message)}
+}
+$('pilotCreate').onclick=()=>{try{pilotMutate('/records',pilotForm())}catch(e){pilotNotice(e.message)}};
+$('pilotRevise').onclick=()=>{try{if(!pilotCurrent)throw Error('Select record to revise');pilotMutate(`/records/${pilotCurrent.id}`,{...pilotForm(),expected_version:pilotCurrent.version},'PUT')}catch(e){pilotNotice(e.message)}};
+$('pilotSubmit').onclick=()=>{if(!pilotCurrent)return pilotNotice('Select draft first');pilotMutate(`/records/${pilotCurrent.id}/submit`,{expected_version:pilotCurrent.version})};
+$('pilotReview').onclick=()=>{if(!pilotCurrent)return pilotNotice('Select submitted record first');pilotMutate(`/records/${pilotCurrent.id}/review`,
+ {expected_version:pilotCurrent.version,decision:txt('pilotDecision'),note:txt('pilotNote')})};
+$('pilotImport').onclick=()=>{const r=db.records.find(x=>x.id===chosen);if(!r){pilotNotice('Select record in 02 · Engineer review first');return}
+ if(!confirm('Copy the currently selected browser-local test into the FORM only? You will review and explicitly submit later. Do NOT use company or confidential records.'))return;
+ pilotClear();$('pilotType').value=r.type;$('pilotProject').value=r.project;$('pilotLocation').value=r.location;
+ $('pilotSpec').value=r.specRef||'';$('pilotEvidence').value=r.evidence||'';
+ $('pilotMeasurements').value=JSON.stringify({measurements:r.data,calculator:r.results,flags:r.flags,local_record_id:r.id},null,2);
+ $('pilotSource').value='synthetic';$('pilotAuthorized').checked=false;
+ pilotNotice('Browser record copied to FORM only (synthetic default). Review details before creating a server draft.')};
+$('pilotHistory').onclick=async()=>{try{if(!pilotCurrent)throw Error('Select a server record first');const r=await pilotCall(`/records/${pilotCurrent.id}/history`);
+ $('pilotIntegrity').textContent=JSON.stringify(r,null,2).slice(0,18000)}catch(e){pilotNotice(e.message)}};
+$('pilotAudit').onclick=async()=>{try{const r=await pilotCall('/audit/check');$('pilotIntegrity').textContent=JSON.stringify(r,null,2)}catch(e){pilotNotice(e.message)}};
+$('pilotDownload').onclick=async()=>{try{const r=await pilotCall('/export');download('CMT_pilot_server_export_v11.json',JSON.stringify(r,null,2),'application/json');pilotNotice('Server snapshot downloaded. Not a signed or compliant report.')}catch(e){pilotNotice(e.message)}};
+$('pilotReport').onclick=async()=>{try{if(!pilotCurrent)throw Error('Select a server record first');const r=await pilotCall(`/records/${encodeURIComponent(pilotCurrent.id)}/report.json`);download(`CMT_UNCERTIFIED_${pilotCurrent.id}_v${pilotCurrent.version}.json`,JSON.stringify(r,null,2),'application/json');pilotNotice('Unsigned review worksheet downloaded with a checksum. Not a certified engineering report.')}catch(e){pilotNotice('Worksheet unavailable: '+e.message)}};
+
+
+// v1.0: local data-quality preflight. Results come from backend, not from a text-generation model.
+function pilotDisplayQA(q){
+ $('pilotQAStatus').textContent=`Preflight ${q.profile}: ${q.blockers} blockers · ${q.warnings} warnings · ${q.can_submit?'eligible for human review queue':'NOT eligible to submit'}. No engineering acceptance.`;
+ const lines=[`Data quality only | ${q.test_type} | submit gate: ${q.can_submit?'OPEN':'BLOCKED'}`,
+     `Blockers: ${q.blockers}; warnings: ${q.warnings}`,
+     ...q.items.map(i=>`[${i.severity.toUpperCase()}] ${i.field} / ${i.code}: ${i.message}`),
+     'Illustrative calculations: '+JSON.stringify(q.derived_illustrations,null,2),q.disclaimer];
+ $('pilotQAReport').textContent=lines.join('\n');
+}
+$('pilotPreviewQA').onclick=async()=>{try{
+ if(!pilotSession)throw Error('Sign in on the local server first');
+ const q=await pilotCall('/qa/preview','POST',pilotForm());pilotDisplayQA(q)
+ }catch(e){$('pilotQAStatus').textContent='Preflight failed: '+e.message}};
+$('pilotCheckSelected').onclick=async()=>{try{
+ if(!pilotCurrent)throw Error('Select a server record first');
+ const q=await pilotCall(`/records/${encodeURIComponent(pilotCurrent.id)}/qa`);pilotDisplayQA(q)
+ }catch(e){$('pilotQAStatus').textContent='Preflight failed: '+e.message}};
+$('pilotCsv').onclick=async()=>{try{
+ if(!pilotSession||pilotSession.role!=='engineer')throw Error('Engineer role required');
+ const response=await fetch('/api/pilot/export/neutral.csv',{credentials:'same-origin',cache:'no-store'});
+ if(!response.ok)throw Error(`CSV export blocked (${response.status}); verify database integrity`);
+ const content=await response.text();
+ download('CMT_VENDOR_NEUTRAL_UNCERTIFIED_v1.1.csv',content,'text/csv');
+ pilotNotice('Uncertified CSV exported. There is NO live ElmTree/GET integration.');
+ }catch(e){pilotNotice('CSV export failed: '+e.message)}};
+
+</script></body></html>

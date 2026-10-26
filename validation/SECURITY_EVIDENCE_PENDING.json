@@ -1,0 +1,52 @@
+{
+  "network_tls": {
+    "state": "pending",
+    "reviewer": "",
+    "evidence_sha256": ""
+  },
+  "identity_mfa": {
+    "state": "pending",
+    "reviewer": "",
+    "evidence_sha256": ""
+  },
+  "encryption_at_rest": {
+    "state": "pending",
+    "reviewer": "",
+    "evidence_sha256": ""
+  },
+  "backup_encryption": {
+    "state": "pending",
+    "reviewer": "",
+    "evidence_sha256": ""
+  },
+  "restore_drill": {
+    "state": "pending",
+    "reviewer": "",
+    "evidence_sha256": ""
+  },
+  "penetration_review": {
+    "state": "pending",
+    "reviewer": "",
+    "evidence_sha256": ""
+  },
+  "external_audit_anchor": {
+    "state": "pending",
+    "reviewer": "",
+    "evidence_sha256": ""
+  },
+  "tenant_isolation": {
+    "state": "pending",
+    "reviewer": "",
+    "evidence_sha256": ""
+  },
+  "vendor_contract_test": {
+    "state": "pending",
+    "reviewer": "",
+    "evidence_sha256": ""
+  },
+  "operations_monitoring": {
+    "state": "pending",
+    "reviewer": "",
+    "evidence_sha256": ""
+  }
+}

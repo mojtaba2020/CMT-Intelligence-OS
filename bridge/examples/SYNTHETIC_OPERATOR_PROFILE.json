@@ -1,0 +1,24 @@
+{
+  "profile_name": "Synthetic training CSV layout - NOT ElmTree format",
+  "vendor_import_verified": false,
+  "match_on": [
+    "record_id"
+  ],
+  "columns": {
+    "record_id": "Record ID",
+    "test_type": "Test Type",
+    "project_code": "Project Code",
+    "location": "Location",
+    "status": "Review Status",
+    "spec_reference": "Specification Ref",
+    "evidence_reference": "Evidence Ref",
+    "measurements.wet": "Wet Density (pcf)",
+    "measurements.moisture": "Moisture (%)",
+    "measurements.mdd": "Maximum Dry Density (pcf)"
+  },
+  "measurement_units": {
+    "measurements.wet": "pcf",
+    "measurements.moisture": "percent",
+    "measurements.mdd": "pcf"
+  }
+}

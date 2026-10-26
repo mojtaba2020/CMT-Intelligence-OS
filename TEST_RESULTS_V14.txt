@@ -1,0 +1,9 @@
+CMT Intelligence OS v1.4 — 2026-10-25
+
+python -m pytest -q -k "not browser"
+110 passed, 18 deselected, 1 warning (intentional duplicate-ZIP attack fixture), 25.66s
+
+Bridge Chromium smoke: sample 2 rows prepared, 1 withheld; one deliberate wet-density mismatch; no JS pageerrors.
+
+Full historical browser suite: not completed in this run (time limit).
+No live ElmTree connection, licensed standard verification, or real AI accuracy claim.

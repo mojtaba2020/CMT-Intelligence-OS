@@ -1,0 +1,17 @@
+{
+  "schema": "cmt-bridge-preflight-v1.4",
+  "review_only": true,
+  "provenance_warning": "Labels and independent review are source attestations, NOT authenticated vendor approvals.",
+  "measurement_policy": "Exact units required; no implied unit conversion or regulatory pass/fail.",
+  "total_records": 3,
+  "eligible_count": 2,
+  "quarantined_count": 1,
+  "quarantined": [
+    {
+      "record_id": "TRAIN-1003",
+      "reasons": [
+        "independent_review_not_attested"
+      ]
+    }
+  ]
+}

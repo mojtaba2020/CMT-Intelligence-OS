@@ -1,0 +1,3 @@
+type,project,tech,location,date,evidence,specRef,wet,moisture,mdd,minComp,proctor,slump,slumpMin,slumpMax,air,airMin,airMax,temp,tempMax,mix
+soil,DEMO-EXAMPLE,Training Technician,Station 10+00,2026-10-25T08:30,SYNTHETIC-NDG-001,DEMO-SPEC-REV-A,126,11.8,120,95,DEMO-PROCTOR,,,,,,,,,
+concrete,DEMO-EXAMPLE,Training Technician,Pour A,2026-10-25T09:00,SYNTHETIC-CONCRETE-001,DEMO-SPEC-REV-A,,,,,,5.25,4,6,5.2,4,7,78,95,DEMO-MIX

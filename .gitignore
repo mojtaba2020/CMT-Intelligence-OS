@@ -1,0 +1,33 @@
+# Credentials / sensitive environment
+.env
+.env.*
+!.env.example
+*.pem
+*.p12
+*.pfx
+*.key
+
+# Runtime databases, backups, outputs and logs
+*.sqlite
+*.sqlite3
+*.sqlite3-*
+*.db
+*.db-*
+*.log
+*.bak
+*.backup
+pilot_data/
+real_data/
+private_data/
+
+# Python and virtual environments
+__pycache__/
+.pytest_cache/
+.venv/
+venv/
+*.py[cod]
+
+# OS/editor
+.DS_Store
+.idea/
+.vscode/

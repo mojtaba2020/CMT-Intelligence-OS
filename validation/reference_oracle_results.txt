@@ -1,0 +1,11 @@
+ndg_dry_pcf                 112.70 (unrounded=112.701252236135957066189624329)
+soil_oven_moisture_pct      20.00 (unrounded=20)
+plasticity_index            19.00 (unrounded=19)
+sandcone_dry_pcf            113.45 (unrounded=113.454545454545454545454545455)
+single_sieve_passing_pct    77.50 (unrounded=77.500)
+concrete_unit_weight_pcf    140.80 (unrounded=140.8)
+asphalt_core_bulk_sg        2.36 (unrounded=2.36252545824847250509164969450)
+asphalt_air_void_pct        6.00 (unrounded=6.00)
+ndg_compaction_pct          93.92 (unrounded=93.9177101967799642218246869408)
+cylinder_psi                11250.03 (unrounded=11250.0263073937145580927543981)
+10 independent numeric oracle cases passed. NOT a method-conformance test.

@@ -1,0 +1,35 @@
+{
+  "schema": "cmt-benchmark-v1",
+  "dataset_types_never_pooled": true,
+  "by_source": {
+    "synthetic": {
+      "labeled_fields": 8,
+      "correct_fields": 6,
+      "field_accuracy": 0.75,
+      "field_accuracy_95pct_wilson": [
+        0.4093,
+        0.9285
+      ],
+      "abstentions": 1,
+      "critical_fields": 8,
+      "critical_errors_or_abstentions": 2,
+      "timed_observations": 8,
+      "baseline_total_seconds": 567.0,
+      "assisted_and_correction_total_seconds": 381.0,
+      "net_seconds_saved": 186.0,
+      "net_percent_saved": 32.8,
+      "slower_observations": 2,
+      "method_mix": {
+        "concrete": 2,
+        "cylinder": 2,
+        "soil": 4
+      }
+    }
+  },
+  "caveats": [
+    "Unverified external labels are not laboratory truth.",
+    "Small samples have wide confidence intervals.",
+    "No ASTM compliance or labor savings at GET implied.",
+    "Paired timing must reflect actual comparable tasks and all review/correction time."
+  ]
+}

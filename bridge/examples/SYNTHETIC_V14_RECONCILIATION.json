@@ -1,0 +1,39 @@
+{
+  "schema": "cmt-reconciliation-v1.4",
+  "source": "operator_supplied_export_not_vendor_verified",
+  "review_only": true,
+  "compared_records": 2,
+  "compared_columns": 10,
+  "field_conflicts": [
+    {
+      "match_key": [
+        "TRAIN-1002"
+      ],
+      "field": "measurements.wet",
+      "external_column": "Wet Density (pcf)",
+      "cmt_value": "128",
+      "external_value": "125"
+    }
+  ],
+  "ambiguous_keys": [],
+  "missing_in_external": [],
+  "missing_in_cmt": [],
+  "withheld_cmt": [],
+  "source_csv_sha256": "dde9c4f99543f315194ed4d1bd35515279c328d92eb5ff8d0476b8afea4cf0db",
+  "comparison_status": "NEEDS_HUMAN_REVIEW",
+  "source_quarantine": [
+    {
+      "record_id": "TRAIN-1003",
+      "reasons": [
+        "independent_review_not_attested"
+      ]
+    }
+  ],
+  "external_csv_warnings": [],
+  "unit_schema": {
+    "measurements.wet": "pcf",
+    "measurements.moisture": "percent",
+    "measurements.mdd": "pcf"
+  },
+  "not_vendor_certified": true
+}

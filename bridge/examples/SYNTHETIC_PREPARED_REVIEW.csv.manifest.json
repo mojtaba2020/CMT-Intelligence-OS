@@ -1,0 +1,16 @@
+{
+  "schema": "cmt-vendor-neutral-bridge-v1",
+  "profile_name": "Synthetic training CSV layout - NOT ElmTree format",
+  "vendor_import_verified": false,
+  "review_only": true,
+  "demo": true,
+  "source_rows": 3,
+  "prepared_rows": 2,
+  "withheld": [
+    {
+      "record_id": "TRAIN-1003",
+      "reason": "independent_human_review_missing"
+    }
+  ],
+  "sha256_csv": "d867bb226b64b0afc91a0c071137d43393be7ffce1985307064613622dbca7a9"
+}

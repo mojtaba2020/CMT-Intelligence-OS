@@ -1,0 +1,3 @@
+case_id,source,test_type,field,gold,predicted,tolerance,critical,manual_seconds,assisted_seconds,correction_seconds
+SYN-01,synthetic,soil,wet,126,126,0.2,true,60,20,5
+SYN-02,synthetic,soil,moisture,11.8,18.8,0.1,true,60,25,40
