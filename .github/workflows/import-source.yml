@@ -19,7 +19,7 @@ jobs:
           zipfile=$(find . -maxdepth 1 -type f -name 'CMT_Intelligence_OS_GitHub_Light_Source*.zip' -print -quit)
           test -n "$zipfile"
           unzip -t "$zipfile"
-          unzip -o "$zipfile" -d .
+          unzip -o "$zipfile" -d . -x '.github/workflows/tests.yml'
           rm "$zipfile"
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
