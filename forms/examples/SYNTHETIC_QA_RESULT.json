@@ -1,0 +1,32 @@
+{
+  "source": "synthetic_or_authorized_human_verified_only",
+  "automated_material_acceptance": false,
+  "ready_for_elmtree_import": false,
+  "forms_count": 5,
+  "type_counts": {
+    "general_report": 1,
+    "concrete_strength": 1,
+    "density_sheet": 2,
+    "rebar_observation": 1
+  },
+  "density_detail_rows": 3,
+  "findings": [
+    {
+      "code": "DRY_DENSITY_RECHECK",
+      "severity": "REVIEW",
+      "message": "Reported dry density differs from wet/(1+moisture): 113.00 versus 116.00 pcf",
+      "record": "DEMO-DENSITY-P2/D-003"
+    },
+    {
+      "code": "COMPACTION_RECHECK",
+      "severity": "REVIEW",
+      "message": "Reported compaction differs from dry/MDD: 96.70 versus 94.17%",
+      "record": "DEMO-DENSITY-P2/D-003"
+    }
+  ],
+  "finding_counts": {
+    "REVIEW": 2
+  },
+  "review_required": true,
+  "note": "Screening QA only; an engineer/authorized reviewer must verify source forms, project specifications, and acceptance criteria."
+}

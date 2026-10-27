@@ -1,0 +1,48 @@
+{
+  "$schema":"https://json-schema.org/draft/2020-12/schema",
+  "$id":"https://example.invalid/cmt-intelligence-os/synthetic/capture-v1.8.schema.json",
+  "title":"CMT Intelligence OS staged capture envelope — validation shape only",
+  "description":"Shape validation only. Manual review, authorizations, value semantics, and cross-form checks MUST still be enforced by capture_v18.py.",
+  "type":"object",
+  "required":["schema","data_mode","authorization_attested","project_key","work_date","documents"],
+  "properties":{
+    "schema":{"const":"cmt-capture-v1.8"},
+    "data_mode":{"enum":["synthetic","authorized"]},
+    "authorization_attested":{"type":"boolean"},
+    "project_key":{"type":"string","minLength":1,"maxLength":220},
+    "work_date":{"type":"string","format":"date"},
+    "documents":{"type":"array","minItems":1,"maxItems":250,"items":{"$ref":"#/$defs/document"}}
+  },
+  "additionalProperties":false,
+  "$defs":{
+    "field":{
+      "type":"object",
+      "required":["key","value","origin","evidence_ref","reviewed","reviewer_ref"],
+      "properties":{
+        "key":{"type":"string","minLength":1,"maxLength":80},
+        "value":{"type":["string","number"],"maxLength":220},
+        "origin":{"enum":["manual","model"]},
+        "evidence_ref":{"type":"string","minLength":1,"maxLength":160},
+        "confidence":{"type":["number","null"],"minimum":0,"maximum":1},
+        "reviewed":{"type":"boolean"},
+        "reviewer_ref":{"type":"string","maxLength":120}
+      },"additionalProperties":false
+    },
+    "row":{
+      "type":"object","required":["row_id","fields"],
+      "properties":{
+        "row_id":{"type":"string","minLength":1,"maxLength":220},
+        "fields":{"type":"array","maxItems":4000,"items":{"$ref":"#/$defs/field"}}
+      },"additionalProperties":false
+    },
+    "document":{
+      "type":"object","required":["source_id","form_type","fields","rows"],
+      "properties":{
+        "source_id":{"type":"string","minLength":1,"maxLength":220},
+        "form_type":{"enum":["general_report","concrete_strength","density_sheet","rebar_observation"]},
+        "fields":{"type":"array","maxItems":4000,"items":{"$ref":"#/$defs/field"}},
+        "rows":{"type":"array","maxItems":300,"items":{"$ref":"#/$defs/row"}}
+      },"additionalProperties":false
+    }
+  }
+}

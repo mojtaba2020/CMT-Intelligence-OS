@@ -1,0 +1,34 @@
+{
+  "version": "1.0",
+  "source": "Structural observation of user-supplied field form photographs; NO company records, signatures, logos, photos, or values embedded",
+  "publication_safety": "synthetic_definitions_only",
+  "form_types": {
+    "general_report": {
+      "display_name": "Daily General Report",
+      "header_fields": ["project_key", "report_date", "report_id", "job_key", "technician", "arrived_at_site", "left_site_at"],
+      "activity_fields": ["reported_density_tests", "reported_concrete_cylinders_cast", "reported_concrete_cylinders_picked_up", "notes"],
+      "review_notes": "Checkboxes, notes and numerical counts are separate observations; missing means unknown, not zero."
+    },
+    "concrete_strength": {
+      "display_name": "Compressive Strength of Concrete / Cylinder Field & Lab Sheet",
+      "header_fields": ["project_key", "report_date", "job_key", "sampling_location", "supplier", "technician"],
+      "field_fields": ["truck_number", "ticket_number", "accumulated_yards", "water_added_gal", "slump_in", "ambient_temp_f", "concrete_temp_f", "air_percent", "batch_time", "sample_time"],
+      "repeating_fields": ["set_number", "cylinder_mark", "test_age_days", "date_tested", "load_lbf", "area_in2", "unit_load_psi", "fracture_type"],
+      "review_notes": "Cast or picked-up cylinder counts must not be equated with strength results. Lab columns may be blank at field stage."
+    },
+    "density_sheet": {
+      "display_name": "Tests for In-Place Density of Compacted Soils (multiple pages)",
+      "header_fields": ["project_key", "test_date", "job_key", "series_id", "page_number", "page_count", "proctor_reference", "specification_reference"],
+      "repeating_fields": ["test_id", "location", "station", "offset", "layer_or_elevation", "field_moisture_percent", "field_wet_density_pcf", "field_dry_density_pcf", "max_dry_density_pcf", "reported_compaction_percent", "reported_pass_fail"],
+      "review_notes": "Merge by authorized series/document ID and explicit page number. Do not assume same station means duplicate test. Pass/fail are recorded observations, not recalculated acceptance."
+    },
+    "rebar_observation": {
+      "display_name": "Rebar / Reinforcing Steel Observation",
+      "header_fields": ["project_key", "observation_date", "job_key", "location", "technician"],
+      "repeating_fields": ["observation_id", "element", "bar_size", "bar_count", "spacing_in", "embedment_in", "condition", "remarks"],
+      "review_notes": "Qualitative comments require human interpretation; do not assert structural compliance."
+    }
+  },
+  "cross_document_checks": ["project/date consistency", "density page sequence", "duplicate test IDs", "daily counts versus verified detail", "cylinder count consistency", "recorded dry density versus wet density & moisture", "recorded compaction versus measured dry and reference max dry"],
+  "human_review_policy": "Never auto-approve material or auto-send to ElmTree. Uncertain handwriting requires human verification and source page reference."
+}

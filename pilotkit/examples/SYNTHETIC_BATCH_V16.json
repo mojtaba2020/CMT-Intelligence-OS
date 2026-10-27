@@ -1,0 +1,153 @@
+{
+  "cases": [
+    {
+      "test_type": "ndg",
+      "synthetic": true,
+      "screen_tolerances": {
+        "wet_density": "0.2",
+        "moisture": "0.1"
+      },
+      "documents": [
+        {
+          "source_id": "FORM-001",
+          "source_type": "field_form",
+          "project_id": "DEMO-101",
+          "test_id": "NDG-007",
+          "observations": [
+            {
+              "field": "wet_density",
+              "value": "128",
+              "unit": "pcf"
+            },
+            {
+              "field": "moisture",
+              "value": "12",
+              "unit": "%"
+            }
+          ]
+        },
+        {
+          "source_id": "GAUGE-001",
+          "source_type": "gauge_printout",
+          "project_id": "DEMO-101",
+          "test_id": "NDG-007",
+          "observations": [
+            {
+              "field": "wet_density",
+              "value": "125",
+              "unit": "pcf"
+            },
+            {
+              "field": "moisture",
+              "value": "12",
+              "unit": "%"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "test_type": "fresh_concrete",
+      "synthetic": true,
+      "screen_tolerances": {
+        "slump": "0.05",
+        "air": "0.15",
+        "temperature": "0.5"
+      },
+      "documents": [
+        {
+          "source_id": "CONC-FORM-1",
+          "source_type": "field_form",
+          "project_id": "DEMO-202",
+          "test_id": "CONC-22",
+          "observations": [
+            {
+              "field": "slump",
+              "value": "5.25",
+              "unit": "in"
+            },
+            {
+              "field": "air",
+              "value": "5.2",
+              "unit": "%"
+            },
+            {
+              "field": "temperature",
+              "value": "77",
+              "unit": "F"
+            }
+          ]
+        },
+        {
+          "source_id": "TICKET-22",
+          "source_type": "concrete_ticket",
+          "project_id": "DEMO-202",
+          "test_id": "CONC-22",
+          "observations": [
+            {
+              "field": "slump",
+              "value": "133.35",
+              "unit": "mm"
+            },
+            {
+              "field": "air",
+              "value": "5.2",
+              "unit": "%"
+            },
+            {
+              "field": "temperature",
+              "value": "25",
+              "unit": "C"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "test_type": "ndg",
+      "synthetic": true,
+      "screen_tolerances": {
+        "wet_density": "0.2",
+        "moisture": "0.1"
+      },
+      "documents": [
+        {
+          "source_id": "FORM-003",
+          "source_type": "field_form",
+          "project_id": "DEMO-303",
+          "test_id": "NDG-030",
+          "observations": [
+            {
+              "field": "wet_density",
+              "value": "128",
+              "unit": "pcf"
+            },
+            {
+              "field": "moisture",
+              "value": "12",
+              "unit": "%"
+            }
+          ]
+        },
+        {
+          "source_id": "GAUGE-003",
+          "source_type": "gauge_printout",
+          "project_id": "DEMO-909",
+          "test_id": "NDG-031",
+          "observations": [
+            {
+              "field": "wet_density",
+              "value": "128",
+              "unit": "pcf"
+            },
+            {
+              "field": "moisture",
+              "value": "12",
+              "unit": "%"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

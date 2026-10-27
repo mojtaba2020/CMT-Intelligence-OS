@@ -1,0 +1,76 @@
+{
+  "schema": "cmt-capture-v1.8",
+  "data_mode": "synthetic",
+  "authorization_attested": false,
+  "project_key": "DEMO-PROJECT-001",
+  "work_date": "2026-10-20",
+  "documents": [
+    {
+      "source_id": "SYNTHETIC-AI-DENS-01",
+      "form_type": "density_sheet",
+      "fields": [
+        {
+          "key": "work_date",
+          "value": "2026-10-20",
+          "origin": "model",
+          "confidence": null,
+          "evidence_ref": "SYNTHETIC-AI-DENS-01#ai-candidate.operator-day",
+          "reviewed": false,
+          "reviewer_ref": ""
+        },
+        {
+          "key": "project_key",
+          "value": "DEMO-PROJECT-001",
+          "origin": "model",
+          "confidence": null,
+          "evidence_ref": "SYNTHETIC-AI-DENS-01#ai-candidate.project",
+          "reviewed": false,
+          "reviewer_ref": ""
+        }
+      ],
+      "rows": [
+        {
+          "row_id": "PROPOSED-ROW-1",
+          "fields": [
+            {
+              "key": "field_wet_density_pcf",
+              "value": "127.6",
+              "origin": "model",
+              "confidence": null,
+              "evidence_ref": "SYNTHETIC-AI-DENS-01#ai-candidate.wet_density",
+              "reviewed": false,
+              "reviewer_ref": ""
+            },
+            {
+              "key": "field_moisture_percent",
+              "value": "10.0",
+              "origin": "model",
+              "confidence": null,
+              "evidence_ref": "SYNTHETIC-AI-DENS-01#ai-candidate.moisture",
+              "reviewed": false,
+              "reviewer_ref": ""
+            },
+            {
+              "key": "max_dry_density_pcf",
+              "value": "120.0",
+              "origin": "model",
+              "confidence": null,
+              "evidence_ref": "SYNTHETIC-AI-DENS-01#ai-candidate.max_dry_density",
+              "reviewed": false,
+              "reviewer_ref": ""
+            },
+            {
+              "key": "location",
+              "value": "SYNTHETIC STATION 100+00",
+              "origin": "model",
+              "confidence": null,
+              "evidence_ref": "SYNTHETIC-AI-DENS-01#ai-candidate.location",
+              "reviewed": false,
+              "reviewer_ref": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

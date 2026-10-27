@@ -312,3 +312,19 @@ async def pilot_loopback_guard(request: Request, call_next):
         response.headers['X-Frame-Options']='DENY'
         response.headers['Referrer-Policy']='no-referrer'
     return response
+
+# v1.5: deterministic read-only cross-document discrepancy screen.
+# Intentionally separate from AI extraction and from the authenticated approval workflow.
+from .reconcile_v15 import Case as ReconciliationCase, reconcile as reconcile_case
+
+@app.post('/api/evidence/reconcile')
+def reconcile_evidence(case: ReconciliationCase):
+    return reconcile_case(case)
+
+@app.get('/reconcile-demo')
+def reconciliation_demo():
+    return FileResponse(APP_ROOT / 'reconciliation_demo_v15.html')
+
+# v1.9 optional local, on-device Tesseract OCR; no outbound image transfers.
+from server.local_ocr_api_v19 import router as local_ocr_router
+app.include_router(local_ocr_router)

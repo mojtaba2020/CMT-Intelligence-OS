@@ -1,0 +1,17 @@
+{
+  "test_type": "fresh_concrete",
+  "synthetic": true,
+  "screen_tolerances": {"slump": "0.05", "air": "0.15", "temperature": "0.5"},
+  "documents": [
+    {"source_id": "CONC-FORM-1", "source_type": "field_form", "project_id": "DEMO-202", "test_id": "CONC-22", "observations": [
+      {"field": "slump", "value": "5.25", "unit": "in"},
+      {"field": "air", "value": "5.2", "unit": "%"},
+      {"field": "temperature", "value": "77", "unit": "F"}
+    ]},
+    {"source_id": "TICKET-22", "source_type": "concrete_ticket", "project_id": "DEMO-202", "test_id": "CONC-22", "observations": [
+      {"field": "slump", "value": "133.35", "unit": "mm"},
+      {"field": "air", "value": "5.2", "unit": "%"},
+      {"field": "temperature", "value": "25", "unit": "C"}
+    ]}
+  ]
+}

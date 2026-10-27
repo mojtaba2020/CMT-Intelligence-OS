@@ -1,0 +1,10 @@
+CMT Intelligence OS v1.6 automated verification
+
+Run: python -m pytest -q
+Result: 174 passed, 2 warnings (duplicate ZIP entries intentionally introduced in negative tests)
+Breakdown: 156 non-browser tests and 18 browser tests.
+Additional independent smoke check: Chromium rendered pilotkit summary.html with 3 cards; first detail disclosure opened successfully.
+Synthetic sample: 3 cases, 2 cases with findings, 3 findings, no quarantines.
+No ElmTree account or API contacted. No AI accuracy on real photographs established.
+
+Date: 2026-10-26

@@ -1,0 +1,219 @@
+{
+  "concrete_synthetic_metric": {
+    "mode": "LOCAL_READ_ONLY_RECONCILIATION",
+    "test_type": "fresh_concrete",
+    "review_status": "NO_DIFFERENCE_IN_CHECKED_FIELDS",
+    "engineer_approved": false,
+    "official_acceptance": null,
+    "synthetic": true,
+    "comparison_threshold_policy": "Operator-provided screening only; NOT ASTM/AASHTO criteria or acceptance rounding",
+    "sources": [
+      {
+        "source_id": "CONC-FORM-1",
+        "source_type": "field_form"
+      },
+      {
+        "source_id": "TICKET-22",
+        "source_type": "concrete_ticket"
+      }
+    ],
+    "comparisons": [
+      {
+        "field": "slump",
+        "from_form": "5.2500",
+        "from_other": "5.2500",
+        "base_unit": "in",
+        "absolute_difference": "0.0000",
+        "screen_tolerance": "0.0500",
+        "different": false,
+        "source_ids": [
+          "CONC-FORM-1",
+          "TICKET-22"
+        ]
+      },
+      {
+        "field": "air",
+        "from_form": "5.2000",
+        "from_other": "5.2000",
+        "base_unit": "%",
+        "absolute_difference": "0.0000",
+        "screen_tolerance": "0.1500",
+        "different": false,
+        "source_ids": [
+          "CONC-FORM-1",
+          "TICKET-22"
+        ]
+      },
+      {
+        "field": "temperature",
+        "from_form": "77.0000",
+        "from_other": "77.0000",
+        "base_unit": "F",
+        "absolute_difference": "0.0000",
+        "screen_tolerance": "0.5000",
+        "different": false,
+        "source_ids": [
+          "CONC-FORM-1",
+          "TICKET-22"
+        ]
+      }
+    ],
+    "derived": [],
+    "issues": [],
+    "limitations": [
+      "Source identities and values require independent human confirmation.",
+      "No official material acceptance, PE signature, or ElmTree synchronization.",
+      "An empty issue list does not establish field-data accuracy or standards compliance."
+    ],
+    "sha256_for_local_change_detection_only": "039ccc20e9da6b66b86b5f66bb52ec3d312283636dbc84cc8f02bdd02d7c6fef"
+  },
+  "ndg_synthetic_conflict": {
+    "mode": "LOCAL_READ_ONLY_RECONCILIATION",
+    "test_type": "ndg",
+    "review_status": "REVIEW_REQUIRED",
+    "engineer_approved": false,
+    "official_acceptance": null,
+    "synthetic": true,
+    "comparison_threshold_policy": "Operator-provided screening only; NOT ASTM/AASHTO criteria or acceptance rounding",
+    "sources": [
+      {
+        "source_id": "FORM-001",
+        "source_type": "field_form"
+      },
+      {
+        "source_id": "GAUGE-001",
+        "source_type": "gauge_printout"
+      }
+    ],
+    "comparisons": [
+      {
+        "field": "wet_density",
+        "from_form": "128.0000",
+        "from_other": "125.0000",
+        "base_unit": "pcf",
+        "absolute_difference": "3.0000",
+        "screen_tolerance": "0.2000",
+        "different": true,
+        "source_ids": [
+          "FORM-001",
+          "GAUGE-001"
+        ]
+      },
+      {
+        "field": "moisture",
+        "from_form": "12.0000",
+        "from_other": "12.0000",
+        "base_unit": "%",
+        "absolute_difference": "0.0000",
+        "screen_tolerance": "0.1000",
+        "different": false,
+        "source_ids": [
+          "FORM-001",
+          "GAUGE-001"
+        ]
+      }
+    ],
+    "derived": [
+      {
+        "source_id": "FORM-001",
+        "derived_dry_density_pcf": "114.2857",
+        "note": "Calculated solely from that source; not an approved Proctor MDD"
+      },
+      {
+        "source_id": "GAUGE-001",
+        "derived_dry_density_pcf": "111.6071",
+        "note": "Calculated solely from that source; not an approved Proctor MDD"
+      }
+    ],
+    "issues": [
+      {
+        "code": "VALUE_MISMATCH",
+        "field": "wet_density",
+        "details": "Measured values differ beyond operator-supplied screen tolerance"
+      }
+    ],
+    "limitations": [
+      "Source identities and values require independent human confirmation.",
+      "No official material acceptance, PE signature, or ElmTree synchronization.",
+      "An empty issue list does not establish field-data accuracy or standards compliance."
+    ],
+    "sha256_for_local_change_detection_only": "f13344a2a972f474e0a0da6fc0c1ccd4d9873996c39dcc5b0d5ddb77dd70206e"
+  },
+  "ndg_synthetic_identity_conflict": {
+    "mode": "LOCAL_READ_ONLY_RECONCILIATION",
+    "test_type": "ndg",
+    "review_status": "REVIEW_REQUIRED",
+    "engineer_approved": false,
+    "official_acceptance": null,
+    "synthetic": true,
+    "comparison_threshold_policy": "Operator-provided screening only; NOT ASTM/AASHTO criteria or acceptance rounding",
+    "sources": [
+      {
+        "source_id": "FORM-001",
+        "source_type": "field_form"
+      },
+      {
+        "source_id": "GAUGE-002",
+        "source_type": "gauge_printout"
+      }
+    ],
+    "comparisons": [
+      {
+        "field": "wet_density",
+        "from_form": "128.0000",
+        "from_other": "128.0000",
+        "base_unit": "pcf",
+        "absolute_difference": "0.0000",
+        "screen_tolerance": "0.2000",
+        "different": false,
+        "source_ids": [
+          "FORM-001",
+          "GAUGE-002"
+        ]
+      },
+      {
+        "field": "moisture",
+        "from_form": "12.0000",
+        "from_other": "12.0000",
+        "base_unit": "%",
+        "absolute_difference": "0.0000",
+        "screen_tolerance": "0.1000",
+        "different": false,
+        "source_ids": [
+          "FORM-001",
+          "GAUGE-002"
+        ]
+      }
+    ],
+    "derived": [
+      {
+        "source_id": "FORM-001",
+        "derived_dry_density_pcf": "114.2857",
+        "note": "Calculated solely from that source; not an approved Proctor MDD"
+      },
+      {
+        "source_id": "GAUGE-002",
+        "derived_dry_density_pcf": "114.2857",
+        "note": "Calculated solely from that source; not an approved Proctor MDD"
+      }
+    ],
+    "issues": [
+      {
+        "code": "IDENTIFIER_MISMATCH",
+        "field": "project_id",
+        "details": "project_id differs across documents; verify source identity"
+      },
+      {
+        "code": "IDENTIFIER_MISMATCH",
+        "field": "test_id",
+        "details": "test_id differs across documents; verify source identity"
+      }
+    ],
+    "limitations": [
+      "Source identities and values require independent human confirmation.",
+      "No official material acceptance, PE signature, or ElmTree synchronization.",
+      "An empty issue list does not establish field-data accuracy or standards compliance."
+    ],
+    "sha256_for_local_change_detection_only": "943fee0c8e47af92ef6c66397e34521905f84cc2a32a348418df96b5becf925f"
+  }
+}

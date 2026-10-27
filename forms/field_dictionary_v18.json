@@ -1,0 +1,168 @@
+{
+  "schema": "cmt-field-dictionary-v1.8",
+  "scope": "Neutral schema based on observed categories of field paperwork; NOT the employer's original templates or ElmTree schema.",
+  "sensitive_data_policy": "Use synthetic identifiers in public demos. Employee, client, and job information from originals must not be included.",
+  "confidence_policy": "Image-derived fields are UNVERIFIED until a human compares them against authorized original evidence. Confidence scores are advisory only.",
+  "forms": {
+    "general_report": {
+      "name": "Daily General Report",
+      "required": [
+        "project_key",
+        "work_date"
+      ],
+      "headers": [
+        "project_key",
+        "job_key",
+        "client_ref",
+        "work_date",
+        "report_no",
+        "technician_ref",
+        "leave_office_time",
+        "arrive_site_time",
+        "lunch_time",
+        "leave_site_time",
+        "arrive_office_time",
+        "total_hours"
+      ],
+      "activities": [
+        "concrete_testing_checked",
+        "cylinders_cast",
+        "cylinders_picked_up",
+        "reported_density_tests",
+        "sample_pickup_checked",
+        "rebar_observation_checked",
+        "pier_observation_checked",
+        "proofrolling_checked",
+        "asphalt_density_checked",
+        "notes"
+      ],
+      "count_semantics": "Counts reflect each explicitly named activity, not necessarily every test recorded in other sheets. Blank is unknown rather than zero."
+    },
+    "concrete_strength": {
+      "name": "Concrete field / compressive strength sheet",
+      "required": [
+        "project_key",
+        "work_date"
+      ],
+      "headers": [
+        "project_key",
+        "job_key",
+        "work_date",
+        "supplier_ref",
+        "technician_ref",
+        "mix_design_ref",
+        "test_location",
+        "design_strength_psi",
+        "truck_number",
+        "ticket_number",
+        "accumulated_yards",
+        "water_added_gal",
+        "slump_in",
+        "ambient_temp_f",
+        "concrete_temp_f",
+        "air_percent",
+        "batch_time",
+        "sample_time"
+      ],
+      "repeat_group": "cylinders",
+      "columns": [
+        "set_number",
+        "cylinder_mark",
+        "date_received",
+        "date_tested",
+        "test_age_days",
+        "load_lbf",
+        "area_in2",
+        "unit_load_psi",
+        "fracture_type"
+      ],
+      "count_semantics": "Unfilled laboratory age marks are not proof that cylinders were tested or picked up. Cast, pickup, received, and tested events are distinct."
+    },
+    "density_sheet": {
+      "name": "In-place density (continued pages)",
+      "required": [
+        "project_key",
+        "work_date",
+        "series_id",
+        "page_number",
+        "page_count"
+      ],
+      "headers": [
+        "project_key",
+        "job_key",
+        "work_date",
+        "series_id",
+        "page_number",
+        "page_count",
+        "proctor_reference",
+        "specification_reference",
+        "moisture_specification_ref",
+        "soil_description",
+        "equipment_id"
+      ],
+      "repeat_group": "rows",
+      "columns": [
+        "test_id",
+        "location",
+        "station",
+        "block_lot",
+        "lift_elevation",
+        "field_moisture_percent",
+        "field_wet_density_pcf",
+        "field_dry_density_pcf",
+        "max_dry_density_pcf",
+        "reported_compaction_percent",
+        "reported_pass_fail"
+      ],
+      "row_required_for_arithmetic": [
+        "test_id",
+        "field_moisture_percent",
+        "field_wet_density_pcf",
+        "field_dry_density_pcf",
+        "max_dry_density_pcf",
+        "reported_compaction_percent"
+      ],
+      "page_policy": "Only combine explicitly matching series and page metadata. Do not equate duplicate station with duplicate test. Blank continuation row is not a test."
+    },
+    "rebar_observation": {
+      "name": "Rebar observation / inspection",
+      "required": [
+        "project_key",
+        "work_date"
+      ],
+      "headers": [
+        "project_key",
+        "job_key",
+        "work_date",
+        "technician_ref",
+        "weather",
+        "general_location",
+        "contractor_ref",
+        "notes"
+      ],
+      "repeat_group": "observations",
+      "columns": [
+        "observation_id",
+        "element",
+        "bar_size",
+        "bar_count",
+        "spacing_in",
+        "element_width_in",
+        "element_height_in",
+        "tying_condition",
+        "cover_in",
+        "remarks",
+        "condition"
+      ],
+      "review_policy": "Qualitative comments and as-built observations require qualified human interpretation, not automated compliance judgment."
+    }
+  },
+  "measurement_notes": {
+    "field_wet_density_pcf": "Density in lb/ft^3; physical/QA plausibility only, not method-specific acceptance.",
+    "field_dry_density_pcf": "Check wet/(1+w_fraction) where moisture % is dry-mass-based moisture ratio; check the instrument/method definition before using.",
+    "reported_compaction_percent": "Check 100*dry/reference max dry, but do not assign a pass/fail unless project requirements explicitly reviewed.",
+    "slump_in": "Inches; do not infer compliance from a global range.",
+    "air_percent": "Air percent; only comparison to source or authorized job specification.",
+    "unit_load_psi": "Requires checked lab age, specimen geometry, corrected load, and approved method."
+  }
+}

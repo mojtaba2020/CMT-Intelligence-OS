@@ -1,0 +1,12 @@
+{
+  "document_type": "soil",
+  "fields": [
+    {"key": "project", "value": "DEMO-PROJECT-001"},
+    {"key": "wet_density", "value": "127.6"},
+    {"key": "moisture", "value": "10.0"},
+    {"key": "max_dry_density", "value": "120.0"},
+    {"key": "location", "value": "SYNTHETIC STATION 100+00"}
+  ],
+  "uncertain_fields": ["test identifier", "reference Proctor", "reported dry density"],
+  "notes": "SYNTHETIC AI-shaped payload only. Missing values must not be invented."
+}

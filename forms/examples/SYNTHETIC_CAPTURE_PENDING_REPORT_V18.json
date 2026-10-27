@@ -1,0 +1,30 @@
+{
+  "schema": "cmt-capture-v1.8",
+  "data_mode": "synthetic",
+  "ready_for_screening": false,
+  "summary": {
+    "captured": 59,
+    "reviewed": 58,
+    "documents": 5,
+    "low_confidence": 1,
+    "pending": 1
+  },
+  "issues": [
+    {
+      "code": "LOW_CONFIDENCE",
+      "document": "DEMO-DENSITY-P2",
+      "field": "header.page_count",
+      "detail": "Candidate should be checked against original",
+      "priority": "REVIEW"
+    },
+    {
+      "code": "FIELD_NEEDS_HUMAN_REVIEW",
+      "document": "DEMO-DENSITY-P2",
+      "field": "header.page_count",
+      "detail": "",
+      "priority": "BLOCK"
+    }
+  ],
+  "screening": null,
+  "notice": "No promotion. All mandatory values must be checked by an authorized human."
+}

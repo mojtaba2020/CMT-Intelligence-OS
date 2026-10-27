@@ -1,0 +1,69 @@
+{
+  "synthetic": true,
+  "project_key": "DEMO-PROJECT-001",
+  "work_date": "2026-10-20",
+  "forms": [
+    {
+      "form_id": "DEMO-GENERAL-01",
+      "form_type": "general_report",
+      "project_key": "DEMO-PROJECT-001",
+      "work_date": "2026-10-20",
+      "human_verified": true,
+      "reported_density_tests": 3,
+      "reported_concrete_cylinders_cast": 4,
+      "reported_concrete_cylinders_picked_up": 0,
+      "notes": "SYNTHETIC demonstration of counting and reconciling field paperwork."
+    },
+    {
+      "form_id": "DEMO-CONCRETE-01",
+      "form_type": "concrete_strength",
+      "project_key": "DEMO-PROJECT-001",
+      "work_date": "2026-10-20",
+      "human_verified": true,
+      "slump_in": 4.5,
+      "air_percent": 5.5,
+      "concrete_temp_f": 77.0,
+      "cylinders": [
+        {"cylinder_mark":"A","test_age_days":7},
+        {"cylinder_mark":"B","test_age_days":7},
+        {"cylinder_mark":"C","test_age_days":28},
+        {"cylinder_mark":"D","test_age_days":28}
+      ]
+    },
+    {
+      "form_id": "DEMO-DENSITY-P1",
+      "form_type": "density_sheet",
+      "project_key": "DEMO-PROJECT-001",
+      "work_date": "2026-10-20",
+      "human_verified": true,
+      "series_id": "DENSITY-SET-A",
+      "page_number": 1,
+      "page_count": 2,
+      "rows": [
+        {"test_id":"D-001","station":"100+00","field_moisture_percent":10,"field_wet_density_pcf":127.6,"field_dry_density_pcf":116.0,"max_dry_density_pcf":120,"reported_compaction_percent":96.7,"reported_pass_fail":"P"},
+        {"test_id":"D-002","station":"100+50","field_moisture_percent":11,"field_wet_density_pcf":127.7,"field_dry_density_pcf":115.0,"max_dry_density_pcf":120,"reported_compaction_percent":95.8,"reported_pass_fail":"P"}
+      ]
+    },
+    {
+      "form_id": "DEMO-DENSITY-P2",
+      "form_type": "density_sheet",
+      "project_key": "DEMO-PROJECT-001",
+      "work_date": "2026-10-20",
+      "human_verified": true,
+      "series_id": "DENSITY-SET-A",
+      "page_number": 2,
+      "page_count": 2,
+      "rows": [
+        {"test_id":"D-003","station":"101+00","field_moisture_percent":10,"field_wet_density_pcf":127.6,"field_dry_density_pcf":113.0,"max_dry_density_pcf":120,"reported_compaction_percent":96.7,"reported_pass_fail":"P"}
+      ]
+    },
+    {
+      "form_id": "DEMO-REBAR-01",
+      "form_type": "rebar_observation",
+      "project_key": "DEMO-PROJECT-001",
+      "work_date": "2026-10-20",
+      "human_verified": true,
+      "observations": [{"observation_id":"R-001","element":"demonstration footing","bar_size":"#4","spacing_in":12,"condition":"review needed"}]
+    }
+  ]
+}

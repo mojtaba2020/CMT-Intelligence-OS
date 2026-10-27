@@ -1,0 +1,11 @@
+CMT Intelligence OS v1.5 — local verification
+Baseline v1.4: 110 non-browser tests passed.
+v1.5 staging: 139 non-browser tests passed; 18 legacy browser tests deselected.
+One warning: expected duplicate ZIP-name warning from a negative security test.
+New evidence reconciliation UI: smoke-tested separately with system Chromium.
+  NDG synthetic discrepancy => Attention required / 1 finding.
+  Fresh concrete metric conversions => No difference in checked fields / 0 findings.
+Node.js syntax check for embedded demo JavaScript: passed.
+Full browser regression suite: not completed in this environment (time limit).
+GitHub remote: v1.5 patch NOT pushed by this session. Previous v1.4 CI is not v1.5 validation.
+No real GET or ElmTree data used; no official CMT/ASTM approval.

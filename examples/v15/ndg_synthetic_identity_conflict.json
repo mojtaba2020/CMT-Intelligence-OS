@@ -1,0 +1,15 @@
+{
+  "test_type": "ndg",
+  "synthetic": true,
+  "screen_tolerances": {"wet_density": "0.2", "moisture": "0.1"},
+  "documents": [
+    {"source_id": "FORM-001", "source_type": "field_form", "project_id": "DEMO-101", "test_id": "NDG-007", "observations": [
+      {"field": "wet_density", "value": "128", "unit": "pcf"},
+      {"field": "moisture", "value": "12", "unit": "%"}
+    ]},
+    {"source_id": "GAUGE-002", "source_type": "gauge_printout", "project_id": "DEMO-999", "test_id": "NDG-008", "observations": [
+      {"field": "wet_density", "value": "128", "unit": "pcf"},
+      {"field": "moisture", "value": "12", "unit": "%"}
+    ]}
+  ]
+}

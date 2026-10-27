@@ -1,0 +1,10 @@
+{
+  "name": "CMT Field Companion",
+  "version": "2.0.0",
+  "status": "research-prototype",
+  "scope": "synthetic only without employer authorization",
+  "elmtree_integration": "NOT_CONNECTED",
+  "mobile": "PWA; HTTPS hosting required for install",
+  "handwriting_accuracy": "NOT_VALIDATED",
+  "last_testing": "2026-10-26"
+}

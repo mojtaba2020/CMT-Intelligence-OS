@@ -1,0 +1,619 @@
+{
+  "schema": "cmt-capture-v1.8",
+  "data_mode": "synthetic",
+  "authorization_attested": false,
+  "project_key": "DEMO-PROJECT-001",
+  "work_date": "2026-10-20",
+  "documents": [
+    {
+      "source_id": "DEMO-GENERAL-01",
+      "form_type": "general_report",
+      "fields": [
+        {
+          "key": "project_key",
+          "value": "DEMO-PROJECT-001",
+          "origin": "manual",
+          "confidence": 0.97,
+          "evidence_ref": "DEMO-GENERAL-01#header.project_key",
+          "reviewed": true,
+          "reviewer_ref": "SYN-REVIEWER-01"
+        },
+        {
+          "key": "work_date",
+          "value": "2026-10-20",
+          "origin": "manual",
+          "confidence": 0.97,
+          "evidence_ref": "DEMO-GENERAL-01#header.work_date",
+          "reviewed": true,
+          "reviewer_ref": "SYN-REVIEWER-01"
+        },
+        {
+          "key": "reported_density_tests",
+          "value": "3",
+          "origin": "manual",
+          "confidence": 0.97,
+          "evidence_ref": "DEMO-GENERAL-01#header.reported_density_tests",
+          "reviewed": true,
+          "reviewer_ref": "SYN-REVIEWER-01"
+        },
+        {
+          "key": "cylinders_cast",
+          "value": "4",
+          "origin": "manual",
+          "confidence": 0.97,
+          "evidence_ref": "DEMO-GENERAL-01#header.cylinders_cast",
+          "reviewed": true,
+          "reviewer_ref": "SYN-REVIEWER-01"
+        },
+        {
+          "key": "cylinders_picked_up",
+          "value": "0",
+          "origin": "manual",
+          "confidence": 0.97,
+          "evidence_ref": "DEMO-GENERAL-01#header.cylinders_picked_up",
+          "reviewed": true,
+          "reviewer_ref": "SYN-REVIEWER-01"
+        }
+      ],
+      "rows": []
+    },
+    {
+      "source_id": "DEMO-CONCRETE-01",
+      "form_type": "concrete_strength",
+      "fields": [
+        {
+          "key": "project_key",
+          "value": "DEMO-PROJECT-001",
+          "origin": "manual",
+          "confidence": 0.97,
+          "evidence_ref": "DEMO-CONCRETE-01#header.project_key",
+          "reviewed": true,
+          "reviewer_ref": "SYN-REVIEWER-01"
+        },
+        {
+          "key": "work_date",
+          "value": "2026-10-20",
+          "origin": "manual",
+          "confidence": 0.97,
+          "evidence_ref": "DEMO-CONCRETE-01#header.work_date",
+          "reviewed": true,
+          "reviewer_ref": "SYN-REVIEWER-01"
+        },
+        {
+          "key": "slump_in",
+          "value": "4.5",
+          "origin": "manual",
+          "confidence": 0.97,
+          "evidence_ref": "DEMO-CONCRETE-01#header.slump_in",
+          "reviewed": true,
+          "reviewer_ref": "SYN-REVIEWER-01"
+        },
+        {
+          "key": "air_percent",
+          "value": "5.5",
+          "origin": "model",
+          "confidence": 0.97,
+          "evidence_ref": "DEMO-CONCRETE-01#header.air_percent",
+          "reviewed": true,
+          "reviewer_ref": "SYN-REVIEWER-01"
+        },
+        {
+          "key": "concrete_temp_f",
+          "value": "77.0",
+          "origin": "manual",
+          "confidence": 0.97,
+          "evidence_ref": "DEMO-CONCRETE-01#header.concrete_temp_f",
+          "reviewed": true,
+          "reviewer_ref": "SYN-REVIEWER-01"
+        }
+      ],
+      "rows": [
+        {
+          "row_id": "R001",
+          "fields": [
+            {
+              "key": "cylinder_mark",
+              "value": "A",
+              "origin": "manual",
+              "confidence": 0.97,
+              "evidence_ref": "DEMO-CONCRETE-01#row.1.cylinder_mark",
+              "reviewed": true,
+              "reviewer_ref": "SYN-REVIEWER-01"
+            },
+            {
+              "key": "test_age_days",
+              "value": "7",
+              "origin": "manual",
+              "confidence": 0.97,
+              "evidence_ref": "DEMO-CONCRETE-01#row.1.test_age_days",
+              "reviewed": true,
+              "reviewer_ref": "SYN-REVIEWER-01"
+            }
+          ]
+        },
+        {
+          "row_id": "R002",
+          "fields": [
+            {
+              "key": "cylinder_mark",
+              "value": "B",
+              "origin": "manual",
+              "confidence": 0.97,
+              "evidence_ref": "DEMO-CONCRETE-01#row.2.cylinder_mark",
+              "reviewed": true,
+              "reviewer_ref": "SYN-REVIEWER-01"
+            },
+            {
+              "key": "test_age_days",
+              "value": "7",
+              "origin": "manual",
+              "confidence": 0.97,
+              "evidence_ref": "DEMO-CONCRETE-01#row.2.test_age_days",
+              "reviewed": true,
+              "reviewer_ref": "SYN-REVIEWER-01"
+            }
+          ]
+        },
+        {
+          "row_id": "R003",
+          "fields": [
+            {
+              "key": "cylinder_mark",
+              "value": "C",
+              "origin": "manual",
+              "confidence": 0.97,
+              "evidence_ref": "DEMO-CONCRETE-01#row.3.cylinder_mark",
+              "reviewed": true,
+              "reviewer_ref": "SYN-REVIEWER-01"
+            },
+            {
+              "key": "test_age_days",
+              "value": "28",
+              "origin": "manual",
+              "confidence": 0.97,
+              "evidence_ref": "DEMO-CONCRETE-01#row.3.test_age_days",
+              "reviewed": true,
+              "reviewer_ref": "SYN-REVIEWER-01"
+            }
+          ]
+        },
+        {
+          "row_id": "R004",
+          "fields": [
+            {
+              "key": "cylinder_mark",
+              "value": "D",
+              "origin": "manual",
+              "confidence": 0.97,
+              "evidence_ref": "DEMO-CONCRETE-01#row.4.cylinder_mark",
+              "reviewed": true,
+              "reviewer_ref": "SYN-REVIEWER-01"
+            },
+            {
+              "key": "test_age_days",
+              "value": "28",
+              "origin": "manual",
+              "confidence": 0.97,
+              "evidence_ref": "DEMO-CONCRETE-01#row.4.test_age_days",
+              "reviewed": true,
+              "reviewer_ref": "SYN-REVIEWER-01"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "source_id": "DEMO-DENSITY-P1",
+      "form_type": "density_sheet",
+      "fields": [
+        {
+          "key": "project_key",
+          "value": "DEMO-PROJECT-001",
+          "origin": "manual",
+          "confidence": 0.97,
+          "evidence_ref": "DEMO-DENSITY-P1#header.project_key",
+          "reviewed": true,
+          "reviewer_ref": "SYN-REVIEWER-01"
+        },
+        {
+          "key": "work_date",
+          "value": "2026-10-20",
+          "origin": "manual",
+          "confidence": 0.97,
+          "evidence_ref": "DEMO-DENSITY-P1#header.work_date",
+          "reviewed": true,
+          "reviewer_ref": "SYN-REVIEWER-01"
+        },
+        {
+          "key": "series_id",
+          "value": "DENSITY-SET-A",
+          "origin": "manual",
+          "confidence": 0.97,
+          "evidence_ref": "DEMO-DENSITY-P1#header.series_id",
+          "reviewed": true,
+          "reviewer_ref": "SYN-REVIEWER-01"
+        },
+        {
+          "key": "page_number",
+          "value": "1",
+          "origin": "manual",
+          "confidence": 0.97,
+          "evidence_ref": "DEMO-DENSITY-P1#header.page_number",
+          "reviewed": true,
+          "reviewer_ref": "SYN-REVIEWER-01"
+        },
+        {
+          "key": "page_count",
+          "value": "2",
+          "origin": "manual",
+          "confidence": 0.97,
+          "evidence_ref": "DEMO-DENSITY-P1#header.page_count",
+          "reviewed": true,
+          "reviewer_ref": "SYN-REVIEWER-01"
+        }
+      ],
+      "rows": [
+        {
+          "row_id": "R001",
+          "fields": [
+            {
+              "key": "test_id",
+              "value": "D-001",
+              "origin": "manual",
+              "confidence": 0.97,
+              "evidence_ref": "DEMO-DENSITY-P1#row.1.test_id",
+              "reviewed": true,
+              "reviewer_ref": "SYN-REVIEWER-01"
+            },
+            {
+              "key": "station",
+              "value": "100+00",
+              "origin": "manual",
+              "confidence": 0.97,
+              "evidence_ref": "DEMO-DENSITY-P1#row.1.station",
+              "reviewed": true,
+              "reviewer_ref": "SYN-REVIEWER-01"
+            },
+            {
+              "key": "field_moisture_percent",
+              "value": "10",
+              "origin": "model",
+              "confidence": 0.97,
+              "evidence_ref": "DEMO-DENSITY-P1#row.1.field_moisture_percent",
+              "reviewed": true,
+              "reviewer_ref": "SYN-REVIEWER-01"
+            },
+            {
+              "key": "field_wet_density_pcf",
+              "value": "127.6",
+              "origin": "model",
+              "confidence": 0.97,
+              "evidence_ref": "DEMO-DENSITY-P1#row.1.field_wet_density_pcf",
+              "reviewed": true,
+              "reviewer_ref": "SYN-REVIEWER-01"
+            },
+            {
+              "key": "field_dry_density_pcf",
+              "value": "116.0",
+              "origin": "manual",
+              "confidence": 0.97,
+              "evidence_ref": "DEMO-DENSITY-P1#row.1.field_dry_density_pcf",
+              "reviewed": true,
+              "reviewer_ref": "SYN-REVIEWER-01"
+            },
+            {
+              "key": "max_dry_density_pcf",
+              "value": "120",
+              "origin": "manual",
+              "confidence": 0.97,
+              "evidence_ref": "DEMO-DENSITY-P1#row.1.max_dry_density_pcf",
+              "reviewed": true,
+              "reviewer_ref": "SYN-REVIEWER-01"
+            },
+            {
+              "key": "reported_compaction_percent",
+              "value": "96.7",
+              "origin": "model",
+              "confidence": 0.97,
+              "evidence_ref": "DEMO-DENSITY-P1#row.1.reported_compaction_percent",
+              "reviewed": true,
+              "reviewer_ref": "SYN-REVIEWER-01"
+            },
+            {
+              "key": "reported_pass_fail",
+              "value": "P",
+              "origin": "manual",
+              "confidence": 0.97,
+              "evidence_ref": "DEMO-DENSITY-P1#row.1.reported_pass_fail",
+              "reviewed": true,
+              "reviewer_ref": "SYN-REVIEWER-01"
+            }
+          ]
+        },
+        {
+          "row_id": "R002",
+          "fields": [
+            {
+              "key": "test_id",
+              "value": "D-002",
+              "origin": "manual",
+              "confidence": 0.97,
+              "evidence_ref": "DEMO-DENSITY-P1#row.2.test_id",
+              "reviewed": true,
+              "reviewer_ref": "SYN-REVIEWER-01"
+            },
+            {
+              "key": "station",
+              "value": "100+50",
+              "origin": "manual",
+              "confidence": 0.97,
+              "evidence_ref": "DEMO-DENSITY-P1#row.2.station",
+              "reviewed": true,
+              "reviewer_ref": "SYN-REVIEWER-01"
+            },
+            {
+              "key": "field_moisture_percent",
+              "value": "11",
+              "origin": "model",
+              "confidence": 0.97,
+              "evidence_ref": "DEMO-DENSITY-P1#row.2.field_moisture_percent",
+              "reviewed": true,
+              "reviewer_ref": "SYN-REVIEWER-01"
+            },
+            {
+              "key": "field_wet_density_pcf",
+              "value": "127.7",
+              "origin": "model",
+              "confidence": 0.97,
+              "evidence_ref": "DEMO-DENSITY-P1#row.2.field_wet_density_pcf",
+              "reviewed": true,
+              "reviewer_ref": "SYN-REVIEWER-01"
+            },
+            {
+              "key": "field_dry_density_pcf",
+              "value": "115.0",
+              "origin": "manual",
+              "confidence": 0.97,
+              "evidence_ref": "DEMO-DENSITY-P1#row.2.field_dry_density_pcf",
+              "reviewed": true,
+              "reviewer_ref": "SYN-REVIEWER-01"
+            },
+            {
+              "key": "max_dry_density_pcf",
+              "value": "120",
+              "origin": "manual",
+              "confidence": 0.97,
+              "evidence_ref": "DEMO-DENSITY-P1#row.2.max_dry_density_pcf",
+              "reviewed": true,
+              "reviewer_ref": "SYN-REVIEWER-01"
+            },
+            {
+              "key": "reported_compaction_percent",
+              "value": "95.8",
+              "origin": "model",
+              "confidence": 0.97,
+              "evidence_ref": "DEMO-DENSITY-P1#row.2.reported_compaction_percent",
+              "reviewed": true,
+              "reviewer_ref": "SYN-REVIEWER-01"
+            },
+            {
+              "key": "reported_pass_fail",
+              "value": "P",
+              "origin": "manual",
+              "confidence": 0.97,
+              "evidence_ref": "DEMO-DENSITY-P1#row.2.reported_pass_fail",
+              "reviewed": true,
+              "reviewer_ref": "SYN-REVIEWER-01"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "source_id": "DEMO-DENSITY-P2",
+      "form_type": "density_sheet",
+      "fields": [
+        {
+          "key": "project_key",
+          "value": "DEMO-PROJECT-001",
+          "origin": "manual",
+          "confidence": 0.97,
+          "evidence_ref": "DEMO-DENSITY-P2#header.project_key",
+          "reviewed": true,
+          "reviewer_ref": "SYN-REVIEWER-01"
+        },
+        {
+          "key": "work_date",
+          "value": "2026-10-20",
+          "origin": "manual",
+          "confidence": 0.97,
+          "evidence_ref": "DEMO-DENSITY-P2#header.work_date",
+          "reviewed": true,
+          "reviewer_ref": "SYN-REVIEWER-01"
+        },
+        {
+          "key": "series_id",
+          "value": "DENSITY-SET-A",
+          "origin": "manual",
+          "confidence": 0.97,
+          "evidence_ref": "DEMO-DENSITY-P2#header.series_id",
+          "reviewed": true,
+          "reviewer_ref": "SYN-REVIEWER-01"
+        },
+        {
+          "key": "page_number",
+          "value": "2",
+          "origin": "manual",
+          "confidence": 0.97,
+          "evidence_ref": "DEMO-DENSITY-P2#header.page_number",
+          "reviewed": true,
+          "reviewer_ref": "SYN-REVIEWER-01"
+        },
+        {
+          "key": "page_count",
+          "value": "2",
+          "origin": "manual",
+          "confidence": 0.62,
+          "evidence_ref": "DEMO-DENSITY-P2#header.page_count",
+          "reviewed": false,
+          "reviewer_ref": ""
+        }
+      ],
+      "rows": [
+        {
+          "row_id": "R001",
+          "fields": [
+            {
+              "key": "test_id",
+              "value": "D-003",
+              "origin": "manual",
+              "confidence": 0.97,
+              "evidence_ref": "DEMO-DENSITY-P2#row.1.test_id",
+              "reviewed": true,
+              "reviewer_ref": "SYN-REVIEWER-01"
+            },
+            {
+              "key": "station",
+              "value": "101+00",
+              "origin": "manual",
+              "confidence": 0.97,
+              "evidence_ref": "DEMO-DENSITY-P2#row.1.station",
+              "reviewed": true,
+              "reviewer_ref": "SYN-REVIEWER-01"
+            },
+            {
+              "key": "field_moisture_percent",
+              "value": "10",
+              "origin": "model",
+              "confidence": 0.97,
+              "evidence_ref": "DEMO-DENSITY-P2#row.1.field_moisture_percent",
+              "reviewed": true,
+              "reviewer_ref": "SYN-REVIEWER-01"
+            },
+            {
+              "key": "field_wet_density_pcf",
+              "value": "127.6",
+              "origin": "model",
+              "confidence": 0.97,
+              "evidence_ref": "DEMO-DENSITY-P2#row.1.field_wet_density_pcf",
+              "reviewed": true,
+              "reviewer_ref": "SYN-REVIEWER-01"
+            },
+            {
+              "key": "field_dry_density_pcf",
+              "value": "113.0",
+              "origin": "manual",
+              "confidence": 0.97,
+              "evidence_ref": "DEMO-DENSITY-P2#row.1.field_dry_density_pcf",
+              "reviewed": true,
+              "reviewer_ref": "SYN-REVIEWER-01"
+            },
+            {
+              "key": "max_dry_density_pcf",
+              "value": "120",
+              "origin": "manual",
+              "confidence": 0.97,
+              "evidence_ref": "DEMO-DENSITY-P2#row.1.max_dry_density_pcf",
+              "reviewed": true,
+              "reviewer_ref": "SYN-REVIEWER-01"
+            },
+            {
+              "key": "reported_compaction_percent",
+              "value": "96.7",
+              "origin": "model",
+              "confidence": 0.97,
+              "evidence_ref": "DEMO-DENSITY-P2#row.1.reported_compaction_percent",
+              "reviewed": true,
+              "reviewer_ref": "SYN-REVIEWER-01"
+            },
+            {
+              "key": "reported_pass_fail",
+              "value": "P",
+              "origin": "manual",
+              "confidence": 0.97,
+              "evidence_ref": "DEMO-DENSITY-P2#row.1.reported_pass_fail",
+              "reviewed": true,
+              "reviewer_ref": "SYN-REVIEWER-01"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "source_id": "DEMO-REBAR-01",
+      "form_type": "rebar_observation",
+      "fields": [
+        {
+          "key": "project_key",
+          "value": "DEMO-PROJECT-001",
+          "origin": "manual",
+          "confidence": 0.97,
+          "evidence_ref": "DEMO-REBAR-01#header.project_key",
+          "reviewed": true,
+          "reviewer_ref": "SYN-REVIEWER-01"
+        },
+        {
+          "key": "work_date",
+          "value": "2026-10-20",
+          "origin": "manual",
+          "confidence": 0.97,
+          "evidence_ref": "DEMO-REBAR-01#header.work_date",
+          "reviewed": true,
+          "reviewer_ref": "SYN-REVIEWER-01"
+        }
+      ],
+      "rows": [
+        {
+          "row_id": "R001",
+          "fields": [
+            {
+              "key": "observation_id",
+              "value": "R-001",
+              "origin": "manual",
+              "confidence": 0.97,
+              "evidence_ref": "DEMO-REBAR-01#row.1.observation_id",
+              "reviewed": true,
+              "reviewer_ref": "SYN-REVIEWER-01"
+            },
+            {
+              "key": "element",
+              "value": "demonstration footing",
+              "origin": "manual",
+              "confidence": 0.97,
+              "evidence_ref": "DEMO-REBAR-01#row.1.element",
+              "reviewed": true,
+              "reviewer_ref": "SYN-REVIEWER-01"
+            },
+            {
+              "key": "bar_size",
+              "value": "#4",
+              "origin": "manual",
+              "confidence": 0.97,
+              "evidence_ref": "DEMO-REBAR-01#row.1.bar_size",
+              "reviewed": true,
+              "reviewer_ref": "SYN-REVIEWER-01"
+            },
+            {
+              "key": "spacing_in",
+              "value": "12",
+              "origin": "manual",
+              "confidence": 0.97,
+              "evidence_ref": "DEMO-REBAR-01#row.1.spacing_in",
+              "reviewed": true,
+              "reviewer_ref": "SYN-REVIEWER-01"
+            },
+            {
+              "key": "condition",
+              "value": "review needed",
+              "origin": "manual",
+              "confidence": 0.97,
+              "evidence_ref": "DEMO-REBAR-01#row.1.condition",
+              "reviewed": true,
+              "reviewer_ref": "SYN-REVIEWER-01"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

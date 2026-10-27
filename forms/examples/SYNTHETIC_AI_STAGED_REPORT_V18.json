@@ -1,0 +1,98 @@
+{
+  "schema": "cmt-capture-v1.8",
+  "data_mode": "synthetic",
+  "ready_for_screening": false,
+  "summary": {
+    "captured": 6,
+    "pending": 6,
+    "documents": 1
+  },
+  "issues": [
+    {
+      "code": "FIELD_NEEDS_HUMAN_REVIEW",
+      "document": "SYNTHETIC-AI-DENS-01",
+      "field": "header.work_date",
+      "detail": "",
+      "priority": "BLOCK"
+    },
+    {
+      "code": "FIELD_NEEDS_HUMAN_REVIEW",
+      "document": "SYNTHETIC-AI-DENS-01",
+      "field": "header.project_key",
+      "detail": "",
+      "priority": "BLOCK"
+    },
+    {
+      "code": "REQUIRED_FIELD_MISSING",
+      "document": "SYNTHETIC-AI-DENS-01",
+      "field": "series_id",
+      "detail": "",
+      "priority": "BLOCK"
+    },
+    {
+      "code": "REQUIRED_FIELD_MISSING",
+      "document": "SYNTHETIC-AI-DENS-01",
+      "field": "page_number",
+      "detail": "",
+      "priority": "BLOCK"
+    },
+    {
+      "code": "REQUIRED_FIELD_MISSING",
+      "document": "SYNTHETIC-AI-DENS-01",
+      "field": "page_count",
+      "detail": "",
+      "priority": "BLOCK"
+    },
+    {
+      "code": "FIELD_NEEDS_HUMAN_REVIEW",
+      "document": "SYNTHETIC-AI-DENS-01",
+      "field": "rows[0].field_wet_density_pcf",
+      "detail": "",
+      "priority": "BLOCK"
+    },
+    {
+      "code": "FIELD_NEEDS_HUMAN_REVIEW",
+      "document": "SYNTHETIC-AI-DENS-01",
+      "field": "rows[0].field_moisture_percent",
+      "detail": "",
+      "priority": "BLOCK"
+    },
+    {
+      "code": "FIELD_NEEDS_HUMAN_REVIEW",
+      "document": "SYNTHETIC-AI-DENS-01",
+      "field": "rows[0].max_dry_density_pcf",
+      "detail": "",
+      "priority": "BLOCK"
+    },
+    {
+      "code": "FIELD_NEEDS_HUMAN_REVIEW",
+      "document": "SYNTHETIC-AI-DENS-01",
+      "field": "rows[0].location",
+      "detail": "",
+      "priority": "BLOCK"
+    },
+    {
+      "code": "REQUIRED_ROW_FIELD_MISSING",
+      "document": "SYNTHETIC-AI-DENS-01",
+      "field": "rows[0].test_id",
+      "detail": "",
+      "priority": "BLOCK"
+    },
+    {
+      "code": "REQUIRED_ROW_FIELD_MISSING",
+      "document": "SYNTHETIC-AI-DENS-01",
+      "field": "rows[0].field_dry_density_pcf",
+      "detail": "",
+      "priority": "BLOCK"
+    },
+    {
+      "code": "REQUIRED_ROW_FIELD_MISSING",
+      "document": "SYNTHETIC-AI-DENS-01",
+      "field": "rows[0].reported_compaction_percent",
+      "detail": "",
+      "priority": "BLOCK"
+    }
+  ],
+  "screening": null,
+  "notice": "No promotion. All mandatory values must be checked by an authorized human."
+}
