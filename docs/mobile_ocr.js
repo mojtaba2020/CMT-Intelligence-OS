@@ -1,0 +1,151 @@
+/* CMT Mobile OCR 2.1 - browser-side, consent-gated, unverified proposals only */
+(() => {
+  'use strict';
+  if (window.CMTMobileOCR) return;
+  const VERSION='2.1.0';
+  const CDN='https://cdn.jsdelivr.net/npm/tesseract.js@5.1.1/dist/tesseract.min.js';
+  let image=null, worker=null, busy=false;
+  const names={slump:'Slump (in)',air:'Air content (%)',temperature:'Concrete temperature (F)',supplier:'Concrete supplier',ticket:'Ticket number',truck:'Truck number',wet:'Wet density (pcf)',dry:'Dry density (pcf)',moisture:'Moisture (%)',mdd:'Maximum dry density (pcf)',percent:'Reported compaction (%)'};
+  const safe=s=>String(s||'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  const rules=[
+    ['slump',/\bslump\s*(?:\(in\)|inches|in\.)?\s*[:=\-]?\s*(\d{1,2}(?:\.\d{1,2})?)\b/i,0,15],
+    ['air',/\bair\s*(?:content|%)\s*[:=\-]?\s*(\d{1,2}(?:\.\d{1,2})?)\s*%?/i,0,25],
+    ['temperature',/\b(?:concrete\s*(?:temp(?:erature)?|t\.)|temp(?:erature)?\s*concrete)\s*(?:\(?\s*°?f\s*\)?)?\s*[:=\-]?\s*(\d{2,3}(?:\.\d{1,2})?)/i,20,135],
+    ['wet',/\b(?:wet\s*(?:density|pcf)|field\s*density\s*wet)\s*[:=\-]?\s*(\d{2,3}(?:\.\d{1,2})?)/i,50,180],
+    ['dry',/\b(?:dry\s*(?:density|pcf)|field\s*density\s*dry)\s*[:=\-]?\s*(\d{2,3}(?:\.\d{1,2})?)/i,50,180],
+    ['mdd',/\b(?:maximum\s*dry\s*density|mdd)\s*[:=\-]?\s*(\d{2,3}(?:\.\d{1,2})?)/i,50,200],
+    ['moisture',/\b(?:moisture|water\s*content)\s*(?:\(%\)|%)?\s*[:=\-]?\s*(\d{1,2}(?:\.\d{1,2})?)\s*%?/i,0,55],
+    ['percent',/\b(?:percent\s*(?:of\s*)?(?:density|compaction)|relative\s*compaction)\s*(?:\(%\)|%)?\s*[:=\-]?\s*(\d{2,3}(?:\.\d{1,2})?)\s*%?/i,50,120],
+  ];
+  function suggestions(text){
+    const out=[];
+    for(const [key,re,min,max] of rules){
+      const match=String(text).match(re); if(!match)continue;
+      const n=Number(match[1]); if(!Number.isFinite(n)||n<min||n>max)continue;
+      out.push({key,value:String(match[1]),label:names[key]});
+    }
+    const suppliers=String(text).match(/(?:concrete\s+supplier|supplier)\s*[:=]\s*([^\n]{2,65})/i);
+    if(suppliers)out.push({key:'supplier',value:suppliers[1].trim().slice(0,60),label:names.supplier});
+    return out;
+  }
+  window.CMTMobileOCR={suggestions,VERSION};
+  const styles=document.createElement('style');
+  styles.textContent=`
+  .cmt-scan-btn{border:1px solid #4eaba8;border-radius:11px;background:#123b42;color:#e7ffff;font-size:13px;padding:10px 13px;cursor:pointer;margin-right:8px;font-weight:700}
+  #cmt-ocr-backdrop[hidden]{display:none!important}
+  #cmt-ocr-backdrop{position:fixed;inset:0;z-index:10000;background:rgba(0,0,0,.83);display:flex;align-items:flex-start;justify-content:center;overflow:auto;padding:18px 12px 45px}
+  #cmt-ocr-panel{font:15px/1.45 -apple-system,BlinkMacSystemFont,Arial,sans-serif;color:#e5f3f7;background:#0c1c2b;width:min(100%,560px);border:1px solid #316078;border-radius:17px;padding:18px;box-sizing:border-box;box-shadow:0 10px 45px #0009}
+  #cmt-ocr-panel h2{font-size:23px;margin:0 0 6px;color:white} #cmt-ocr-panel p{font-size:13px;color:#b6cbd2}
+  #cmt-ocr-panel button{background:#17465a;color:#f4ffff;border:1px solid #3b7182;border-radius:10px;padding:10px 12px;font-size:15px;cursor:pointer}
+  #cmt-ocr-panel button:disabled{opacity:.48;cursor:not-allowed}
+  #cmt-ocr-panel button.primary{background:#177d82;border-color:#239ca4}
+  #cmt-ocr-panel .ocr-actions{display:flex;gap:9px;flex-wrap:wrap;margin:13px 0}
+  #cmt-ocr-panel textarea{width:100%;min-height:145px;border:1px solid #3b6274;border-radius:10px;background:#071320;color:#effcff;padding:12px;box-sizing:border-box;font-size:15px}
+  #cmt-ocr-panel img{max-width:100%;max-height:175px;object-fit:contain;border-radius:8px;margin:10px 0}
+  #cmt-ocr-panel label{display:block;margin:9px 0;color:#e7f5f6}
+  #cmt-ocr-panel input[type=checkbox]{width:19px;height:19px;vertical-align:middle;margin-right:8px}
+  #cmt-ocr-panel .ocr-status{color:#97e1de;font-weight:600;min-height:24px}
+  #cmt-ocr-panel .ocr-candidate{background:#132d3e;border:1px solid #365d6b;padding:8px;border-radius:10px;margin-top:7px}
+  `;
+  document.head.append(styles);
+  const overlay=document.createElement('div'); overlay.id='cmt-ocr-backdrop';overlay.hidden=true;
+  overlay.innerHTML=`<section id="cmt-ocr-panel" role="dialog" aria-modal="true" aria-label="Local photo text recognition">
+  <div style="display:flex;justify-content:space-between;align-items:center;gap:6px"><h2>Scan text · OCR beta</h2><button type="button" id="ocrClose">Close ✕</button></div>
+  <p>English printed text works best. Handwriting and dense soil tables can be misread. Nothing is approved automatically. First scan needs internet to download OCR engine/language files; images are processed locally by that engine.</p>
+  <label><input id="ocrAuthorize" type="checkbox">I am using synthetic data or have permission for this document.</label>
+  <div class="ocr-actions"><button type="button" id="ocrTake">📷 Take photo</button><button type="button" id="ocrChoose">▤ Choose photo</button></div>
+  <input type="file" accept="image/jpeg,image/png,image/webp" capture="environment" id="ocrCamera" hidden>
+  <input type="file" accept="image/jpeg,image/png,image/webp" id="ocrLibrary" hidden>
+  <img id="ocrPreview" alt="Selected image preview" hidden>
+  <div class="ocr-actions"><button type="button" class="primary" id="ocrRun" disabled>Read text on this iPhone</button></div>
+  <p class="ocr-status" id="ocrProgress" aria-live="polite">Choose an image to begin.</p>
+  <div id="ocrOutput" hidden><label for="ocrText">OCR text — EDIT against original photo:</label><textarea id="ocrText" spellcheck="false"></textarea>
+  <div class="ocr-actions"><button id="ocrFind" type="button">Find possible measurements</button><button id="ocrCopy" type="button">Copy text</button></div>
+  <div id="ocrFields"></div><div class="ocr-actions"><button type="button" id="ocrApply" class="primary" hidden>Apply checked proposals to the OPEN form (unverified)</button></div>
+  </div>
+  <p>For soil table rows: do not trust line alignment or automatic values. Review each test manually before any engineering decision.</p></section>`;
+  document.body.append(overlay);
+  const $=id=>document.getElementById(id);
+  const status=message=>{$('ocrProgress').textContent=message;};
+  function show(){overlay.hidden=false;document.body.style.overflow='hidden';$('ocrClose').focus();}
+  function hide(){if(busy)return;overlay.hidden=true;document.body.style.overflow='';}
+  $('ocrClose').onclick=hide;
+  overlay.addEventListener('click',e=>{if(e.target===overlay)hide();});
+  document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!overlay.hidden)hide();});
+  const scanBtn=document.createElement('button');scanBtn.className='cmt-scan-btn';scanBtn.type='button';scanBtn.textContent='📷 Scan text';scanBtn.onclick=show;
+  scanBtn.style.cssText='display:block;width:calc(100% - 32px);margin:10px 16px 0;min-height:43px;';document.querySelector('.privacy-banner').after(scanBtn);
+  const help=document.getElementById('helpBtn');help.onclick=()=>alert('CMT Field v2.1 — mobile OCR beta. Printed English text may be recognized. Handwriting and soil tables require visual confirmation. All proposals are UNVERIFIED; no ElmTree connection or engineering approval.');
+  $('ocrTake').onclick=()=>$('ocrCamera').click(); $('ocrChoose').onclick=()=>$('ocrLibrary').click();
+  async function setImage(file){
+    if(!file)return;
+    if(!/^image\/(jpeg|png|webp)$/.test(file.type)||file.size>15*1024*1024){status('Use a JPG/PNG/WebP photo under 15 MB.');return;}
+    try{
+      const url=URL.createObjectURL(file);const el=new Image();
+      await new Promise((resolve,reject)=>{el.onload=resolve;el.onerror=reject;el.src=url;});
+      const factor=Math.min(1,1800/Math.max(el.naturalWidth,el.naturalHeight));
+      const canvas=document.createElement('canvas');canvas.width=Math.max(1,Math.round(el.naturalWidth*factor));canvas.height=Math.max(1,Math.round(el.naturalHeight*factor));
+      canvas.getContext('2d',{alpha:false}).drawImage(el,0,0,canvas.width,canvas.height);
+      image=await new Promise((resolve,reject)=>canvas.toBlob(b=>b?resolve(b):reject(Error('Image conversion failed')),'image/jpeg',0.9));
+      $('ocrPreview').src=url;$('ocrPreview').hidden=false;status('Photo ready. Check permission and press Read text.');$('ocrRun').disabled=false;
+      $('ocrOutput').hidden=true;$('ocrFields').textContent='';$('ocrApply').hidden=true;
+      // Do not persist either original photo or OCR text in device storage.
+    }catch(e){status('Photo could not be opened: '+e.message);}
+  }
+  for(const name of ['ocrCamera','ocrLibrary'])$(name).addEventListener('change',e=>{setImage(e.target.files?.[0]);e.target.value='';});
+  function loadOCR(){return new Promise((resolve,reject)=>{
+    if(window.Tesseract?.createWorker)return resolve(window.Tesseract);
+    const s=document.createElement('script');s.src=CDN;s.onload=()=>window.Tesseract?.createWorker?resolve(window.Tesseract):reject(Error('Engine unavailable'));s.onerror=()=>reject(Error('OCR library download failed: check internet'));document.head.append(s);
+  });}
+  $('ocrRun').onclick=async()=>{
+    if(busy||!image)return;
+    if(!$('ocrAuthorize').checked)return status('You must confirm permission to use the photo first.');
+    busy=true;$('ocrRun').disabled=true;$('ocrClose').disabled=true;
+    try{
+      status('Loading OCR engine (first time requires internet)...');const t=await loadOCR();
+      worker=await t.createWorker('eng',1,{logger:msg=>{if(msg.status)status(`${msg.status} ${Number.isFinite(msg.progress)?Math.round(msg.progress*100)+'%':''}`)}});
+      status('Recognizing characters locally...');const response=await worker.recognize(image);
+      const value=String(response?.data?.text||'').slice(0,30000);
+      $('ocrText').value=value;$('ocrOutput').hidden=false;
+      status(`Read ${value.length} characters. Compare EVERY number against the image.`);
+      showCandidates();
+    }catch(e){status('OCR failed: '+e.message+'. Try better lighting or stable internet.');}
+    finally{if(worker){try{await worker.terminate();}catch{}worker=null;}busy=false;$('ocrRun').disabled=false;$('ocrClose').disabled=false;}
+  };
+  function showCandidates(){const found=suggestions($('ocrText').value);const root=$('ocrFields');root.textContent='';
+    const hasCurrentForm=!!document.querySelector('input[data-value],input[data-row]');
+    for(const item of found){
+      const label=document.createElement('label');label.className='ocr-candidate';
+      const c=document.createElement('input');c.type='checkbox';c.dataset.key=item.key;c.dataset.value=item.value;
+      label.append(c,document.createTextNode(` ${item.label}: ${item.value} — UNVERIFIED`));root.append(label);
+    }
+    if(!found.length)root.textContent='No clear labeled measurements found. Edit or copy the raw OCR text; do not guess unreadable numbers.';
+    $('ocrApply').hidden=!found.length||!hasCurrentForm;
+    if(found.length&&!hasCurrentForm)root.append(document.createTextNode(' Open a saved form first to apply measurement proposals.'));
+  }
+  $('ocrFind').onclick=showCandidates;
+  $('ocrCopy').onclick=async()=>{try{await navigator.clipboard.writeText($('ocrText').value);status('Text copied. All numbers still require verification.');}catch(e){status('Clipboard unavailable. Select and copy text manually.');}};
+  $('ocrApply').onclick=()=>{
+    const selections=[...$('ocrFields').querySelectorAll('input:checked')];if(!selections.length)return status('Select proposed measurements you have visually inspected.');
+    if(!confirm('Apply checked OCR suggestions to the open form as UNVERIFIED values? Existing values may be overwritten.'))return;
+    let count=0;
+    for(const sel of selections){
+      const key=sel.dataset.key,value=sel.dataset.value;
+      let field=document.querySelector(`[data-value="${key}"]`);
+      if(!field && ['wet','moisture','dry','mdd','percent'].includes(key)){
+        // Never infer alignment for multirow field sheets. Only a manually-added single row can receive OCR values.
+        if(document.querySelectorAll('input[data-row="0"]').length && !document.querySelector('input[data-row="1"]')){
+          field=document.querySelector(`[data-row="0"][data-col="${key}"]`);
+        }
+      }
+      if(!field)continue;
+      field.value=value;field.dispatchEvent(new Event('change',{bubbles:true}));count++;
+    }
+    status(`Applied ${count} proposal(s) as UNVERIFIED. Check original photo and tick field reviews manually.`);
+    showCandidates();
+  };
+  // Existing SW caches older HTML forever; update cached index with the newly fetched HTML on first load.
+  // Never caches uploaded images, recognized text, or OCR model.
+  if('caches' in window&&location.protocol==='https:'){
+    caches.keys().then(async keys=>{for(const k of keys){if(!k.startsWith('cmt-field-companion-'))continue;const cache=await caches.open(k);const current=await fetch('./index.html?ocr_upgrade='+VERSION,{cache:'no-store'});if(current.ok)await cache.put('./index.html',current.clone());}}).catch(()=>{});
+  }
+})();
