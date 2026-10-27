@@ -1,0 +1,108 @@
+name: Publish CMT Field v2.2 Technician Engineer
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: cmt-field-handoff-publish
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    steps:
+      - name: Checkout project
+        uses: actions/checkout@v4
+
+      - name: Install v2.2 mobile files from uploaded ZIP
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PYTHON'
+          from pathlib import Path, PurePosixPath
+          from zipfile import ZipFile
+          import stat
+
+          archive = Path('CMT_Field_Companion_v2_2_Full_Source.zip')
+          if not archive.is_file():
+              raise SystemExit('The v2.2 ZIP is missing from repository root')
+          expected = {
+              'docs/index.html', 'docs/handoff.html',
+              'docs/handoff.js', 'docs/handoff_core.js',
+              'docs/handoff.css', 'docs/sw.js',
+              'tests/handoff_v22.test.cjs'
+          }
+          with ZipFile(archive) as z:
+              entries = z.infolist()
+              names = {e.filename for e in entries}
+              if not expected.issubset(names):
+                  raise SystemExit('ZIP is missing handoff files')
+              if z.testzip() is not None:
+                  raise SystemExit('ZIP failed CRC validation')
+              for entry in entries:
+                  name = entry.filename
+                  path = PurePosixPath(name)
+                  if not (name.startswith('docs/') or name == 'tests/handoff_v22.test.cjs'):
+                      continue
+                  if (path.is_absolute() or '..' in path.parts or
+                      stat.S_IFMT(entry.external_attr >> 16) == stat.S_IFLNK or
+                      entry.file_size > 1_500_000):
+                      raise SystemExit('Unsafe or oversized file: ' + name)
+                  if entry.is_dir():
+                      continue
+                  target = Path(*path.parts)
+                  target.parent.mkdir(parents=True, exist_ok=True)
+                  target.write_bytes(z.read(entry))
+          Path('docs/.nojekyll').touch()
+          PYTHON
+
+          node --check docs/app.js
+          node --check docs/handoff.js
+          node --check docs/handoff_core.js
+          node --check docs/mobile_ocr.js
+          node --check docs/sw.js
+          python -m json.tool docs/manifest.webmanifest > /dev/null
+
+      - name: Install validation dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y tesseract-ocr
+          python -m pip install -r requirements-dev.txt -r requirements-table.txt
+
+      - name: Test before publication
+        run: |
+          python -m pytest -q -k 'not browser'
+          node --test tests/handoff_v22.test.cjs
+
+      - name: Commit tested mobile app
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add docs tests/handoff_v22.test.cjs
+          if ! git diff --cached --quiet; then
+            git commit -m 'feat: publish technician engineer handoff v2.2'
+            git push origin HEAD:main
+          fi
+
+      - name: Configure GitHub Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload Pages site
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: docs
+
+      - name: Publish app
+        id: deployment
+        uses: actions/deploy-pages@v4
