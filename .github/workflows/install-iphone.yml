@@ -16,6 +16,7 @@ concurrency:
 jobs:
   publish:
     runs-on: ubuntu-latest
+
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
@@ -33,7 +34,9 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
+
           ARCHIVE="CMT_IPHONE_GITHUB_FRESH_20261026.zip"
+
           test -f "$ARCHIVE"
           unzip -t "$ARCHIVE" >/dev/null
 
@@ -56,7 +59,8 @@ jobs:
                       or entry.is_dir()
                   ):
                       raise ValueError(
-                          "Unsafe archive path: " + entry.filename
+                          "Unsafe archive path: "
+                          + entry.filename
                       )
 
                   if p.parts[0] in (".git", ".github"):
@@ -67,14 +71,17 @@ jobs:
                   if stat.S_IFMT(
                       entry.external_attr >> 16
                   ) == stat.S_IFLNK:
-                      raise ValueError("Symlinks not supported")
+                      raise ValueError(
+                          "Symlinks not supported"
+                      )
 
                   if entry.file_size > 1500000:
                       raise ValueError("File too large")
 
                   target = Path(*p.parts)
                   target.parent.mkdir(
-                      parents=True, exist_ok=True
+                      parents=True,
+                      exist_ok=True
                   )
                   target.write_bytes(z.read(entry))
 
@@ -92,21 +99,46 @@ jobs:
           node --check docs/core.js
           node --check docs/ocr_adapter.js
           node --check docs/sw.js
-          python -m json.tool docs/manifest.webmanifest > /dev/null
+
+          python -m json.tool \
+            docs/manifest.webmanifest > /dev/null
+
+      - name: Install OCR and table dependencies
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          sudo apt-get update
+          sudo apt-get install -y tesseract-ocr
+
+          python -m pip install --upgrade pip
+
+          python -m pip install \
+            -r requirements-dev.txt \
+            -r requirements-table.txt
+
+          tesseract --version
+
+          python -c "import cv2; print(cv2.__version__)"
 
       - name: Run software tests
+        shell: bash
         run: |
-          python -m pip install -r requirements-dev.txt
+          set -euo pipefail
+
           python -m pytest -q -k 'not browser'
 
       - name: Commit updated project
         shell: bash
         run: |
           set -euo pipefail
+
           git config user.name "github-actions[bot]"
           git config user.email \
             "41898282+github-actions[bot]@users.noreply.github.com"
+
           git add -A
+
           if ! git diff --cached --quiet; then
             git commit -m "Release CMT iPhone v2.0"
             git push origin HEAD:main
