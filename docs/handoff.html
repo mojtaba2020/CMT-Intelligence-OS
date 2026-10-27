@@ -1,0 +1,17 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#081725"><meta name="apple-mobile-web-app-capable" content="yes"><title>CMT Field · Technician & Engineer</title><link rel="manifest" href="manifest.webmanifest"><link rel="apple-touch-icon" href="icons/icon-192.png"><link rel="stylesheet" href="handoff.css"></head>
+<body><header class="hdr"><a class="back" href="./index.html" aria-label="Back to Field Companion">‹ Field Companion</a><span class="pill">v2.2 · Local pilot</span></header>
+<main class="wrap"><h1>Technician ↔ Engineer</h1><p class="intro">Enter field measurements once; prepare a review package, hand it off, and receive correction notes. <strong>Offline file exchange only — not live sync or an authenticated company system.</strong></p>
+<div class="warning">Pilot with synthetic or explicitly authorized records only. Photos are NOT included in transferred packages. A checksum detects changed files but does not verify who sent them.</div>
+<nav class="tabs" aria-label="Workspace mode"><button id="techTab" class="selected" type="button">👷 Technician</button><button id="engineerTab" type="button">🗂 Engineer</button></nav>
+<div id="alerts" role="status" aria-live="polite"></div>
+<section id="techPanel">
+<div class="card"><h2>1 · Prepare field report</h2><p>Enter data in the original Capture screen. Come back here to prepare a package for the office.</p><a class="btn" href="./index.html">＋ Open field capture</a></div>
+<div class="card"><h2>2 · Select reports to hand off</h2><div id="techRecords"></div><div class="row"><label class="grow">Technician name / label <input id="technicianName" maxlength="80" value="Field technician" autocomplete="off"></label></div><button class="btn primary" id="createPacket">Create review package (.json)</button><p class="hint">Download it and transfer it using your organization’s approved method. There is no automatic cloud upload.</p></div>
+<div class="card"><h2>3 · Receive engineer feedback</h2><label for="responsePicker" class="btn secondary">Import engineer response (.json)</label><input type="file" accept="application/json,.json" id="responsePicker" hidden><div id="techFeedback"></div></div>
+</section>
+<section id="engineerPanel" hidden>
+<div class="card"><h2>1 · Receive field reports</h2><label class="btn secondary" for="submissionPicker">Import technician package (.json)</label><input type="file" accept="application/json,.json" id="submissionPicker" hidden><button class="btn outline" id="demoInbox">Load synthetic demo packet</button><p class="hint">The package is stored on this browser for this demonstration, not in a shared server.</p></div>
+<div class="card"><h2>2 · Check reports and return findings</h2><label>Reviewer label <input id="reviewerName" maxlength="80" value="Office reviewer" autocomplete="off"></label><div id="engineerInbox"></div></div>
+</section>
+<div class="footer">No ElmTree access · No official Pass/Fail decisions · No real accounts · Back up drafts; clearing Safari website data can erase them.</div>
+</main><script src="core.js"></script><script src="handoff_core.js"></script><script src="handoff.js"></script></body></html>
