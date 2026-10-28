@@ -1,0 +1,23 @@
+{
+  "id": "./",
+  "name": "CMT Intelligence OS · Offline Fieldwork v3.8",
+  "short_name": "CMT Field",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#081421",
+  "theme_color": "#0b1929",
+  "description": "Offline encrypted local test records; backups require verification. No server sync.",
+  "icons": [
+    {
+      "src": "./icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "./icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
