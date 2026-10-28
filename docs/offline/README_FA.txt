@@ -9,3 +9,5 @@ CMT Offline v3.8 — HTTPS installable standalone PWA
 7. Twelve preliminary test templates are not certified ASTM/AASHTO methods; no automatic engineering approval.
 8. No online backend, cloud sync, automatic technician-to-engineer transfer, or ElmTree connection is included. GitHub Pages only serves public JS/CSS/HTML; it does not see browser-stored report contents.
 9. Static files are public. Never commit passwords, company records, backups, private keys, or API tokens to this folder.
+
+نسخه ۳.۸.۱: رفع خطایی که پس از ورود رمز، پیام Unlocked نمایش می‌داد ولی فرم را نمی‌بست. شماره کش Service Worker به‌روزرسانی شد. برای دریافت نسخه تازه، با اینترنت صفحه را در Safari باز کنید و در صورت لزوم برنامه نصب‌شده را کاملاً ببندید و دوباره اجرا کنید. تا پیش از تست رمزگذاری و بکاپ با داده ساختگی، اطلاعات واقعی ثبت نکنید.

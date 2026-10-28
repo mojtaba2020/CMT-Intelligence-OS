@@ -64,9 +64,16 @@ $('unlockForm').onsubmit=async e=>{e.preventDefault();try{const p=$('draftPass')
    const first=await S.unseal(p,existing[0].envelope);
    if(first.client_id.toLowerCase()!==existing[0].id.toLowerCase())throw Error('Encrypted vault identity mismatch');
  }
- pass=p;$('draftPass').value='';// Do not import legacy records from unrelated apps sharing this HTTPS origin.$('unlockForm').hidden=true;$('vaultControls').hidden=false;await list();await updateStorageIndicator();
+ pass=p;
+  $('draftPass').value='';
+  // Do not import legacy records from unrelated apps sharing this HTTPS origin.
+  await list();
+  await updateStorageIndicator();
+  $('unlockForm').hidden=true;
+  $('vaultControls').hidden=false;
+  showSave('Vault unlocked · encrypted local storage ready.','success');
  try{if(navigator.storage?.persist) await navigator.storage.persist();}catch{}
- note('Unlocked for this tab. Multiple types and repeat tests are supported.');}catch(err){pass=null;cache.clear();$('unlockForm').hidden=false;$('vaultControls').hidden=true;note(err.message,true)}};
+ note('Unlocked for this tab. Multiple types and repeat tests are supported.');}catch(err){pass=null;cache.clear();$('unlockForm').hidden=false;$('vaultControls').hidden=true;showSave('Vault locked.','neutral');note(err.message,true)}};
 $('newDraft').onclick=async()=>{if(!await prepareSwitch())return;draft=blank({test_date:$('dayFilter').value||dayNow()});version=null;dirty=false;selectedId=draft.client_id;render();try{await saveNow();note('New blank report already encrypted and saved. Enter readings; they will auto-save.');}catch(e){note(e.message,true)}};
 $('offCategory').onchange=()=>{if(!draft)return;const next=$('offCategory').value;if(next===draft.category)return;if(draft.server_id){$('offCategory').value=draft.category;return note('Server-synced test type is immutable; create a separate test.',true);}if(!C[next])return;
  writeModel();
@@ -84,5 +91,5 @@ window.addEventListener('beforeunload',e=>{if(dirty||saving){e.preventDefault();
 window.addEventListener('pagehide',()=>{if(pass&&dirty)saveNow(true).catch(()=>{});});
 $('editor').addEventListener('input',scheduleSave);$('editor').addEventListener('change',e=>{if(e.target.id!=='offCategory')scheduleSave()});document.addEventListener('visibilitychange',()=>{if(document.hidden&&dirty)saveNow(true).catch(()=>{})});
 for(const [key,def] of Object.entries(C)){const option=document.createElement('option');option.value=key;option.textContent=def.name;$('offCategory').append(option);}
-$('dayFilter').value=dayNow();$('title').textContent='Unlock encrypted multi-test vault · v3.8';showSave('Vault locked.','neutral');note('Install while online, then work offline. Export backups frequently; browser storage can be cleared.');
+$('dayFilter').value=dayNow();$('title').textContent='Unlock encrypted multi-test vault · v3.8.1';showSave('Vault locked.','neutral');note('Install while online, then work offline. Export backups frequently; browser storage can be cleared.');
 })();
