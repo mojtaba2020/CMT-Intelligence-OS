@@ -1,5 +1,5 @@
 (()=>{'use strict';
-const S=window.CMTOffline,Q=window.CMTQueue,C=window.CMTTestCatalog,$=id=>document.getElementById(id);
+const S=window.CMTOffline,Q=window.CMTQueue,C=window.CMTTestCatalog,DEM=window.CMTDemoSeed,$=id=>document.getElementById(id);
 let pass=null,draft=null,version=null,selectedId=null,dirty=false,changeCounter=0,saveTimer=null,saveChain=Promise.resolve(),saving=false;
 const cache=new Map();
 function note(msg,err=false){$('offStatus').textContent=msg;$('offStatus').style.color=err?'#ffb6aa':'#90ded8';}
@@ -74,6 +74,30 @@ $('unlockForm').onsubmit=async e=>{e.preventDefault();try{const p=$('draftPass')
   showSave('Vault unlocked · encrypted local storage ready.','success');
  try{if(navigator.storage?.persist) await navigator.storage.persist();}catch{}
  note('Unlocked for this tab. Multiple types and repeat tests are supported.');}catch(err){pass=null;cache.clear();$('unlockForm').hidden=false;$('vaultControls').hidden=true;showSave('Vault locked.','neutral');note(err.message,true)}};
+let demoImportBusy=false;
+$('loadDemo').onclick=async()=>{
+ if(demoImportBusy)return;
+ if(!pass)return note('Unlock the vault before adding demo tests.',true);
+ if(!await prepareSwitch())return;
+ if(!confirm('Load up to 10 SYNTHETIC training reports dated Oct 28, 2026? Existing reports are kept and matching test IDs are skipped. No network upload. Export a backup first if you have important data.'))return;
+ demoImportBusy=true;$('loadDemo').disabled=true;
+ try{
+  if(!DEM)throw Error('Demo test catalog was not loaded. Reload online once.');
+  const originals=await Q.all(), seen=new Set();
+  for(const item of originals){const entry=await Q.read(pass,item.id);const label=DEM.identity(entry.draft);if(label)seen.add(label);}
+  const demos=DEM.build(()=>crypto.randomUUID());
+  for(const demo of demos)S.validateDraft(demo);
+  const missing=demos.filter(d=>!seen.has(DEM.identity(d)));
+  if(originals.length+missing.length>Q.LIMIT)throw Error('Offline storage limit reached. No new demo reports created.');
+  let added=0;
+  for(const item of missing){await Q.put(pass,item,null,'queued');added++;}
+  cache.clear();$('dayFilter').value=DEM.DATE;
+  await list();await updateStorageIndicator();
+  note('Synthetic demo loaded: '+added+' new reports; '+(demos.length-added)+' matching reports already existed. All are encrypted on this device.');
+  showSave('Demo import saved encrypted locally · '+new Date().toLocaleTimeString(),'saved');
+ }catch(err){note('Demo import stopped: '+err.message+' Re-run to add missing demo IDs without duplicates.',true);}
+ finally{demoImportBusy=false;$('loadDemo').disabled=false;}
+};
 $('newDraft').onclick=async()=>{if(!await prepareSwitch())return;draft=blank({test_date:$('dayFilter').value||dayNow()});version=null;dirty=false;selectedId=draft.client_id;render();try{await saveNow();note('New blank report already encrypted and saved. Enter readings; they will auto-save.');}catch(e){note(e.message,true)}};
 $('offCategory').onchange=()=>{if(!draft)return;const next=$('offCategory').value;if(next===draft.category)return;if(draft.server_id){$('offCategory').value=draft.category;return note('Server-synced test type is immutable; create a separate test.',true);}if(!C[next])return;
  writeModel();
@@ -91,5 +115,5 @@ window.addEventListener('beforeunload',e=>{if(dirty||saving){e.preventDefault();
 window.addEventListener('pagehide',()=>{if(pass&&dirty)saveNow(true).catch(()=>{});});
 $('editor').addEventListener('input',scheduleSave);$('editor').addEventListener('change',e=>{if(e.target.id!=='offCategory')scheduleSave()});document.addEventListener('visibilitychange',()=>{if(document.hidden&&dirty)saveNow(true).catch(()=>{})});
 for(const [key,def] of Object.entries(C)){const option=document.createElement('option');option.value=key;option.textContent=def.name;$('offCategory').append(option);}
-$('dayFilter').value=dayNow();$('title').textContent='Unlock encrypted multi-test vault · v3.8.1';showSave('Vault locked.','neutral');note('Install while online, then work offline. Export backups frequently; browser storage can be cleared.');
+$('dayFilter').value=dayNow();$('title').textContent='Unlock encrypted multi-test vault · v3.8.2';showSave('Vault locked.','neutral');note('Install while online, then work offline. Export backups frequently; browser storage can be cleared.');
 })();
